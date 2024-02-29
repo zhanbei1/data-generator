@@ -9,7 +9,7 @@
 @Desc   ：
 ==================================================
 """
-from src.com.desmond.services.tasks_config_file_scan import FileChangeHandler, handle_file_change
+from src.com_desmond.services.tasks_config_file_scan import FileChangeHandler, handle_file_change
 import time
 from watchdog.observers import Observer
 
