@@ -14,10 +14,17 @@
 
 # 项目使用简介
 
+- 数据类型产生：Faker
+- 调度引擎：
+- 配置模版解析：
+- 接口框架：fastAPI
 
 
 # 其他说明
 [使用说明](./docs/user-manual.md)
+
 [支持类型说明](./docs/data-type.md)
+
 [任务配置说明](./docs/task-configration.md)
+
 [项目架构设计说明](./docs/project-construct.md)
