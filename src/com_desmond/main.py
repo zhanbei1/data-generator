@@ -2,25 +2,24 @@
 # -*- coding: UTF-8 -*-
 """
 =================================================
-@Project -> File   ：data-generator -> test_tasks_config_file_scan
+@Project -> File   ：data-generator -> main
 @IDE    ：PyCharm
 @Author ：Desmond.zhan
-@Date   ：2024/2/29 13:54
+@Date   ：2024/3/13 10:36
 @Desc   ：
 ==================================================
 """
 import asyncio
 import os
+import time
 
 from src.com_desmond.models.TaskModel import TaskModel
 from src.com_desmond.services.config_parsers.ConfigParser import ConfigParser
 from src.com_desmond.services.engine.engine import GeneratorCoreEngine
 from src.com_desmond.services.tasks_config_file_scan import FileChangeHandler, handle_file_change
-import time
 from watchdog.observers import Observer
 
-
-def test_handle_file_change():
+if __name__ == '__main__':
     # 指定要监控的目录
     directory_to_watch = '/Users/zhanbei/PycharmProjects/data-generator/tasks_running/'
 
@@ -39,19 +38,8 @@ def test_handle_file_change():
 
     try:
         while True:
-            time.sleep(1)
+            time.sleep(5)
     except KeyboardInterrupt:
         observer.stop()
 
     observer.join()
-    assert True
-
-
-def read_all_files_in_directory(directory):
-    for root, dirs, files in os.walk(directory):
-        for file in files:
-            file_path = os.path.join(root, file)
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                print(f"文件路径: {file_path}")
-                print(f"文件内容:\n{content}\n")

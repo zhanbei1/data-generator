@@ -2,15 +2,10 @@
 # -*- coding: UTF-8 -*-
 """
 =================================================
-@Project -> File   ：data-generator -> fields
+@Project -> File   ：data-generator -> __init__.py
 @IDE    ：PyCharm
 @Author ：Desmond.zhan
-@Date   ：2024/2/29 19:49
+@Date   ：2024/3/7 13:55
 @Desc   ：
 ==================================================
 """
-from pydantic import BaseModel
-
-
-class BaseField(BaseModel):
-    pass

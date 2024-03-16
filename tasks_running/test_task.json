@@ -1,0 +1,73 @@
+{
+  "name": "测试任务",
+  "description": "这是一个测试任务, 全力输出模型",
+  "range_frequency": {
+    "time_range": [
+      1709711093800,
+      1709712093800
+    ],
+    "data_distribution": "ALL_OUT_DATA",
+    "data_distribution_config": {
+      "range": 3600,
+      "max_data_num": 100,
+      "min_data_num": 10,
+      "shake": 0
+    },
+    "data_anomaly": [
+      {
+        "ratio": 0.5,
+        "magnification": 2
+      }
+    ]
+  },
+  "fields": [
+    {
+      "name": "desmond_test",
+      "data_type": "ADDRESS",
+      "extra_config": {}
+    },
+    {
+      "name": "name",
+      "data_type": "NAME",
+      "extra_config": {}
+    },
+    {
+      "name": "ip_address",
+      "data_type": "IPV4_PUBLIC",
+      "extra_config": {}
+    },
+    {
+      "name": "http_method",
+      "data_type": "HTTP_METHOD",
+      "extra_config": {}
+    },
+    {
+      "name": "url",
+      "data_type": "URL",
+      "extra_config": {}
+    },
+    {
+      "name": "url",
+      "data_type": "URL",
+      "extra_config": {}
+    },
+    {
+      "name": "agent",
+      "data_type": "FIREFOX",
+      "extra_config": {}
+    },
+    {
+      "name": "time",
+      "data_type": "DATE_TIME_THIS_YEAR",
+      "extra_config": {}
+    }
+  ],
+  "output": {
+    "output_type": "kafka",
+    "kafka_output": {
+      "kafka_address": "10.0.16.60:18108",
+      "kafka_topic": "desmond_generator_test_topic",
+      "extra_config": {}
+    }
+  }
+}
