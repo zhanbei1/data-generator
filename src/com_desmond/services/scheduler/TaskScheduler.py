@@ -13,8 +13,11 @@ import threading
 import time
 from typing import List
 
+from src.com_desmond.enums.DataDistributionEnum import DataDistributionEnum
 from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
+from src.com_desmond.exceptions.exceptions import TaskNotStartError, TaskRunCompletedError
 from src.com_desmond.models.TaskModel import RangeFrequency, TaskExecutorPlan
+from src.com_desmond.models.data_model import BaseDataModel
 
 
 class TaskScheduler:
@@ -28,11 +31,9 @@ class TaskScheduler:
         """
         print(f"TaskScheduler register_task {task_id}")
         # TODO: 注册的应该是这个task——id对应的函数模型，后面可以根据这个函数模型直接生成对应的value
-        # distribution_type = range_frequency.data_distribution
-        # data_model: BaseDataModel = DataDistributionEnum.getDataModelByKey(distribution_type,
-        #                                                                    frequency_task.data_distribution_config)
-        # TaskScheduler.tasks[task_id] = data_model
-        TaskScheduler.tasks[task_id] = range_frequency
+        distribution_type = range_frequency.data_distribution
+        data_model: BaseDataModel = DataDistributionEnum.getDataModelByKey(distribution_type, range_frequency)
+        TaskScheduler.tasks[task_id] = data_model
 
     @staticmethod
     def unregister_task(task_id: str):
@@ -47,18 +48,21 @@ class TaskScheduler:
         :return:
         """
         if TaskScheduler.tasks[task_id] is not None:
-            frequency_task: RangeFrequency = TaskScheduler.tasks[task_id]
-            # distribution_type = frequency_task.data_distribution
-            # data_model: BaseDataModel = DataDistributionEnum.getDataModelByKey(distribution_type,
-            #                                                                    frequency_task.data_distribution_config)
+            frequency_task_model: BaseDataModel = TaskScheduler.tasks[task_id]
             plan = TaskExecutorPlan()
-            plan.task_status = TaskPlanStatus.IN_PROGRESS
+            data_count = 0
+            try:
+                data_count = frequency_task_model.generate_data(timestamp=start_timestamp)
+                plan.task_status = TaskPlanStatus.IN_PROGRESS
+            except TaskNotStartError as e:
+                plan.task_status = TaskPlanStatus.NOT_STARTED
+            except TaskRunCompletedError as e:
+                plan.task_status = TaskPlanStatus.COMPLETED
+
             plan.task_id = task_id
             plan.start_timestamp = start_timestamp
             plan.end_timestamp = start_timestamp + 1000
-            plan.data_num = frequency_task.data_distribution_config.max_data_num
-            plan.anomaly = 0.1
-            plan.ratio = 0.4
+            plan.data_num = data_count
             return plan
 
     @staticmethod

@@ -29,7 +29,7 @@ class DataAnomaly(BaseModel):
 
 
 class DataDistributionConfig(BaseModel):
-    range: int = Field(default=0, description="变化周期时间, 仅仅用于周期变化模型")
+    range: int = Field(default=0, description="变化周期时间, 仅仅用于周期变化模型, 样例：6d, 7h等")
     max_data_num: int = Field(default=1000000, description="变化周期内的最大值")
     min_data_num: int = Field(default=0, description="变化周期内的最小值")
     shake: float = Field(default=0.01, ge=0, le=1, description="抖动值")
@@ -40,7 +40,8 @@ class RangeFrequency(BaseModel):
      生成数据的时间频率
      """
     # 时间范围【startTimestamp, endTimestamp】
-    time_range: Tuple[int, int]
+    start_timestamp: int = Field(default=int(time.time() * 1000), description="开始时间戳")
+    end_timestamp: int = Field(default=None, description="结束时间戳")
     # 数据模型分布类型
     data_distribution: str = Field(default="ALL_OUT_DATA")
     # 数据分布模型配置
@@ -116,7 +117,3 @@ class TaskExecutorPlan(BaseModel):
     end_timestamp: int = Field(default=int(time.time() * 1000))
     # 数据产生个数
     data_num: int = Field(default=1000)
-    # 异常指数
-    anomaly: float = Field(default=0.1)
-    # 异常概率
-    ratio: float = Field(default=0, le=1, ge=0)

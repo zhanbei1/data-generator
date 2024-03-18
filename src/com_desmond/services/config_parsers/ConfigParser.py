@@ -21,6 +21,7 @@ class ConfigParser:
             md5_id = file_md5(file_path)
             task = ConfigParser.analysis_by_str_text(f.read())
             task.id = md5_id
+            task.file_path = file_path
             return task
 
     @staticmethod

@@ -9,6 +9,7 @@
 @Desc   ： 数据分布模型枚举
 ==================================================
 """
+from src.com_desmond.models.TaskModel import RangeFrequency
 from src.com_desmond.models.data_model import AllOutData, LinearData
 
 from enum import Enum
@@ -33,6 +34,6 @@ class DataDistributionEnum(Enum):
         return t.value
 
     @staticmethod
-    def getDataModelByKey(name: str, **config):
+    def getDataModelByKey(name: str, range_frequency: RangeFrequency):
         type_model: DataDistributionEnum = DataDistributionEnum.value_of(name)
-        return type_model.dataTypeClass(**config)
+        return type_model.dataTypeClass(range_frequency)

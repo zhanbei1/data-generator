@@ -12,6 +12,8 @@
 import asyncio
 import threading
 
+from config.basic_config import logger
+from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
 from src.com_desmond.models.TaskModel import TaskModel, TaskExecutorPlan
 from src.com_desmond.services.executor.TaskExecutor import TaskExecutor
 from src.com_desmond.services.output import Output
@@ -34,10 +36,14 @@ class GeneratorCoreEngine:
         :return:
         """
         print(f"register_task {task_model.name}")
-        GeneratorCoreEngine.tasks[task_model.file_path] = task_model
-        TaskExecutor.register_tasks(task_model.file_path, task_model.fields)
-        TaskScheduler.register_scheduler(task_model.file_path, task_model.range_frequency)
-        Output.register_output(task_model.file_path, task_model.output)
+        try:
+            GeneratorCoreEngine.tasks[task_model.file_path] = task_model
+            TaskExecutor.register_tasks(task_model.file_path, task_model.fields)
+            TaskScheduler.register_scheduler(task_model.file_path, task_model.range_frequency)
+            Output.register_output(task_model.file_path, task_model.output)
+        except Exception as e:
+            GeneratorCoreEngine.unregister_task(task_model.file_path)
+            raise RuntimeError("GeneratorCoreEngine register_task error ,rollback。error info ", e)
 
     @staticmethod
     def unregister_task(task_id: str):
@@ -59,18 +65,26 @@ class GeneratorCoreEngine:
         :return:
         """
         for task_plans in TaskScheduler.task_iterator():
-            tasks = [GeneratorCoreEngine._generate_data_and_send(plan) for plan in task_plans]
+            tasks = []
+            for plan in task_plans:
+                plan: TaskExecutorPlan
+                # 任务停止或者被打断，则移除任务队列
+                if plan.task_status in (TaskPlanStatus.COMPLETED, TaskPlanStatus.TERMINATED):
+                    logger.info(f"Task {plan.task_id} is terminated or completed, remove it from task queue,")
+                    print(f"Task {plan.task_id} is terminated or completed, remove it from task queue,")
+                    GeneratorCoreEngine.unregister_task(plan.task_id)
+                elif plan.task_status == TaskPlanStatus.NOT_STARTED:  # 还没有开始，则不运行
+                    logger.info(f"Task {plan.task_id} is not started,skip it.")
+                    print(f"Task {plan.task_id} is not started,skip it.")
+                    continue
+                elif plan.task_status == TaskPlanStatus.IN_PROGRESS:
+                    tasks.append(GeneratorCoreEngine._generate_data_and_send(plan))
             await asyncio.gather(*tasks)
 
     @staticmethod
     async def _generate_data_and_send(plan: TaskExecutorPlan):
-        data_list = TaskExecutor.execute(plan.task_id, plan)
-        Output.output(plan.task_id, data_list)
-
-
-if __name__ == '__main__':
-    engine = GeneratorCoreEngine()
-
-
-    def task1():
-        print("Task 1 is running")
+        try:
+            for data_list in TaskExecutor.execute(plan.task_id, plan):
+                Output.output(plan.task_id, data_list)
+        except Exception as e:
+            logger.error("GeneratorCoreEngine _generate_data_and_send error , error info : ", e)

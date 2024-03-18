@@ -2,10 +2,8 @@
   "name": "测试任务",
   "description": "这是一个测试任务, 全力输出模型",
   "range_frequency": {
-    "time_range": [
-      1709711093800,
-      1709712093800
-    ],
+    "start_timestamp": 1710768513329,
+    "end_timestamp": 1710769830000,
     "data_distribution": "ALL_OUT_DATA",
     "data_distribution_config": {
       "range": 3600,

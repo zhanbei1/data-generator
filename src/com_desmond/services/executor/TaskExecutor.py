@@ -28,18 +28,25 @@ class TaskExecutor:
         TaskExecutor.tasks.pop(task_id)
 
     @staticmethod
-    def execute(task_id: str, plan: TaskExecutorPlan) -> List[dict]:
+    def execute(task_id: str, plan: TaskExecutorPlan) -> list[dict]:
         """
         执行生成数据的逻辑
         :return:
         """
         # 确定调度的执行时间，执行内产生日志的次数
         if TaskExecutor.tasks[task_id] is not None:
-            result_data_list = []
-            for n in range(plan.data_num):
-                data_json = TaskExecutor._generate_data(TaskExecutor.tasks[task_id])
-                result_data_list.append(data_json)
-            return result_data_list
+
+            # TODO： 如果 plan.data_num = -1，默认一直发送，默认发送也有个最大值为100000
+            if plan.data_num is None or plan.data_num < 0:
+                plan.data_num = 100000
+
+            # 每一批次1000条发送，发送太多了
+            for i in range(plan.data_num // 1000):
+                result_data_list = []
+                for n in range(1000):
+                    data_json = TaskExecutor._generate_data(TaskExecutor.tasks[task_id])
+                    result_data_list.append(data_json)
+                yield result_data_list
         else:
             raise ValueError("not found task id ......")
 
