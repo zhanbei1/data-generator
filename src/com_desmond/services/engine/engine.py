@@ -37,6 +37,7 @@ class GeneratorCoreEngine:
         """
         print(f"register_task {task_model.name}")
         try:
+            task_model.task_status = TaskPlanStatus.IN_PROGRESS
             GeneratorCoreEngine.tasks[task_model.file_path] = task_model
             TaskExecutor.register_tasks(task_model.file_path, task_model.fields)
             TaskScheduler.register_scheduler(task_model.file_path, task_model.range_frequency)

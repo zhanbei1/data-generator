@@ -63,7 +63,7 @@ class BaseDataModel:
 
 class PeriodicData(BaseDataModel):
     """
-    周期性数据模型
+    周期性数据模型 PERIODIC_DATA
     """
 
     def __init__(self, config: RangeFrequency):
@@ -73,16 +73,16 @@ class PeriodicData(BaseDataModel):
     def generate_data(self, timestamp: int) -> int:
         self.check_task_status(timestamp)
         # 计算时间戳相对于开始时间的偏移量
-        offset = datetime.fromtimestamp(timestamp) - self.config.start_timestamp
+        offset = timestamp - self.config.start_timestamp
 
         # 最大最小值
         min_count = self.config.data_distribution_config.min_data_num
         max_count = self.config.data_distribution_config.max_data_num
 
         # TODO: 假设周期为一天，可根据需要调整
-        cycle_duration = timedelta(days=1)
+        cycle_duration = timedelta(days=1).microseconds
         cycle_offset = offset % cycle_duration
-        cycle_ratio = cycle_offset.total_seconds() / cycle_duration.total_seconds()
+        cycle_ratio = cycle_offset / cycle_duration
         base_count = int(min_count + (max_count - min_count) * math.sin(cycle_ratio * 2 * math.pi) * 0.5 + (
                 max_count + min_count) * 0.5)
 

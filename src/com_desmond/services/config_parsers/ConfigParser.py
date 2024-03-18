@@ -9,6 +9,7 @@
 @Desc   ：将指定的字符串转为对应的可执行的对象
 ==================================================
 """
+from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
 from src.com_desmond.utils.file_util import file_md5
 from src.com_desmond.models.TaskModel import TaskModel
 

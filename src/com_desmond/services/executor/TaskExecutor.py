@@ -11,6 +11,7 @@
 """
 from typing import List
 
+from config.basic_config import GlobalBaseConfig
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum
 from src.com_desmond.models.TaskModel import FiledConfig, TaskExecutorPlan
 
@@ -35,13 +36,13 @@ class TaskExecutor:
         """
         # 确定调度的执行时间，执行内产生日志的次数
         if TaskExecutor.tasks[task_id] is not None:
-
-            # TODO： 如果 plan.data_num = -1，默认一直发送，默认发送也有个最大值为100000
+            # TODO： 如果 plan.data_num = -1，默认一直发送，默认发送也有个最大值为 default_max_data_num
             if plan.data_num is None or plan.data_num < 0:
-                plan.data_num = 100000
+                plan.data_num = GlobalBaseConfig.task_default_max_data_num
 
+            data_batch_size = GlobalBaseConfig.task_data_batch_size
             # 每一批次1000条发送，发送太多了
-            for i in range(plan.data_num // 1000):
+            for i in range(plan.data_num // data_batch_size):
                 result_data_list = []
                 for n in range(1000):
                     data_json = TaskExecutor._generate_data(TaskExecutor.tasks[task_id])

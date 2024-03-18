@@ -23,3 +23,10 @@ logging.basicConfig(format=LOG_FORMAT)
 LOG_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
 if not os.path.exists(LOG_PATH):
     os.mkdir(LOG_PATH)
+
+
+class GlobalBaseConfig:
+    task_running_dir = "tasks_running/"
+    task_repository = "tasks_repository/"
+    task_default_max_data_num = 10000
+    task_data_batch_size = 1000

@@ -100,6 +100,7 @@ class TaskModel(BaseModel):
     name: str
     file_path: str = Field(default="")
     id: str = Field(default="")
+    task_status:str = Field(default=TaskPlanStatus.NOT_STARTED)
     description: str
     range_frequency: RangeFrequency
     fields: List[FiledConfig]

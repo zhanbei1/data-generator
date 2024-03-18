@@ -21,7 +21,7 @@ from watchdog.observers import Observer
 
 if __name__ == '__main__':
     # 指定要监控的目录
-    directory_to_watch = '/Users/zhanbei/PycharmProjects/data-generator/tasks_running/'
+    directory_to_watch = 'tasks_running/'
 
     for root, dirs, files in os.walk(directory_to_watch):
         for file in files:
