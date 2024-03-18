@@ -286,24 +286,26 @@
                           "type": "select",
                           "name": "data_type",
                           "placeholder": "选项",
-                          "options": [
-                            {
-                              "label": "A",
-                              "value": "a"
-                            },
-                            {
-                              "label": "B",
-                              "value": "b"
-                            }
-                          ],
                           "id": "u:e18bec5238cd",
                           "multiple": false,
-                          "label": "字段类型"
+                          "label": "字段类型",
+                          "source": {
+                            "url": "/data-type-list",
+                            "method": "get",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {},
+                            "silent": false,
+                            "cache": 86400000
+                          },
+                          "labelField": "name",
+                          "valueField": "type"
                         }
                       ],
                       "id": "u:b3460704c38b",
                       "strictMode": true,
-                      "syncFields": []
+                      "syncFields": [],
+                      "tabsMode": false
                     }
                   ],
                   "id": "u:641b08514c91",
@@ -817,20 +819,22 @@
                                   {
                                     "type": "select",
                                     "name": "data_type",
-                                    "placeholder": "选项",
-                                    "options": [
-                                      {
-                                        "label": "A",
-                                        "value": "a"
-                                      },
-                                      {
-                                        "label": "B",
-                                        "value": "b"
-                                      }
-                                    ],
+                                    "placeholder": "-",
                                     "id": "u:e18bec5238cd",
                                     "multiple": false,
-                                    "label": "字段类型"
+                                    "label": "字段类型",
+                                    "source": {
+                                      "url": "/data-type-list",
+                                      "method": "get",
+                                      "requestAdaptor": "",
+                                      "adaptor": "",
+                                      "messages": {},
+                                      "cache": 86400000,
+                                      "silent": false
+                                    },
+                                    "labelField": "name",
+                                    "valueField": "type",
+                                    "showInvalidMatch": false
                                   }
                                 ],
                                 "id": "u:b3460704c38b",
@@ -1408,56 +1412,47 @@
           "title": "任务监控",
           "body": [
             {
-              "type": "crud",
-              "syncLocation": false,
-              "api": {
-                "method": "get",
-                "url": "/task-monitor",
-                "requestAdaptor": "",
-                "adaptor": "",
-                "messages": {},
-                "dataType": "json"
-              },
-              "bulkActions": [],
-              "itemActions": [],
-              "id": "u:486145d206eb",
-              "perPageAvailable": [
-                10
-              ],
-              "messages": {},
-              "primaryField": "task_id",
-              "filter": null,
-              "initFetch": true,
-              "loadDataOnce": false,
-              "matchFunc": "",
-              "mode": "cards",
-              "card": {
-                "type": "card",
-                "header": {
-                  "title": "标题",
-                  "subTitle": "副标题"
+              "type": "chart",
+              "config": {
+                "xAxis": {
+                  "type": "category",
+                  "data": [
+                    "Mon",
+                    "Tue",
+                    "Wed",
+                    "Thu",
+                    "Fri",
+                    "Sat",
+                    "Sun"
+                  ]
                 },
-                "body": [
+                "yAxis": {
+                  "type": "value"
+                },
+                "series": [
                   {
-                    "name": "id",
-                    "label": "ID",
-                    "type": "text",
-                    "id": "u:a1ef386f58a2"
-                  },
-                  {
-                    "name": "engine",
-                    "label": "渲染引擎",
-                    "type": "text",
-                    "id": "u:0598c29a75b4"
+                    "data": [
+                      820,
+                      932,
+                      901,
+                      934,
+                      1290,
+                      1330,
+                      1320
+                    ],
+                    "type": "line"
                   }
                 ],
-                "actions": [],
-                "id": "u:c45be241b231"
-              }
+                "backgroundColor": "transparent"
+              },
+              "replaceChartOption": true,
+              "id": "u:f0a9e5d4ed9b",
+              "dataFilter": ""
             }
           ],
           "id": "u:52689b1d0225",
-          "icon": "fa fa-stack-overflow"
+          "icon": "fa fa-stack-overflow",
+          "hash": "chart-line"
         }
       ],
       "id": "u:0e79118fa77e",

@@ -19,10 +19,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
+from src.com_desmond.enums.DataTypeEnum import DataTypeEnum, DataType
 from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
 from src.com_desmond.models.TaskModel import TaskModel
 from src.com_desmond.services.config_parsers.ConfigParser import ConfigParser
 from src.com_desmond.services.engine.engine import GeneratorCoreEngine
+from vo.vo import DataTypeVo
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
 
@@ -45,7 +47,7 @@ async def read_root(request: Request):
 
 
 @app.post("/create-task")
-async def read_root(task_config: TaskModel = Body(...)):
+async def create_task(task_config: TaskModel = Body(...)):
     file_path = task_repository + "/" + task_config.name + ".json"
     running_task_path = task_running + "/" + task_config.name + ".json"
     if pathlib.Path(file_path).exists() or pathlib.Path(running_task_path).exists():
@@ -57,14 +59,14 @@ async def read_root(task_config: TaskModel = Body(...)):
 
 
 @app.post("/delete-task")
-async def read_root(task_path: str = Body(...)):
+async def delete_task(task_path: str = Body(...)):
     if pathlib.Path(task_path).exists():
         os.remove(task_path)
     return JSONResponse(content="Save success", status_code=200)
 
 
 @app.get("/task-list")
-async def read_root(request: Request):
+async def task_list(request: Request):
     task_running_dir = GlobalBaseConfig.task_running_dir
     task_repository_dir = GlobalBaseConfig.task_repository
 
@@ -91,6 +93,17 @@ async def read_root(request: Request):
             task_json_dict[task.id] = task.json()
 
     return JSONResponse(content=[ujson.loads(task_json) for task_json in task_json_dict.values()], status_code=200)
+
+
+@app.get("/data-type-list")
+async def data_type_list(request: Request):
+    type_list = []
+    for name in dir(DataTypeEnum):
+        if not name.startswith('__'):
+            data_type: DataType = DataTypeEnum.value_of(name)
+            type_vo = DataTypeVo(name=name, type=data_type.name)
+            type_list.append(ujson.loads(type_vo.json()))
+    return JSONResponse(content=type_list, status_code=200)
 
 
 if __name__ == "__main__":

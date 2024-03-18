@@ -2,7 +2,6 @@
 
 ## 支持的基础类型
 
-
 ### faker.providers.address
 
 	fake.address()                                                              # 81550 Freeman Crossroad Suite 109 Laurenfort, FL 75325
