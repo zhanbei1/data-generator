@@ -21,7 +21,7 @@
 
 - 数据类型产生：Faker
 - 调度引擎：
-- 配置模版解析：
+- 配置模版解析：Pydantic
 - 接口框架：fastAPI
 - 前端低代码：https://www.jiandaoyun.com/dashboard#/
 

@@ -1,0 +1,1132 @@
+{
+  "type": "page",
+  "id": "u:839127e50e91",
+  "title": "任务配置",
+  "body": [
+    {
+      "type": "tabs",
+      "tabs": [
+        {
+          "title": "任务配置",
+          "body": [
+            {
+              "type": "collapse-group",
+              "activeKey": [
+                "1"
+              ],
+              "body": [
+                {
+                  "type": "collapse",
+                  "key": "1",
+                  "active": true,
+                  "header": "基本信息配置",
+                  "body": [
+                    {
+                      "type": "input-text",
+                      "label": "任务名称",
+                      "name": "name",
+                      "id": "u:8f919146f6e3",
+                      "labelRemark": {
+                        "icon": "fa fa-question-circle",
+                        "trigger": [
+                          "hover"
+                        ],
+                        "className": "Remark--warning",
+                        "placement": "top",
+                        "title": "任务名称需要唯一"
+                      },
+                      "size": "md",
+                      "mode": "inline"
+                    },
+                    {
+                      "type": "input-text",
+                      "label": "任务描述",
+                      "name": "description",
+                      "id": "u:91a6fccfd368",
+                      "size": "sm",
+                      "mode": "inline"
+                    },
+                    {
+                      "type": "uuid",
+                      "name": "task_id",
+                      "id": "u:e85c2172428a",
+                      "mode": "inline",
+                      "label": "任务ID",
+                      "visible": true,
+                      "required": true,
+                      "validateOnChange": true,
+                      "submitOnChange": false,
+                      "labelRemark": {
+                        "icon": "fa fa-question-circle",
+                        "trigger": [
+                          "hover"
+                        ],
+                        "className": "Remark--warning",
+                        "placement": "top",
+                        "title": "UUID"
+                      }
+                    }
+                  ],
+                  "id": "u:58200a6ac236",
+                  "collapseHeader": "",
+                  "showArrow": true,
+                  "collapsable": true,
+                  "headerPosition": "top"
+                },
+                {
+                  "type": "collapse",
+                  "key": "2",
+                  "header": "范围频率",
+                  "body": [
+                    {
+                      "type": "tpl",
+                      "tpl": "执行范围",
+                      "inline": true,
+                      "wrapperComponent": "",
+                      "id": "u:389d1e8182b3",
+                      "maxLine": 1,
+                      "themeCss": {
+                        "baseControlClassName": {
+                          "font:default": {
+                            "fontSize": "var(--fonts-size-6)",
+                            "color": "var(--colors-neutral-text-6)"
+                          }
+                        }
+                      },
+                      "hidden": false
+                    },
+                    {
+                      "type": "input-datetime-range",
+                      "label": "",
+                      "name": "range_frequency.time_range",
+                      "id": "u:4bfd0c3f4904",
+                      "displayFormat": "YYYY-MM-DD HH:mm:ss",
+                      "placeholder": "请选择日期时间范围",
+                      "valueFormat": "X",
+                      "minDate": "${DATE()}",
+                      "maxDate": "",
+                      "value": "",
+                      "shortcuts": [],
+                      "mode": "inline",
+                      "embed": false
+                    },
+                    {
+                      "type": "tpl",
+                      "tpl": "数据分布模型",
+                      "inline": true,
+                      "wrapperComponent": "",
+                      "id": "u:284e2ff26bd1",
+                      "maxLine": 1,
+                      "themeCss": {
+                        "baseControlClassName": {
+                          "font:default": {
+                            "fontSize": "var(--fonts-size-6)",
+                            "color": "var(--colors-neutral-text-6)"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "select",
+                      "label": "",
+                      "name": "range_frequency.data_distribution",
+                      "options": [
+                        {
+                          "label": "随机",
+                          "value": "随机"
+                        },
+                        {
+                          "label": "线性",
+                          "value": "线性"
+                        },
+                        {
+                          "label": "周期",
+                          "value": "周期"
+                        }
+                      ],
+                      "id": "u:cb34e1b54391",
+                      "multiple": false,
+                      "value": "随机",
+                      "selectFirst": true,
+                      "mode": "inline",
+                      "size": "xs",
+                      "required": true
+                    },
+                    {
+                      "type": "input-number",
+                      "label": "最大值/秒",
+                      "name": "range_frequency.data_distribution_config.max_data_num",
+                      "keyboard": true,
+                      "id": "u:b6f99de0a446",
+                      "step": 1,
+                      "value": 1,
+                      "min": 1,
+                      "mode": "inline",
+                      "size": "xs"
+                    },
+                    {
+                      "type": "input-number",
+                      "label": "最小值/秒",
+                      "name": "range_frequency.data_distribution_config.min_data_num",
+                      "keyboard": true,
+                      "id": "u:cc7cca9289e7",
+                      "step": 1,
+                      "value": 1,
+                      "min": 1,
+                      "mode": "inline",
+                      "size": "xs"
+                    },
+                    {
+                      "type": "input-number",
+                      "label": "抖动",
+                      "name": "range_frequency.data_distribution_config.shake",
+                      "keyboard": true,
+                      "id": "u:469a5b96b84f",
+                      "step": 0,
+                      "value": 0.1,
+                      "min": 0,
+                      "mode": "inline",
+                      "size": "xs",
+                      "kilobitSeparator": true,
+                      "max": 1,
+                      "precision": 2
+                    },
+                    {
+                      "type": "tpl",
+                      "tpl": "数据异常点",
+                      "inline": true,
+                      "wrapperComponent": "",
+                      "id": "u:be376ebd5262",
+                      "maxLine": 1,
+                      "themeCss": {
+                        "baseControlClassName": {
+                          "font:default": {
+                            "fontSize": "var(--fonts-size-6)",
+                            "color": "var(--colors-neutral-text-6)"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "combo",
+                      "label": "",
+                      "name": "range_frequency.data_anomaly",
+                      "multiple": true,
+                      "addable": true,
+                      "removable": true,
+                      "removableMode": "icon",
+                      "addBtn": {
+                        "label": "新增",
+                        "icon": "fa fa-plus",
+                        "level": "primary",
+                        "size": "sm",
+                        "id": "u:ae15179a933b"
+                      },
+                      "items": [
+                        {
+                          "type": "input-text",
+                          "name": "ratio",
+                          "placeholder": "文本",
+                          "id": "u:a2a22c554344"
+                        },
+                        {
+                          "type": "select",
+                          "name": "magnification",
+                          "placeholder": "选项",
+                          "options": [
+                            {
+                              "label": "A",
+                              "value": "a"
+                            },
+                            {
+                              "label": "B",
+                              "value": "b"
+                            }
+                          ],
+                          "id": "u:0ec35122f4bf",
+                          "multiple": false
+                        }
+                      ],
+                      "id": "u:195f8f77ff0c",
+                      "strictMode": true,
+                      "syncFields": []
+                    }
+                  ],
+                  "id": "u:9ad7625711c8"
+                },
+                {
+                  "type": "collapse",
+                  "header": "配置字段",
+                  "body": [
+                    {
+                      "type": "combo",
+                      "label": "",
+                      "name": "fields",
+                      "multiple": true,
+                      "addable": true,
+                      "removable": true,
+                      "removableMode": "icon",
+                      "addBtn": {
+                        "label": "新增",
+                        "icon": "fa fa-plus",
+                        "level": "primary",
+                        "size": "sm",
+                        "id": "u:5c48cf851b25"
+                      },
+                      "items": [
+                        {
+                          "type": "input-text",
+                          "name": "name",
+                          "placeholder": "文本",
+                          "id": "u:7764af87e287",
+                          "label": "字段名称"
+                        },
+                        {
+                          "type": "select",
+                          "name": "data_type",
+                          "placeholder": "选项",
+                          "options": [
+                            {
+                              "label": "A",
+                              "value": "a"
+                            },
+                            {
+                              "label": "B",
+                              "value": "b"
+                            }
+                          ],
+                          "id": "u:e18bec5238cd",
+                          "multiple": false,
+                          "label": "字段类型"
+                        }
+                      ],
+                      "id": "u:b3460704c38b",
+                      "strictMode": true,
+                      "syncFields": []
+                    }
+                  ],
+                  "id": "u:641b08514c91",
+                  "key": "3"
+                },
+                {
+                  "type": "collapse",
+                  "header": "输出配置",
+                  "body": [
+                    {
+                      "type": "select",
+                      "label": "输出类型",
+                      "name": "output.output_type",
+                      "options": [
+                        {
+                          "label": "kafka",
+                          "value": "A"
+                        },
+                        {
+                          "label": "file",
+                          "value": "B"
+                        }
+                      ],
+                      "id": "u:f69c79fdbd15",
+                      "multiple": false,
+                      "value": "A",
+                      "selectFirst": true,
+                      "mode": "inline",
+                      "size": "xs",
+                      "onEvent": {
+                        "change": {
+                          "weight": 0,
+                          "actions": [
+                            {
+                              "componentId": "u:c39a06a1ca76",
+                              "ignoreError": false,
+                              "actionType": "show"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "container",
+                      "body": [
+                        {
+                          "type": "input-text",
+                          "label": "Kafka地址",
+                          "name": "output.kafka_output.kafka_address",
+                          "id": "u:195881b8d4bf",
+                          "mode": "inline",
+                          "size": "sm",
+                          "placeholder": "127.0.0.1:9092"
+                        },
+                        {
+                          "type": "input-text",
+                          "label": "Topic",
+                          "name": "output.output_type.kafka_topic",
+                          "id": "u:cf3f3bda23ef",
+                          "placeholder": "test_topic",
+                          "mode": "inline",
+                          "size": "sm"
+                        },
+                        {
+                          "draggable": true,
+                          "type": "input-kv",
+                          "label": "kafka其他配置",
+                          "name": "output.kafka_output.extra_config",
+                          "id": "u:b811958555d4",
+                          "multiple": true,
+                          "items": [
+                            {
+                              "placeholder": "Key",
+                              "type": "input-text",
+                              "unique": true,
+                              "name": "key",
+                              "required": true,
+                              "validateOnChange": true
+                            },
+                            {
+                              "placeholder": "Value",
+                              "type": "input-text",
+                              "name": "value"
+                            }
+                          ],
+                          "placeholder": "可配置认证等信息",
+                          "mode": "inline",
+                          "size": "lg",
+                          "valueType": "input-text"
+                        }
+                      ],
+                      "style": {
+                        "position": "static",
+                        "display": "block"
+                      },
+                      "size": "none",
+                      "wrapperBody": false,
+                      "id": "u:c39a06a1ca76",
+                      "isFixedHeight": false,
+                      "isFixedWidth": false,
+                      "hidden": false
+                    }
+                  ],
+                  "id": "u:c9e60ec808f1",
+                  "key": "4"
+                }
+              ],
+              "id": "u:55390ec1255d",
+              "expandIcon": {
+                "type": "icon",
+                "vendor": "",
+                "icon": ""
+              },
+              "accordion": true,
+              "expandIconPosition": "left"
+            },
+            {
+              "type": "button-group",
+              "buttons": [
+                {
+                  "type": "button",
+                  "label": "提交",
+                  "onEvent": {
+                    "click": {
+                      "actions": []
+                    }
+                  },
+                  "id": "u:79e4ef5b5999",
+                  "confirmText": "确定保存？",
+                  "size": "lg",
+                  "block": false,
+                  "themeCss": {
+                    "className": {
+                      "border:default": {},
+                      "background:default": "var(--colors-success-5)",
+                      "padding-and-margin:default": {}
+                    }
+                  }
+                },
+                {
+                  "type": "button",
+                  "label": "重置",
+                  "onEvent": {
+                    "click": {
+                      "actions": []
+                    }
+                  },
+                  "id": "u:8af64b1dc43e",
+                  "confirmText": "重置后所有配置清空，确认重置？？",
+                  "size": "lg",
+                  "block": false,
+                  "themeCss": {
+                    "className": {
+                      "border:default": {
+                        "top-border-style": "var(--borders-style-2)",
+                        "left-border-style": "var(--borders-style-2)",
+                        "right-border-style": "var(--borders-style-2)",
+                        "bottom-border-style": "var(--borders-style-2)"
+                      },
+                      "background:default": "var(--colors-error-5)"
+                    }
+                  }
+                }
+              ],
+              "id": "u:4ddd24e82615",
+              "tiled": false,
+              "size": "lg",
+              "btnLevel": "info",
+              "vertical": false
+            }
+          ],
+          "id": "u:e4fc540dd185",
+          "icon": "fa fa-slideshare"
+        },
+        {
+          "title": "任务列表",
+          "body": [
+            {
+              "type": "crud",
+              "syncLocation": false,
+              "api": {
+                "method": "get",
+                "url": ""
+              },
+              "bulkActions": [],
+              "itemActions": [],
+              "headerToolbar": [],
+              "id": "u:1b51ad8ddedb",
+              "perPageAvailable": [
+                10
+              ],
+              "messages": {},
+              "primaryField": "task_name",
+              "mode": "table",
+              "columns": [
+                {
+                  "name": "task_name",
+                  "label": "任务名称",
+                  "type": "text",
+                  "id": "u:6dbb0745bd32",
+                  "placeholder": "-",
+                  "quickEdit": false
+                },
+                {
+                  "name": "output.output_type",
+                  "label": "输出类型",
+                  "type": "text",
+                  "id": "u:00755f2028da",
+                  "placeholder": "-"
+                },
+                {
+                  "type": "operation",
+                  "label": "操作",
+                  "buttons": [
+                    {
+                      "label": "编辑",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "link",
+                      "editorSetting": {
+                        "behavior": "update"
+                      },
+                      "dialog": {
+                        "title": "编辑",
+                        "body": {
+                          "type": "form",
+                          "api": "xxx/update",
+                          "body": [
+                            {
+                              "name": "id",
+                              "label": "ID",
+                              "type": "input-text"
+                            },
+                            {
+                              "name": "engine",
+                              "label": "渲染引擎",
+                              "type": "input-text"
+                            }
+                          ]
+                        }
+                      },
+                      "id": "u:f11dc06eb73d"
+                    },
+                    {
+                      "label": "查看",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "link",
+                      "editorSetting": {
+                        "behavior": "view"
+                      },
+                      "dialog": {
+                        "title": "查看详情",
+                        "body": {
+                          "type": "form",
+                          "api": "xxx/update",
+                          "body": [
+                            {
+                              "name": "id",
+                              "label": "ID",
+                              "type": "static"
+                            },
+                            {
+                              "name": "engine",
+                              "label": "渲染引擎",
+                              "type": "static"
+                            }
+                          ]
+                        }
+                      },
+                      "id": "u:51792ac48288"
+                    },
+                    {
+                      "type": "button",
+                      "label": "删除",
+                      "actionType": "ajax",
+                      "level": "link",
+                      "className": "text-danger",
+                      "confirmText": "确定要删除？",
+                      "api": {
+                        "method": "post",
+                        "url": ""
+                      },
+                      "editorSetting": {
+                        "behavior": "delete"
+                      },
+                      "id": "u:13b6ddc051f9"
+                    }
+                  ],
+                  "id": "u:4550acb2289a"
+                }
+              ],
+              "footerToolbar": [
+                {
+                  "type": "statistics"
+                },
+                {
+                  "type": "pagination"
+                },
+                {
+                  "type": "button",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "id": "u:64cb79e84184",
+                  "label": "新增",
+                  "align": "right",
+                  "themeCss": {
+                    "className": {
+                      "background:default": "var(--colors-success-6)",
+                      "font:hover": {
+                        "fontSize": "var(--fonts-size-5)"
+                      }
+                    }
+                  },
+                  "size": "md",
+                  "block": false
+                },
+                {
+                  "type": "bulk-actions",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "id": "u:c1a147ff0a75",
+                  "align": "right"
+                }
+              ],
+              "keepItemSelectionOnPageChange": false,
+              "initFetch": false,
+              "autoJumpToTopOnPagerChange": true
+            }
+          ],
+          "id": "u:81953ec53638",
+          "icon": "fa fa-stack-exchange"
+        },
+        {
+          "title": "任务监控",
+          "body": [
+            {
+              "type": "cards",
+              "columnsCount": 4,
+              "card": {
+                "type": "container",
+                "body": [
+                  {
+                    "type": "container",
+                    "body": [
+                      {
+                        "type": "icon",
+                        "icon": "fa fa-check",
+                        "vendor": "",
+                        "themeCss": {
+                          "className": {
+                            "font": {
+                              "color": "var(--colors-brand-6)",
+                              "fontSize": "20px"
+                            },
+                            "padding-and-margin:default": {
+                              "marginRight": "10px"
+                            }
+                          }
+                        },
+                        "id": "u:b3ac546e538b"
+                      },
+                      {
+                        "type": "tpl",
+                        "tpl": "流水线任务实例 ",
+                        "inline": true,
+                        "wrapperComponent": "",
+                        "editorSetting": {
+                          "mock": {}
+                        },
+                        "style": {},
+                        "themeCss": {
+                          "baseControlClassName": {
+                            "font:default": {
+                              "fontSize": "var(--fonts-size-6)",
+                              "color": "var(--colors-neutral-text-2)",
+                              "fontWeight": "var(--fonts-weight-3)"
+                            }
+                          }
+                        },
+                        "id": "u:81bb6009681e"
+                      }
+                    ],
+                    "style": {
+                      "position": "static",
+                      "display": "flex",
+                      "flexWrap": "nowrap",
+                      "alignItems": "center"
+                    },
+                    "wrapperBody": false,
+                    "isFixedHeight": false,
+                    "isFixedWidth": false,
+                    "size": "none",
+                    "themeCss": {
+                      "baseControlClassName": {
+                        "padding-and-margin:default": {
+                          "marginBottom": "15px"
+                        }
+                      }
+                    },
+                    "id": "u:7472e96fdf3b"
+                  },
+                  {
+                    "type": "flex",
+                    "className": "p-1",
+                    "items": [
+                      {
+                        "type": "container",
+                        "body": [
+                          {
+                            "type": "container",
+                            "body": [
+                              {
+                                "type": "tpl",
+                                "tpl": "12/",
+                                "inline": true,
+                                "wrapperComponent": "",
+                                "style": {},
+                                "themeCss": {
+                                  "baseControlClassName": {
+                                    "font:default": {
+                                      "fontSize": "var(--fonts-size-6)",
+                                      "color": "var(--colors-neutral-text-2)",
+                                      "fontWeight": "var(--fonts-weight-3)"
+                                    }
+                                  }
+                                },
+                                "id": "u:03adae553086"
+                              },
+                              {
+                                "type": "tpl",
+                                "tpl": "19",
+                                "inline": true,
+                                "wrapperComponent": "",
+                                "style": {},
+                                "themeCss": {
+                                  "baseControlClassName": {
+                                    "font:default": {
+                                      "color": "var(--colors-neutral-text-6)",
+                                      "fontSize": "var(--fonts-size-6)"
+                                    }
+                                  }
+                                },
+                                "id": "u:4faffb85ea91"
+                              }
+                            ],
+                            "style": {
+                              "position": "static",
+                              "display": "block",
+                              "flex": "0 0 auto"
+                            },
+                            "wrapperBody": false,
+                            "isFixedWidth": false,
+                            "size": "none",
+                            "themeCss": {
+                              "baseControlClassName": {
+                                "padding-and-margin:default": {
+                                  "marginTop": "var(--sizes-size-0)",
+                                  "marginRight": "var(--sizes-size-0)",
+                                  "marginBottom": "var(--sizes-size-0)",
+                                  "marginLeft": "var(--sizes-size-0)"
+                                }
+                              }
+                            },
+                            "id": "u:df8cc2ed3e97"
+                          },
+                          {
+                            "type": "container",
+                            "body": [
+                              {
+                                "type": "tpl",
+                                "tpl": "单元测试",
+                                "inline": true,
+                                "wrapperComponent": "",
+                                "style": {},
+                                "themeCss": {
+                                  "baseControlClassName": {
+                                    "font:default": {
+                                      "color": "var(--colors-neutral-text-5)"
+                                    }
+                                  }
+                                },
+                                "id": "u:36435e5b31d0"
+                              }
+                            ],
+                            "style": {
+                              "position": "static",
+                              "display": "flex",
+                              "flexWrap": "nowrap",
+                              "flexDirection": "column",
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "flex": "0 0 auto"
+                            },
+                            "wrapperBody": false,
+                            "isFixedHeight": false,
+                            "isFixedWidth": false,
+                            "size": "none",
+                            "id": "u:acaf40df2eb4"
+                          }
+                        ],
+                        "size": "xs",
+                        "style": {
+                          "position": "static",
+                          "display": "flex",
+                          "flex": "1 1 auto",
+                          "flexGrow": 1,
+                          "flexBasis": "auto",
+                          "flexWrap": "nowrap",
+                          "flexDirection": "column",
+                          "justifyContent": "center",
+                          "alignItems": "center"
+                        },
+                        "wrapperBody": false,
+                        "isFixedHeight": false,
+                        "isFixedWidth": false,
+                        "id": "u:1c1e7843c9e8"
+                      },
+                      {
+                        "type": "container",
+                        "body": [
+                          {
+                            "type": "tpl",
+                            "tpl": "100%",
+                            "inline": true,
+                            "wrapperComponent": "",
+                            "style": {},
+                            "themeCss": {
+                              "baseControlClassName": {
+                                "font:default": {
+                                  "fontSize": "var(--fonts-size-6)",
+                                  "color": "var(--colors-neutral-text-2)",
+                                  "fontWeight": "var(--fonts-weight-3)"
+                                }
+                              }
+                            },
+                            "id": "u:0e2034629c74"
+                          },
+                          {
+                            "type": "tpl",
+                            "tpl": "通过率",
+                            "inline": true,
+                            "wrapperComponent": "",
+                            "style": {},
+                            "themeCss": {
+                              "baseControlClassName": {
+                                "font:default": {
+                                  "color": "var(--colors-neutral-text-5)"
+                                }
+                              }
+                            },
+                            "id": "u:fcd4c4cbc081"
+                          }
+                        ],
+                        "size": "xs",
+                        "style": {
+                          "position": "static",
+                          "display": "flex",
+                          "flex": "1 1 auto",
+                          "flexGrow": 1,
+                          "flexBasis": "auto",
+                          "flexWrap": "nowrap",
+                          "flexDirection": "column",
+                          "justifyContent": "flex-start",
+                          "alignItems": "center"
+                        },
+                        "wrapperBody": false,
+                        "isFixedHeight": false,
+                        "isFixedWidth": false,
+                        "id": "u:672f22e8fc9b"
+                      },
+                      {
+                        "type": "container",
+                        "body": [
+                          {
+                            "type": "tpl",
+                            "tpl": "99.9%",
+                            "inline": true,
+                            "wrapperComponent": "",
+                            "style": {},
+                            "themeCss": {
+                              "baseControlClassName": {
+                                "font:default": {
+                                  "fontSize": "var(--fonts-size-6)",
+                                  "color": "var(--colors-neutral-text-2)",
+                                  "fontWeight": "var(--fonts-weight-3)"
+                                }
+                              }
+                            },
+                            "id": "u:108b3cf5943d"
+                          },
+                          {
+                            "type": "tpl",
+                            "tpl": "任务实例",
+                            "inline": true,
+                            "wrapperComponent": "",
+                            "style": {},
+                            "themeCss": {
+                              "baseControlClassName": {
+                                "font:default": {
+                                  "color": "var(--colors-neutral-text-5)"
+                                }
+                              }
+                            },
+                            "id": "u:2acfbeb5090e"
+                          }
+                        ],
+                        "size": "xs",
+                        "style": {
+                          "position": "static",
+                          "display": "flex",
+                          "flex": "1 1 auto",
+                          "flexGrow": 1,
+                          "flexBasis": "auto",
+                          "flexWrap": "nowrap",
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "flexDirection": "column"
+                        },
+                        "wrapperBody": false,
+                        "isFixedHeight": false,
+                        "isFixedWidth": false,
+                        "id": "u:225d4c6d45fa"
+                      }
+                    ],
+                    "style": {
+                      "position": "relative"
+                    },
+                    "id": "u:4567e930e68b"
+                  },
+                  {
+                    "type": "container",
+                    "body": [
+                      {
+                        "type": "tpl",
+                        "tpl": "报告",
+                        "inline": true,
+                        "wrapperComponent": "",
+                        "style": {},
+                        "themeCss": {
+                          "baseControlClassName": {
+                            "font:default": {
+                              "fontSize": "14px",
+                              "color": "var(--colors-neutral-text-5)"
+                            }
+                          }
+                        },
+                        "id": "u:b5a99ecd5186"
+                      },
+                      {
+                        "type": "tpl",
+                        "tpl": "2023-01-01 12:00",
+                        "inline": true,
+                        "wrapperComponent": "",
+                        "style": {},
+                        "themeCss": {
+                          "baseControlClassName": {
+                            "font:default": {
+                              "fontSize": "12px",
+                              "color": "var(--colors-neutral-text-6)"
+                            }
+                          }
+                        },
+                        "id": "u:37d772ec6252"
+                      }
+                    ],
+                    "style": {
+                      "position": "static",
+                      "display": "flex",
+                      "flexWrap": "nowrap",
+                      "justifyContent": "space-between"
+                    },
+                    "wrapperBody": false,
+                    "isFixedHeight": false,
+                    "isFixedWidth": false,
+                    "themeCss": {
+                      "baseControlClassName": {
+                        "padding-and-margin:default": {
+                          "marginTop": "20px"
+                        }
+                      }
+                    },
+                    "id": "u:f7044c7d8749"
+                  }
+                ],
+                "size": "none",
+                "style": {
+                  "position": "static",
+                  "display": "block",
+                  "flex": "0 0 150px",
+                  "flexBasis": "100%"
+                },
+                "wrapperBody": false,
+                "isFixedHeight": false,
+                "isFixedWidth": true,
+                "onEvent": {
+                  "click": {
+                    "weight": 0,
+                    "actions": []
+                  }
+                },
+                "themeCss": {
+                  "baseControlClassName": {
+                    "radius:default": {
+                      "top-left-border-radius": "6px",
+                      "top-right-border-radius": "6px",
+                      "bottom-left-border-radius": "6px",
+                      "bottom-right-border-radius": "6px"
+                    },
+                    "border:default": {
+                      "top-border-width": "var(--borders-width-4)",
+                      "left-border-width": "var(--borders-width-2)",
+                      "right-border-width": "var(--borders-width-2)",
+                      "bottom-border-width": "var(--borders-width-2)",
+                      "top-border-style": "var(--borders-style-2)",
+                      "left-border-style": "var(--borders-style-2)",
+                      "right-border-style": "var(--borders-style-2)",
+                      "bottom-border-style": "var(--borders-style-2)",
+                      "top-border-color": "var(--colors-brand-6)",
+                      "left-border-color": "var(--colors-brand-10)",
+                      "right-border-color": "var(--colors-brand-10)",
+                      "bottom-border-color": "var(--colors-brand-10)"
+                    },
+                    "padding-and-margin:default": {
+                      "paddingTop": "10px",
+                      "paddingRight": "10px",
+                      "paddingBottom": "10px",
+                      "paddingLeft": "10px",
+                      "marginRight": "15px"
+                    }
+                  }
+                },
+                "id": "u:09ee09987ee8"
+              },
+              "placeholder": "",
+              "name": "",
+              "style": {
+                "gutterX": 15,
+                "gutterY": 15
+              },
+              "id": "u:3144c479b194"
+            }
+          ],
+          "id": "u:52689b1d0225",
+          "icon": "fa fa-stack-overflow"
+        }
+      ],
+      "id": "u:0e79118fa77e",
+      "toolbar": []
+    }
+  ],
+  "toolbar": [
+    {
+      "type": "nav",
+      "stacked": false,
+      "popupClassName": "app-popover :AMISCSSWrapper",
+      "links": [
+        {
+          "label": "任务配置",
+          "to": "?id=0",
+          "target": "_self",
+          "id": "0",
+          "children": [],
+          "icon": "",
+          "badge": ""
+        },
+        {
+          "label": "任务列表",
+          "to": "?id=1",
+          "target": "_self",
+          "id": "1",
+          "children": []
+        },
+        {
+          "label": "运行监控",
+          "to": "?id=2",
+          "target": "_self",
+          "children": [],
+          "id": "2"
+        }
+      ],
+      "id": "u:1be8e72c5716",
+      "badge": {
+        "mode": "ribbon",
+        "offset": [
+          0,
+          0
+        ],
+        "level": "success",
+        "visibleOn": "${badge}",
+        "text": "${badge}"
+      },
+      "style": {
+        "color": "#50e3c2",
+        "fontFamily": "",
+        "fontSize": 15,
+        "backgroundColor": "rgba(231, 241, 220, 1)",
+        "borderLeftStyle": "dashed",
+        "borderTopStyle": "dashed",
+        "borderRightStyle": "dashed",
+        "borderBottomStyle": "dashed",
+        "borderLeftWidth": 1,
+        "borderTopWidth": 1,
+        "borderRightWidth": 1,
+        "borderBottomWidth": 1,
+        "borderLeftColor": "#f4e1e1",
+        "borderTopColor": "#f4e1e1",
+        "borderRightColor": "#f4e1e1",
+        "borderBottomColor": "#f4e1e1",
+        "borderTopLeftRadius": 3,
+        "borderTopRightRadius": 3,
+        "borderBottomLeftRadius": 3,
+        "borderBottomRightRadius": 3
+      }
+    }
+  ],
+  "asideResizor": true,
+  "pullRefresh": {
+    "disabled": false,
+    "pullingText": "下拉刷新",
+    "loosingText": "正在刷新......"
+  },
+  "aside": [],
+  "regions": [
+    "body"
+  ]
+}
