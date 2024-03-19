@@ -59,7 +59,7 @@ class FiledConfig(BaseModel):
     # 字段类型
     data_type: str
     # 字段类型的其他额外配置
-    extra_config: dict
+    extra_config: dict = Field(default={})
 
 
 class FileOutputConfig(BaseModel):
@@ -67,7 +67,7 @@ class FileOutputConfig(BaseModel):
     文件类型存储配置
     """
     # 输出数据存储位置
-    file_path: str
+    file_path: str = Field(default="")
 
 
 class KafkaOutputConfig(BaseModel):
@@ -79,7 +79,7 @@ class KafkaOutputConfig(BaseModel):
     # kafka topic
     kafka_topic: str
     # kafka 的其他配置
-    extra_config: dict
+    extra_config: dict = Field(default={})
 
 
 class OutputConfig(BaseModel):
@@ -88,9 +88,9 @@ class OutputConfig(BaseModel):
     """
     output_type: OutputTypeEnum = Field(default=OutputTypeEnum.KAFKA.name)
     # 文件类型存储配置
-    file_output: FileOutputConfig = Field(default=None)
+    file_output: FileOutputConfig = Field(default={})
     # 输出数据存储位置
-    kafka_output: KafkaOutputConfig = Field(default=None)
+    kafka_output: KafkaOutputConfig = Field(default={})
 
 
 class TaskModel(BaseModel):

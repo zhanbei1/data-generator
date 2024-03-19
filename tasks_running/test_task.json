@@ -62,6 +62,7 @@
   ],
   "output": {
     "output_type": "kafka",
+    "file_output": {},
     "kafka_output": {
       "kafka_address": "10.0.16.60:18108",
       "kafka_topic": "desmond_generator_test_topic",

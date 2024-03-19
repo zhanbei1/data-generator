@@ -30,3 +30,5 @@ class GlobalBaseConfig:
     task_repository = "tasks_repository/"
     task_default_max_data_num = 10000
     task_data_batch_size = 1000
+
+    helper_file_dir = "docs/"

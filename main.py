@@ -13,9 +13,8 @@ import os
 import pathlib
 
 import ujson
-from prometheus_fastapi_instrumentator import Instrumentator
 from fastapi import FastAPI, Request, Body
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
@@ -48,21 +47,23 @@ async def read_root(request: Request):
 
 @app.post("/create-task")
 async def create_task(task_config: TaskModel = Body(...)):
-    file_path = task_repository + "/" + task_config.name + ".json"
-    running_task_path = task_running + "/" + task_config.name + ".json"
+    file_path = os.path.join(GlobalBaseConfig.task_repository, task_config.name + ".json")
+    running_task_path = os.path.join(GlobalBaseConfig.task_running_dir, task_config.name + ".json")
+
     if pathlib.Path(file_path).exists() or pathlib.Path(running_task_path).exists():
         return JSONResponse(content="Same task already exists", status_code=501)
-
-    with open(file_path, "w", encoding="utf-8") as f:
-        f.write(task_config.json())
-    return JSONResponse(content="Save success", status_code=200)
+    else:
+        task_config.task_status = TaskPlanStatus.NOT_STARTED
+        with open(file_path, "x", encoding="utf-8") as f:
+            f.write(str(task_config.json()))
+        return JSONResponse(content={"message": "Save success"}, status_code=200)
 
 
 @app.post("/delete-task")
 async def delete_task(task_path: str = Body(...)):
     if pathlib.Path(task_path).exists():
         os.remove(task_path)
-    return JSONResponse(content="Save success", status_code=200)
+    return JSONResponse(content={"message": "Delete success"}, status_code=200)
 
 
 @app.get("/task-list")
@@ -104,6 +105,13 @@ async def data_type_list(request: Request):
             type_vo = DataTypeVo(name=name, type=data_type.name)
             type_list.append(ujson.loads(type_vo.json()))
     return JSONResponse(content=type_list, status_code=200)
+
+
+@app.get("/helper-file")
+async def data_type_list(file_name: str = Body(...)):
+    file_path = os.path.join(GlobalBaseConfig.helper_file_dir, file_name)
+    if os.path.exists(file_path):
+        return FileResponse(file_path)
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 {
   "type": "page",
-  "id": "u:839127e50e91",
   "title": "任务配置",
   "body": [
     {
       "type": "tabs",
+      "id": "u:0e79118fa77e",
       "tabs": [
         {
           "title": "任务配置",
@@ -48,7 +48,7 @@
                     },
                     {
                       "type": "uuid",
-                      "name": "task_id",
+                      "name": "id",
                       "id": "u:e85c2172428a",
                       "mode": "inline",
                       "label": "任务ID",
@@ -134,20 +134,24 @@
                       "options": [
                         {
                           "label": "随机",
-                          "value": "随机"
+                          "value": "RANDOM"
                         },
                         {
                           "label": "线性",
-                          "value": "线性"
+                          "value": "LINEAR"
                         },
                         {
                           "label": "周期",
-                          "value": "周期"
+                          "value": "LINEAR"
+                        },
+                        {
+                          "label": "全力输出",
+                          "value": "ALL_OUT_DATA"
                         }
                       ],
                       "id": "u:cb34e1b54391",
                       "multiple": false,
-                      "value": "随机",
+                      "value": "RANDOM",
                       "selectFirst": true,
                       "mode": "inline",
                       "size": "xs",
@@ -321,20 +325,20 @@
                       "name": "output.output_type",
                       "options": [
                         {
-                          "label": "kafka",
-                          "value": "A"
+                          "label": "KAFKA",
+                          "value": "kafka"
                         },
                         {
-                          "label": "file",
-                          "value": "B"
+                          "label": "FILE",
+                          "value": "file"
                         }
                       ],
                       "id": "u:f69c79fdbd15",
                       "multiple": false,
-                      "value": "A",
+                      "value": "kafka",
                       "selectFirst": true,
                       "mode": "inline",
-                      "size": "xs",
+                      "size": "sm",
                       "onEvent": {
                         "change": {
                           "weight": 0,
@@ -363,7 +367,7 @@
                         {
                           "type": "input-text",
                           "label": "Topic",
-                          "name": "output.output_type.kafka_topic",
+                          "name": "output.kafka_output.kafka_topic",
                           "id": "u:cf3f3bda23ef",
                           "placeholder": "test_topic",
                           "mode": "inline",
@@ -432,7 +436,7 @@
                     "click": {
                       "actions": [
                         {
-                          "ignoreError": false,
+                          "ignoreError": true,
                           "outputVar": "responseResult",
                           "actionType": "ajax",
                           "options": {},
@@ -445,7 +449,10 @@
                               "success": "数据已经保存，请稍后启动",
                               "failed": "请求错误，请重试"
                             },
-                            "dataType": "json"
+                            "dataType": "json",
+                            "data": {
+                              "&": "$$"
+                            }
                           }
                         }
                       ]
@@ -544,22 +551,15 @@
                     "title": "新增",
                     "body": [
                       {
-                        "type": "collapse-group",
-                        "activeKey": [
-                          "1"
-                        ],
                         "body": [
                           {
                             "type": "collapse",
-                            "key": "1",
-                            "active": true,
-                            "header": "基本信息配置",
                             "body": [
                               {
                                 "type": "input-text",
+                                "id": "u:8f919146f6e3",
                                 "label": "任务名称",
                                 "name": "name",
-                                "id": "u:8f919146f6e3",
                                 "labelRemark": {
                                   "icon": "fa fa-question-circle",
                                   "trigger": [
@@ -574,16 +574,16 @@
                               },
                               {
                                 "type": "input-text",
+                                "id": "u:91a6fccfd368",
                                 "label": "任务描述",
                                 "name": "description",
-                                "id": "u:91a6fccfd368",
                                 "size": "sm",
                                 "mode": "inline"
                               },
                               {
                                 "type": "uuid",
-                                "name": "task_id",
                                 "id": "u:e85c2172428a",
+                                "name": "id",
                                 "mode": "inline",
                                 "label": "任务ID",
                                 "visible": true,
@@ -602,6 +602,9 @@
                               }
                             ],
                             "id": "u:58200a6ac236",
+                            "key": "1",
+                            "active": true,
+                            "header": "基本信息配置",
                             "collapseHeader": "",
                             "showArrow": true,
                             "collapsable": true,
@@ -668,20 +671,24 @@
                                 "options": [
                                   {
                                     "label": "随机",
-                                    "value": "随机"
+                                    "value": "RANDOM"
                                   },
                                   {
                                     "label": "线性",
-                                    "value": "线性"
+                                    "value": "LINEAR"
                                   },
                                   {
                                     "label": "周期",
-                                    "value": "周期"
+                                    "value": "LINEAR"
+                                  },
+                                  {
+                                    "label": "全力输出",
+                                    "value": "ALL_OUT_DATA"
                                   }
                                 ],
                                 "id": "u:cb34e1b54391",
                                 "multiple": false,
-                                "value": "随机",
+                                "value": "RANDOM",
                                 "selectFirst": true,
                                 "mode": "inline",
                                 "size": "xs",
@@ -819,7 +826,7 @@
                                   {
                                     "type": "select",
                                     "name": "data_type",
-                                    "placeholder": "-",
+                                    "placeholder": "选项",
                                     "id": "u:e18bec5238cd",
                                     "multiple": false,
                                     "label": "字段类型",
@@ -829,17 +836,17 @@
                                       "requestAdaptor": "",
                                       "adaptor": "",
                                       "messages": {},
-                                      "cache": 86400000,
-                                      "silent": false
+                                      "silent": false,
+                                      "cache": 86400000
                                     },
                                     "labelField": "name",
-                                    "valueField": "type",
-                                    "showInvalidMatch": false
+                                    "valueField": "type"
                                   }
                                 ],
                                 "id": "u:b3460704c38b",
                                 "strictMode": true,
-                                "syncFields": []
+                                "syncFields": [],
+                                "tabsMode": false
                               }
                             ],
                             "id": "u:641b08514c91",
@@ -855,20 +862,20 @@
                                 "name": "output.output_type",
                                 "options": [
                                   {
-                                    "label": "kafka",
-                                    "value": "A"
+                                    "label": "KAFKA",
+                                    "value": "kafka"
                                   },
                                   {
-                                    "label": "file",
-                                    "value": "B"
+                                    "label": "FILE",
+                                    "value": "file"
                                   }
                                 ],
                                 "id": "u:f69c79fdbd15",
                                 "multiple": false,
-                                "value": "A",
+                                "value": "kafka",
                                 "selectFirst": true,
                                 "mode": "inline",
-                                "size": "xs",
+                                "size": "sm",
                                 "onEvent": {
                                   "change": {
                                     "weight": 0,
@@ -897,7 +904,7 @@
                                   {
                                     "type": "input-text",
                                     "label": "Topic",
-                                    "name": "output.output_type.kafka_topic",
+                                    "name": "output.kafka_output.kafka_topic",
                                     "id": "u:cf3f3bda23ef",
                                     "placeholder": "test_topic",
                                     "mode": "inline",
@@ -948,13 +955,21 @@
                           }
                         ],
                         "id": "u:55390ec1255d",
+                        "type": "collapse-group",
+                        "activeKey": [
+                          "1"
+                        ],
                         "expandIcon": {
                           "type": "icon",
                           "vendor": "",
                           "icon": ""
                         },
                         "accordion": true,
-                        "expandIconPosition": "left"
+                        "expandIconPosition": "left",
+                        "title": "任务配置",
+                        "icon": "fa fa-slideshare",
+                        "mountOnEnter": true,
+                        "hash": "create-task"
                       }
                     ],
                     "id": "u:736e1d2c1d37",
@@ -988,7 +1003,7 @@
                             "weight": 0,
                             "actions": [
                               {
-                                "ignoreError": false,
+                                "ignoreError": true,
                                 "outputVar": "responseResult",
                                 "actionType": "ajax",
                                 "options": {},
@@ -997,8 +1012,14 @@
                                   "method": "post",
                                   "requestAdaptor": "",
                                   "adaptor": "",
-                                  "messages": {},
-                                  "dataType": "json"
+                                  "messages": {
+                                    "success": "保存成功",
+                                    "failed": "保存失败，请重试！"
+                                  },
+                                  "dataType": "json",
+                                  "data": {
+                                    "&": "$$"
+                                  }
                                 }
                               }
                             ]
@@ -1455,7 +1476,6 @@
           "hash": "chart-line"
         }
       ],
-      "id": "u:0e79118fa77e",
       "toolbar": [],
       "onEvent": {
         "change": {
@@ -1467,6 +1487,7 @@
       "activeKey": ""
     }
   ],
+  "id": "u:839127e50e91",
   "toolbar": [
     {
       "type": "nav",
