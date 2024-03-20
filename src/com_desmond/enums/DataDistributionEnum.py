@@ -10,7 +10,7 @@
 ==================================================
 """
 from src.com_desmond.models.TaskModel import RangeFrequency
-from src.com_desmond.models.data_model import AllOutData, LinearData
+from src.com_desmond.models.data_model import AllOutData, LinearData, RandomData, PeriodicData
 
 from enum import Enum
 
@@ -27,6 +27,8 @@ class DataDistributionType:
 class DataDistributionEnum(Enum):
     LINEAR = DataDistributionType("LINEAR", LinearData)
     ALL_OUT_DATA = DataDistributionType("ALL_OUT_DATA", AllOutData)
+    RANDOM = DataDistributionType("RANDOM", RandomData)
+    PERIODIC = DataDistributionType("PERIODIC", PeriodicData)
 
     @staticmethod
     def value_of(name: str):

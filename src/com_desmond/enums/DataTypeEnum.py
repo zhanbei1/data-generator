@@ -13,7 +13,10 @@
 from faker import Faker
 from enum import Enum
 
+from src.com_desmond.cutomer_data_type.CustomerDataType import CustomerDataType
+
 fake = Faker()
+fake.add_provider(CustomerDataType)
 
 
 class DataType:
@@ -88,7 +91,8 @@ class DataTypeEnum(Enum):
     TIMEZONE = DataType("TIMEZONE", "生成时区，默认格式：UTC+4。", "UTC+4", fake.timezone)
     YEAR = DataType("YEAR", "生成年份，默认格式：YYYY。", "2020", fake.year)
     UNIX_TIME = DataType("UNIX_TIME", "生成Unix时间戳。", "160000000", fake.unix_time)
-
+    UNIX_TIME_MS = DataType("UNIX_TIME_MS", "生成Unix时间戳（毫秒）。", "16000000000", fake.unix_time_ms)
+    ISO8601 = DataType("ISO8601", "生成ISO8601时间格式。", "2020-01-01T12:00:00+08:00", fake.iso8601)
     # faker.providers.emoji
     EMOJI = DataType("EMOJI", "生成emoji。", "😊", fake.emoji)
 
@@ -226,7 +230,11 @@ class DataTypeEnum(Enum):
     @staticmethod
     def generator_by_key(name: str):
         type_model: DataType = DataTypeEnum.value_of(name)
-        return str(type_model.function())
+        result = type_model.function()
+        if type(result) == type:
+            return str(result)
+        else:
+            return type_model.function()
 
 
 if __name__ == '__main__':

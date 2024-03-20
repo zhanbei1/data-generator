@@ -528,7 +528,10 @@
               "syncLocation": false,
               "api": {
                 "method": "get",
-                "url": "/task-list"
+                "url": "/task-list",
+                "messages": {},
+                "requestAdaptor": "",
+                "adaptor": ""
               },
               "bulkActions": [
                 {
@@ -1080,6 +1083,35 @@
                   "wrapperComponent": "",
                   "id": "u:9a082aa32124",
                   "align": "left"
+                },
+                {
+                  "type": "button",
+                  "tpl": "内容",
+                  "wrapperComponent": "",
+                  "id": "u:f881968ebed5",
+                  "label": "刷新",
+                  "align": "right",
+                  "onEvent": {
+                    "click": {
+                      "weight": 0,
+                      "actions": [
+                        {
+                          "ignoreError": true,
+                          "outputVar": "responseResult",
+                          "actionType": "ajax",
+                          "options": {},
+                          "api": {
+                            "url": "/task-list",
+                            "method": "get",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {},
+                            "dataType": "json"
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               ],
               "id": "u:a40e379717eb",
@@ -1389,14 +1421,11 @@
                   {
                     "type": "button",
                     "label": "删除",
-                    "actionType": "ajax",
+                    "actionType": "",
                     "level": "link",
                     "className": "text-danger",
                     "confirmText": "确定要删除？",
-                    "api": {
-                      "method": "post",
-                      "url": "/task-list"
-                    },
+                    "api": "",
                     "editorSetting": {
                       "behavior": "delete"
                     },
@@ -1418,18 +1447,127 @@
                               "messages": {},
                               "dataType": "json",
                               "data": {
-                                "task_path": "${file_path}"
+                                "task_name": "${name}"
                               }
+                            }
+                          },
+                          {
+                            "ignoreError": true,
+                            "outputVar": "responseResult",
+                            "actionType": "ajax",
+                            "options": {},
+                            "api": {
+                              "url": "/task-list",
+                              "method": "get",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {},
+                              "dataType": "json"
                             }
                           }
                         ]
                       }
                     }
+                  },
+                  {
+                    "type": "button",
+                    "label": "启动",
+                    "onEvent": {
+                      "click": {
+                        "actions": [
+                          {
+                            "ignoreError": true,
+                            "outputVar": "responseResult",
+                            "actionType": "ajax",
+                            "options": {},
+                            "api": {
+                              "url": "/enable-task",
+                              "method": "post",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {
+                                "success": "任务启动成功",
+                                "failed": "任务启动失败，请重试！"
+                              },
+                              "dataType": "json",
+                              "data": {
+                                "&": "$$",
+                                "task_name": "${name}"
+                              }
+                            }
+                          },
+                          {
+                            "ignoreError": true,
+                            "outputVar": "responseResult",
+                            "actionType": "ajax",
+                            "options": {},
+                            "api": {
+                              "url": "/task-list",
+                              "method": "get",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {},
+                              "dataType": "json"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "id": "u:256f4daf70d8",
+                    "confirmText": "确定启动该任务？"
+                  },
+                  {
+                    "type": "button",
+                    "label": "停止",
+                    "onEvent": {
+                      "click": {
+                        "actions": [
+                          {
+                            "ignoreError": true,
+                            "outputVar": "responseResult",
+                            "actionType": "ajax",
+                            "options": {},
+                            "api": {
+                              "url": "/disable-task",
+                              "method": "post",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {
+                                "success": "任务停止成功",
+                                "failed": "任务停止失败，请重试！"
+                              },
+                              "dataType": "json",
+                              "data": {
+                                "&": "$$",
+                                "task_name": "${name}"
+                              }
+                            }
+                          },
+                          {
+                            "ignoreError": true,
+                            "outputVar": "responseResult",
+                            "actionType": "ajax",
+                            "options": {},
+                            "api": {
+                              "url": "/task-list",
+                              "method": "get",
+                              "requestAdaptor": "",
+                              "adaptor": "",
+                              "messages": {},
+                              "dataType": "json"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "id": "u:07607a3f6eff",
+                    "confirmText": "确定停止该任务？"
                   }
                 ],
                 "id": "u:329af5d0fa61",
-                "actionsCount": 4
-              }
+                "actionsCount": 5
+              },
+              "primaryField": "name"
             }
           ],
           "id": "u:81953ec53638",

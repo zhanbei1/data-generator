@@ -11,10 +11,11 @@
 """
 import os
 import pathlib
+import shutil
 
 import ujson
 from fastapi import FastAPI, Request, Body
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, PlainTextResponse
 from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
@@ -51,7 +52,7 @@ async def create_task(task_config: TaskModel = Body(...)):
     running_task_path = os.path.join(GlobalBaseConfig.task_running_dir, task_config.name + ".json")
 
     if pathlib.Path(file_path).exists() or pathlib.Path(running_task_path).exists():
-        return JSONResponse(content="Same task already exists", status_code=501)
+        return JSONResponse(content={"message": "Same task already exists"}, status_code=501)
     else:
         task_config.task_status = TaskPlanStatus.NOT_STARTED
         with open(file_path, "x", encoding="utf-8") as f:
@@ -60,10 +61,40 @@ async def create_task(task_config: TaskModel = Body(...)):
 
 
 @app.post("/delete-task")
-async def delete_task(task_path: str = Body(...)):
-    if pathlib.Path(task_path).exists():
-        os.remove(task_path)
-    return JSONResponse(content={"message": "Delete success"}, status_code=200)
+async def delete_task(delete_info: dict = Body(...)):
+    task_name = delete_info.get("task_name", "")
+    repo_task_path: str = os.path.join(GlobalBaseConfig.task_repository, task_name + ".json")
+    running_task_path = os.path.join(GlobalBaseConfig.task_running_dir, task_name + ".json")
+
+    if pathlib.Path(repo_task_path).exists():
+        os.remove(repo_task_path)
+    elif pathlib.Path(running_task_path).exists():
+        os.remove(running_task_path)
+    else:
+        return JSONResponse(content={"message": "Task not found"}, status_code=501)
+    return JSONResponse(content={"message": "Delete task success"}, status_code=200)
+
+
+@app.post("/enable-task")
+async def data_type_list(enable_info: dict = Body(...)):
+    file_path = os.path.join(GlobalBaseConfig.task_repository, enable_info.get("task_name", "") + ".json")
+    # 如果文件存在，则移动
+    if os.path.exists(file_path):
+        shutil.move(file_path, GlobalBaseConfig.task_running_dir)
+        return JSONResponse(content={"message": "Enable task success"}, status_code=200)
+    else:
+        return JSONResponse(content={"message": "Task not found"}, status_code=501)
+
+
+@app.post("/disable-task")
+async def data_type_list(disable_info: dict = Body(...)):
+    file_path = os.path.join(GlobalBaseConfig.task_running_dir, disable_info.get("task_name", "") + ".json")
+    # 如果文件存在，则移动
+    if os.path.exists(file_path):
+        shutil.move(file_path, GlobalBaseConfig.task_repository)
+        return JSONResponse(content={"message": "diEnable task success"}, status_code=200)
+    else:
+        return JSONResponse(content={"message": "Task not found"}, status_code=501)
 
 
 @app.get("/task-list")
