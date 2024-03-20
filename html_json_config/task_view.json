@@ -288,9 +288,9 @@
                         },
                         {
                           "type": "select",
+                          "id": "u:e18bec5238cd",
                           "name": "data_type",
                           "placeholder": "选项",
-                          "id": "u:e18bec5238cd",
                           "multiple": false,
                           "label": "字段类型",
                           "source": {
@@ -303,7 +303,14 @@
                             "cache": 86400000
                           },
                           "labelField": "name",
-                          "valueField": "type"
+                          "valueField": "type",
+                          "searchable": true,
+                          "clearable": true,
+                          "selectFirst": true,
+                          "static": false,
+                          "disabled": false,
+                          "onEvent": {},
+                          "description": ""
                         }
                       ],
                       "id": "u:b3460704c38b",
@@ -1474,6 +1481,93 @@
           "id": "u:52689b1d0225",
           "icon": "fa fa-stack-overflow",
           "hash": "chart-line"
+        },
+        {
+          "title": "说明文档",
+          "body": [
+            {
+              "type": "collapse-group",
+              "activeKey": [
+                "1"
+              ],
+              "body": [
+                {
+                  "type": "collapse",
+                  "key": "1",
+                  "active": true,
+                  "header": "支持数据类型说明",
+                  "body": [
+                    {
+                      "type": "crud",
+                      "syncLocation": false,
+                      "api": {
+                        "method": "get",
+                        "url": "/data-type-list",
+                        "requestAdaptor": "",
+                        "adaptor": "",
+                        "messages": {},
+                        "dataType": "json",
+                        "cache": 86400000
+                      },
+                      "bulkActions": [],
+                      "itemActions": [],
+                      "id": "u:81c21f31b49d",
+                      "perPageAvailable": [
+                        10
+                      ],
+                      "messages": {},
+                      "filter": null,
+                      "primaryField": "type",
+                      "initFetch": true,
+                      "mode": "table",
+                      "columns": [
+                        {
+                          "name": "name",
+                          "label": "类型名称",
+                          "type": "text",
+                          "id": "u:ac35631bb51b",
+                          "inline": true,
+                          "placeholder": "-",
+                          "popOver": false,
+                          "searchable": true
+                        },
+                        {
+                          "name": "description",
+                          "label": "描述",
+                          "type": "text",
+                          "id": "u:1b165120329b",
+                          "searchable": true
+                        },
+                        {
+                          "type": "text",
+                          "label": "样例",
+                          "name": "sample",
+                          "id": "u:effd8bc4540f",
+                          "searchable": true
+                        }
+                      ],
+                      "perPage": 20,
+                      "autoJumpToTopOnPagerChange": true,
+                      "loadDataOnce": true,
+                      "matchFunc": "",
+                      "footable": true,
+                      "defaultParams": {}
+                    }
+                  ],
+                  "id": "u:2a2aadf34296"
+                },
+                {
+                  "type": "collapse",
+                  "key": "2",
+                  "header": "设计文档说明",
+                  "body": [],
+                  "id": "u:bdda558fb306"
+                }
+              ],
+              "id": "u:2466fa351ceb"
+            }
+          ],
+          "id": "u:3a6627a8b945"
         }
       ],
       "toolbar": [],

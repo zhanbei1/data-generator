@@ -18,5 +18,9 @@ class DataTypeVo(BaseModel):
     """
     # 现实名称
     name: str
+    # 类型描述
+    description: str
+    # 样例
+    sample: str
     # 类型
     type: str

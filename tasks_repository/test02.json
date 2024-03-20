@@ -1,0 +1,37 @@
+{
+  "name": "test02",
+  "file_path": "",
+  "id": "594374d9-e26e-4000-a5ee-9787a0a79000",
+  "task_status": "schedule",
+  "description": "test02",
+  "range_frequency": {
+    "start_timestamp": 1710787944243,
+    "end_timestamp": 1711183946495,
+    "data_distribution": "RANDOM",
+    "data_distribution_config": {
+      "range": 0,
+      "max_data_num": 1123,
+      "min_data_num": 1,
+      "shake": 0.1
+    },
+    "data_anomaly": []
+  },
+  "fields": [
+    {
+      "name": "test",
+      "data_type": "DATE_TIME_THIS_YEAR",
+      "extra_config": {}
+    }
+  ],
+  "output": {
+    "output_type": "kafka",
+    "file_output": {},
+    "kafka_output": {
+      "kafka_address": "127.0.0.1:9092",
+      "kafka_topic": "test",
+      "extra_config": {
+        "": ""
+      }
+    }
+  }
+}

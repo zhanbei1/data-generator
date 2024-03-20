@@ -102,7 +102,8 @@ async def data_type_list(request: Request):
     for name in dir(DataTypeEnum):
         if not name.startswith('__'):
             data_type: DataType = DataTypeEnum.value_of(name)
-            type_vo = DataTypeVo(name=name, type=data_type.name)
+            type_vo = DataTypeVo(name=name, type=data_type.name, description=data_type.description,
+                                 sample=data_type.sample)
             type_list.append(ujson.loads(type_vo.json()))
     return JSONResponse(content=type_list, status_code=200)
 
