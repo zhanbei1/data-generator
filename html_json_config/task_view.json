@@ -310,7 +310,16 @@
                           "static": false,
                           "disabled": false,
                           "onEvent": {},
-                          "description": ""
+                          "description": "",
+                          "remark": {
+                            "icon": "fa fa-question-circle",
+                            "trigger": [
+                              "hover"
+                            ],
+                            "className": "Remark--warning",
+                            "placement": "top",
+                            "title": "说明文档查看类型说明"
+                          }
                         }
                       ],
                       "id": "u:b3460704c38b",
@@ -850,7 +859,16 @@
                                       "cache": 86400000
                                     },
                                     "labelField": "name",
-                                    "valueField": "type"
+                                    "valueField": "type",
+                                    "remark": {
+                                      "icon": "fa fa-question-circle",
+                                      "trigger": [
+                                        "hover"
+                                      ],
+                                      "className": "Remark--warning",
+                                      "placement": "top",
+                                      "title": "说明文档查看类型说明"
+                                    }
                                   }
                                 ],
                                 "id": "u:b3460704c38b",
