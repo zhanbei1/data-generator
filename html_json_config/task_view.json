@@ -187,7 +187,7 @@
                       "name": "range_frequency.data_distribution_config.shake",
                       "keyboard": true,
                       "id": "u:469a5b96b84f",
-                      "step": 0,
+                      "step": 0.01,
                       "value": 0.1,
                       "min": 0,
                       "mode": "inline",
@@ -229,32 +229,37 @@
                       },
                       "items": [
                         {
-                          "type": "input-text",
+                          "type": "input-number",
+                          "id": "u:97fe2c71057e",
+                          "label": "数据概率",
                           "name": "ratio",
-                          "placeholder": "文本",
-                          "id": "u:a2a22c554344"
+                          "keyboard": true,
+                          "step": 0.01,
+                          "value": 0,
+                          "min": 0,
+                          "max": 1,
+                          "precision": 2,
+                          "mode": "inline",
+                          "size": "xs"
                         },
                         {
-                          "type": "select",
+                          "type": "input-number",
+                          "label": "数据倍率",
                           "name": "magnification",
-                          "placeholder": "选项",
-                          "options": [
-                            {
-                              "label": "A",
-                              "value": "a"
-                            },
-                            {
-                              "label": "B",
-                              "value": "b"
-                            }
-                          ],
-                          "id": "u:0ec35122f4bf",
-                          "multiple": false
+                          "keyboard": true,
+                          "id": "u:5494a438f41a",
+                          "step": 1,
+                          "value": 3,
+                          "min": 0,
+                          "max": "",
+                          "mode": "inline",
+                          "size": "xs"
                         }
                       ],
                       "id": "u:195f8f77ff0c",
                       "strictMode": true,
-                      "syncFields": []
+                      "syncFields": [],
+                      "value": ""
                     }
                   ],
                   "id": "u:9ad7625711c8"
@@ -743,14 +748,14 @@
                                 "name": "range_frequency.data_distribution_config.shake",
                                 "keyboard": true,
                                 "id": "u:469a5b96b84f",
-                                "step": 0,
+                                "step": 0.01,
                                 "value": 0.1,
                                 "min": 0,
                                 "mode": "inline",
                                 "size": "xs",
-                                "kilobitSeparator": true,
                                 "max": 1,
-                                "precision": 2
+                                "precision": 2,
+                                "kilobitSeparator": true
                               },
                               {
                                 "type": "tpl",
@@ -785,32 +790,37 @@
                                 },
                                 "items": [
                                   {
-                                    "type": "input-text",
+                                    "type": "input-number",
                                     "name": "ratio",
-                                    "placeholder": "文本",
-                                    "id": "u:a2a22c554344"
+                                    "id": "u:97fe2c71057e",
+                                    "label": "数据概率",
+                                    "keyboard": true,
+                                    "step": 0.01,
+                                    "value": 0,
+                                    "min": 0,
+                                    "max": 1,
+                                    "precision": 2,
+                                    "mode": "inline",
+                                    "size": "xs"
                                   },
                                   {
-                                    "type": "select",
+                                    "type": "input-number",
                                     "name": "magnification",
-                                    "placeholder": "选项",
-                                    "options": [
-                                      {
-                                        "label": "A",
-                                        "value": "a"
-                                      },
-                                      {
-                                        "label": "B",
-                                        "value": "b"
-                                      }
-                                    ],
-                                    "id": "u:0ec35122f4bf",
-                                    "multiple": false
+                                    "id": "u:5494a438f41a",
+                                    "label": "数据倍率",
+                                    "keyboard": true,
+                                    "step": 1,
+                                    "value": 3,
+                                    "min": 0,
+                                    "max": "",
+                                    "mode": "inline",
+                                    "size": "xs"
                                   }
                                 ],
                                 "id": "u:195f8f77ff0c",
                                 "strictMode": true,
-                                "syncFields": []
+                                "syncFields": [],
+                                "value": ""
                               }
                             ],
                             "id": "u:9ad7625711c8"
@@ -868,7 +878,14 @@
                                       "className": "Remark--warning",
                                       "placement": "top",
                                       "title": "说明文档查看类型说明"
-                                    }
+                                    },
+                                    "searchable": true,
+                                    "clearable": true,
+                                    "selectFirst": true,
+                                    "static": false,
+                                    "disabled": false,
+                                    "onEvent": {},
+                                    "description": ""
                                   }
                                 ],
                                 "id": "u:b3460704c38b",
