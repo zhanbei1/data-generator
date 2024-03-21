@@ -4,9 +4,33 @@
 - 需要一个操作简单，发送大量数据的工具
 - 具有可结合的多场景的（类似于阿里的数据模拟接入）
 
-![](docs/imgs/ali_data_moke.png)
 ![](docs/imgs/ali_time_range.png)
 ![](docs/imgs/ali_log_fields.png)
+
+# 使用说明：
+
+- 安装依赖：poetry install
+- 启动服务：bash bin/data-generator-start.sh api|core|all
+  - api：启动api服务，分布式的时候，可以只在某个节点上启动api，作为master管理节点
+  - core：启动核心服务, 分布式的时候，可以在子节点上只启动core
+  - all：启动全部服务，单点部署的时候，可以全部启动
+- 访问地址：http://127.0.0.1:8000/ （默认）
+
+## 创建任务
+配置产生数据的任务，包括频率，异常点，数据类型，数据模型，数据发送场景，数据发送时间范围等
+![](docs/imgs/create-task-page.png)
+
+## 任务列表
+展示所有任务，可以查看任务状态，任务详情等，同时在列表页可以进行删除启停等额外操作
+![](docs/imgs/task-list-page.png)
+
+## 任务详情
+展示任务详情，可以查看任务状态，发送的数据量，任务运行详情等。
+![](docs/imgs/monitor-page.png)
+
+##  说明文档
+展示说明文档，可以查看使用说明，使用文档，架构文档，支持的数据类型等说明。
+![](docs/imgs/readme-page.png)
 
 # 工具特点
 
@@ -20,10 +44,12 @@
 # 项目使用简介
 
 - 数据类型产生：Faker
-- 调度引擎：
+- 调度引擎：x
 - 配置模版解析：Pydantic
 - 接口框架：fastAPI
-- 前端低代码：https://www.jiandaoyun.com/dashboard#/
+- 前端低代码：amis
+- 包管理：poetry
+- 内置核心算法：x
 
 # 其他说明
 
