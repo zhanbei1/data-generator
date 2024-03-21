@@ -17,10 +17,13 @@ python版本依赖：3.11.0 ，使用poetry进行包管理。
   - 创建虚拟环境：python3 -m poetry env use xxxx
   - 激活属于该项目的环境：python3 -m poetry env use xxxx
 - 安装依赖：python3 -m poetry install
-- 启动服务：bash bin/data-generator-start.sh api|core|all
-  - api：启动api服务，分布式的时候，可以只在某个节点上启动api，作为master管理节点
-  - core：启动核心服务, 分布式的时候，可以在子节点上只启动core
-  - all：启动全部服务，单点部署的时候，可以全部启动
+- 启动服务：bash bin/data-generator-start.sh start-api|start-core|start-all|stop-api|stop-core|stop-all
+  - start-api：启动api服务，分布式的时候，可以只在某个节点上启动api，作为master管理节点
+  - start-core：启动核心服务, 分布式的时候，可以在子节点上只启动core
+  - start-all：启动全部服务，单点部署的时候，可以全部启动
+  - stop-api：停止api服务
+  - stop-core：停止core服务
+  -  stop-all：停止全部服务
 - 访问地址：http://127.0.0.1:8000/ （默认）
 
 ###在线体验：
