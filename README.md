@@ -22,8 +22,8 @@ python版本依赖：3.11.0 ，使用poetry进行包管理。
   - start-core：启动核心服务, 分布式的时候，可以在子节点上只启动core
   - start-all：启动全部服务，单点部署的时候，可以全部启动
   - stop-api：停止api服务
-  - stop-core：停止core服务
-  -  stop-all：停止全部服务
+  - stop-core：停止core服务 
+  - stop-all：停止全部服务
 - 访问地址：http://127.0.0.1:8000/ （默认）
 
 ###在线体验：
