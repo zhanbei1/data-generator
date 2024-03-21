@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # 定义服务对应的Python脚本路径
-API_SERVER_SCRIPT="../main.py"
-CORE_DATA_GENERATOR_SCRIPT="../src/com_desmond/main.py"
+API_SERVER_SCRIPT="main.py"
+CORE_DATA_GENERATOR_SCRIPT="src/com_desmond/main.py"
 
 # 启动函数
 start_api_server() {
     echo "Starting API Server..."
-    python3 $API_SERVER_SCRIPT &
+    nohup python3 $API_SERVER_SCRIPT > /dev/null 2>&1 &
     echo "API Server is running in the background."
 }
 
 start_core_data_generator() {
     echo "Starting Core Data Generator..."
-    python3 $CORE_DATA_GENERATOR_SCRIPT &
+    nohup python3 $CORE_DATA_GENERATOR_SCRIPT /dev/null 2>&1 &
     echo "Core Data Generator is running in the background."
 }
 

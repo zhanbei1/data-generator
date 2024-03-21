@@ -8,8 +8,15 @@
 ![](docs/imgs/ali_log_fields.png)
 
 # 使用说明：
-
-- 安装依赖：poetry install
+python版本依赖：3.11.0 ，使用poetry进行包管理。
+- git clone https://github.com/zhanbei1/data-generator.git
+- cd data-generator
+- poetry虚拟环境安装（环境已经有的可以忽略）
+  - 全局环境安装poetry： pip3 install poetry
+  - 查询虚拟环境：python3 -m poetry env list
+  - 创建虚拟环境：python3 -m poetry env use xxxx
+  - 激活属于该项目的环境：python3 -m poetry env use xxxx
+- 安装依赖：python3 -m poetry poetry install
 - 启动服务：bash bin/data-generator-start.sh api|core|all
   - api：启动api服务，分布式的时候，可以只在某个节点上启动api，作为master管理节点
   - core：启动核心服务, 分布式的时候，可以在子节点上只启动core
@@ -53,6 +60,7 @@
 - 前端低代码：amis
 - 包管理：poetry
 - 内置核心算法：x
+- python版本：3.11.0+
 
 # 其他说明
 
