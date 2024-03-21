@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # 定义服务对应的Python脚本路径
-API_SERVER_SCRIPT="main.py"
-CORE_DATA_GENERATOR_SCRIPT="src/com_desmond/main.py"
+API_SERVER_SCRIPT="../main.py"
+CORE_DATA_GENERATOR_SCRIPT="../src/com_desmond/main.py"
 
 # 启动函数
 start_api_server() {
