@@ -4,9 +4,9 @@
 - 需要一个操作简单，发送大量数据的工具
 - 具有可结合的多场景的（类似于阿里的数据模拟接入）
 
-![](./img/ali_data_moke.png)
-![](./img/ali_time_range.png)
-![](./img/ali_log_fields.png)
+![](docs/imgs/ali_data_moke.png)
+![](docs/imgs/ali_time_range.png)
+![](docs/imgs/ali_log_fields.png)
 
 # 工具特点
 

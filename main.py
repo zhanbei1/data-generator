@@ -15,7 +15,8 @@ import shutil
 
 import ujson
 from fastapi import FastAPI, Request, Body
-from fastapi.responses import HTMLResponse, JSONResponse, FileResponse, PlainTextResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
@@ -27,14 +28,14 @@ from src.com_desmond.services.engine.engine import GeneratorCoreEngine
 from vo.vo import DataTypeVo
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
+# 设置静态文件目录
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # 使用Jinja2作为模板引擎
-env = Environment(loader=FileSystemLoader('html_json_config'))  # 假设你的模板文件在'templates'文件夹中
+env = Environment(loader=FileSystemLoader('static/html_json_config'))  # 假设你的模板文件在'templates'文件夹中
 
 html_template_path = "index.html"
-html_view_json = "html_json_config/task_view.json"
-task_repository = "task_repository"
-task_running = "tasks_running"
+html_view_json = "static/html_json_config/task_view.json"
 
 
 @app.get("/")

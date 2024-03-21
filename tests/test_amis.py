@@ -16,6 +16,6 @@ def test_task_list_amis():
     import json
     page = Page();
 
-    with open('/Users/zhanbei/PycharmProjects/data-generator/html_json_config/task_config.json', 'r') as file:
+    with open('/static/html_json_config/task_config.json', 'r') as file:
         data = json.load(file)
         html = render(data)
