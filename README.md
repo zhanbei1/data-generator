@@ -16,6 +16,8 @@
   - all：启动全部服务，单点部署的时候，可以全部启动
 - 访问地址：http://127.0.0.1:8000/ （默认）
 
+在线体验：[xiaopang.cool](http://xiaopang.cool)
+
 ## 创建任务
 配置产生数据的任务，包括频率，异常点，数据类型，数据模型，数据发送场景，数据发送时间范围等
 ![](docs/imgs/create-task-page.png)
@@ -31,6 +33,7 @@
 ##  说明文档
 展示说明文档，可以查看使用说明，使用文档，架构文档，支持的数据类型等说明。
 ![](docs/imgs/readme-page.png)
+![](docs/imgs/data-type-readme.png)
 
 # 工具特点
 
