@@ -7,13 +7,13 @@ CORE_DATA_GENERATOR_SCRIPT="src/com_desmond/main.py"
 # 启动函数
 start_api_server() {
     echo "Starting API Server..."
-    ../venv/bin/python3 $API_SERVER_SCRIPT &
+    python3 $API_SERVER_SCRIPT &
     echo "API Server is running in the background."
 }
 
 start_core_data_generator() {
     echo "Starting Core Data Generator..."
-    ../venv/bin/python3 $CORE_DATA_GENERATOR_SCRIPT &
+    python3 $CORE_DATA_GENERATOR_SCRIPT &
     echo "Core Data Generator is running in the background."
 }
 
