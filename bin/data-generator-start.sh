@@ -41,6 +41,6 @@ case "$1" in
 esac
 
 echo "Press Ctrl+C to stop the service(s)."
-wait # 等待所有后台进程结束
+# wait # 等待所有后台进程结束
 
 exit 0
