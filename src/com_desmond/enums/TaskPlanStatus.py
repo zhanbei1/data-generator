@@ -17,16 +17,10 @@ class TaskPlanStatus(Enum):
     任务计划状态
     """
     # 未开始
-    NOT_STARTED = "schedule"
+    NOT_STARTED = "not_start"
     # 进行中
     IN_PROGRESS = "pending"
     # 已完成
     COMPLETED = "success"
-    # 已取消
-    CANCELLED = "fail"
-    # 已过期
-    EXPIRED = "0"
-    # 已终止
-    TERMINATED = "0"
-    # 已暂停
-    PAUSED = "0"
+    # 执行失败
+    FAILED = "0"

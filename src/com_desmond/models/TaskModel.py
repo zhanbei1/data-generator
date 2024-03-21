@@ -98,9 +98,8 @@ class TaskModel(BaseModel):
     执行生成数据的任务模型
     """
     name: str
-    file_path: str = Field(default="")
-    id: str = Field(default="")
-    task_status:str = Field(default=TaskPlanStatus.NOT_STARTED)
+    id: str = Field(default=None)
+    task_status: str = Field(default=TaskPlanStatus.NOT_STARTED)
     description: str
     range_frequency: RangeFrequency
     fields: List[FiledConfig]

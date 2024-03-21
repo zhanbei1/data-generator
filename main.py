@@ -10,21 +10,21 @@
 ==================================================
 """
 import os
-import pathlib
-import shutil
+import uuid
+from typing import List
 
 import ujson
-from fastapi import FastAPI, Request, Body
+from fastapi import FastAPI, Request, Body, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
+from database.sqllite3 import Session, Task, session
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum, DataType
 from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
 from src.com_desmond.models.TaskModel import TaskModel
-from src.com_desmond.services.config_parsers.ConfigParser import ConfigParser
-from src.com_desmond.services.engine.engine import GeneratorCoreEngine
+from utils import db_task_to_model
 from vo.vo import DataTypeVo
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
@@ -38,6 +38,15 @@ html_template_path = "index.html"
 html_view_json = "static/html_json_config/task_view.json"
 
 
+# 依赖项，用于数据库会话管理
+def get_db():
+    try:
+        db = session
+        yield db
+    finally:
+        db.close()
+
+
 @app.get("/")
 async def read_root(request: Request):
     # 渲染模板，并将AMIS JSON传递给模板
@@ -48,84 +57,101 @@ async def read_root(request: Request):
 
 
 @app.post("/create-task")
-async def create_task(task_config: TaskModel = Body(...)):
-    file_path = os.path.join(GlobalBaseConfig.task_repository, task_config.name + ".json")
-    running_task_path = os.path.join(GlobalBaseConfig.task_running_dir, task_config.name + ".json")
+async def create_task(task_config: TaskModel = Body(...), db: Session = Depends(get_db)):
+    task_config.id = str(uuid.uuid4())
+    task = Task(id=task_config.id, name=task_config.name, task_status=TaskPlanStatus.NOT_STARTED.name,
+                description=task_config.description,
+                range_frequency=task_config.range_frequency.json(),
+                fields=ujson.dumps([field.json() for field in task_config.fields]),
+                output=task_config.output.json()
+                )
+    db.add(task)
+    db.commit()
+    db.refresh(task)
+    return JSONResponse(content={"message": "Save success"}, status_code=200)
 
-    if pathlib.Path(file_path).exists() or pathlib.Path(running_task_path).exists():
-        return JSONResponse(content={"message": "Same task already exists"}, status_code=501)
-    else:
-        task_config.task_status = TaskPlanStatus.NOT_STARTED
-        with open(file_path, "x", encoding="utf-8") as f:
-            f.write(str(task_config.json()))
-        return JSONResponse(content={"message": "Save success"}, status_code=200)
+
+@app.put("/update-task/{task_id}/")
+async def update_task(task_id: str, task: TaskModel, db: Session = Depends(get_db)):
+    db_task: Task = db.query(Task).get(task_id)
+    if not db_task:
+        return JSONResponse(content={"message": "Task not found"}, status_code=200)
+    db_task.name = task.name if task.name is not None else db_task.name
+    db_task.task_status = task.task_status if task.task_status is not None else db_task.task_status
+    db_task.description = task.description if task.description is not None else db_task.description
+    db_task.range_frequency = ujson.dumps(
+        task.range_frequency.json()) if task.range_frequency is not None else db_task.range_frequency
+    db_task.fields = ujson.dumps(task.fields.json()) if task.fields is not None else db_task.fields
+    db_task.output = ujson.dumps(task.output.json()) if task.output is not None else db_task.output
+    db.commit()
+
+    return JSONResponse(content={"message": "Task updated successfully"}, status_code=200)
+
+
+@app.post("/batch-delete")
+async def batch_delete(delete_info: dict, db: Session = Depends(get_db)):
+    tasks_id = delete_info.get("tasks_id", [])
+    for task_id in tasks_id:
+        db_task = db.query(Task).get(task_id)
+        if db_task:
+            db.delete(db_task)
+            db.commit()
+    return JSONResponse(content={"message": "Task deleted successfully"}, status_code=200)
 
 
 @app.post("/delete-task")
-async def delete_task(delete_info: dict = Body(...)):
-    task_name = delete_info.get("task_name", "")
-    repo_task_path: str = os.path.join(GlobalBaseConfig.task_repository, task_name + ".json")
-    running_task_path = os.path.join(GlobalBaseConfig.task_running_dir, task_name + ".json")
-
-    if pathlib.Path(repo_task_path).exists():
-        os.remove(repo_task_path)
-    elif pathlib.Path(running_task_path).exists():
-        os.remove(running_task_path)
-    else:
-        return JSONResponse(content={"message": "Task not found"}, status_code=501)
-    return JSONResponse(content={"message": "Delete task success"}, status_code=200)
+async def batch_delete(delete_info: dict, db: Session = Depends(get_db)):
+    task_id = delete_info.get("task_id", None)
+    if not task_id:
+        return JSONResponse(content={"message": "Task id is required"}, status_code=400)
+    db_task = db.query(Task).get(task_id)
+    if db_task:
+        db.delete(db_task)
+        db.commit()
+    return JSONResponse(content={"message": "Task deleted successfully"}, status_code=200)
 
 
 @app.post("/enable-task")
-async def data_type_list(enable_info: dict = Body(...)):
-    file_path = os.path.join(GlobalBaseConfig.task_repository, enable_info.get("task_name", "") + ".json")
-    # 如果文件存在，则移动
-    if os.path.exists(file_path):
-        shutil.move(file_path, GlobalBaseConfig.task_running_dir)
-        return JSONResponse(content={"message": "Enable task success"}, status_code=200)
-    else:
-        return JSONResponse(content={"message": "Task not found"}, status_code=501)
+async def enable_task(request_dict: dict, db: Session = Depends(get_db)):
+    task_id = request_dict.get("task_id", None)
+    if not task_id:
+        return JSONResponse(content={"message": "Task id is required"}, status_code=400)
+
+    db_task: Task = db.query(Task).get(task_id)
+    if db_task:
+        db_task.task_status = TaskPlanStatus.IN_PROGRESS.name
+        db.commit()
+    return JSONResponse(content={"message": "Task deleted successfully"}, status_code=200)
 
 
 @app.post("/disable-task")
-async def data_type_list(disable_info: dict = Body(...)):
-    file_path = os.path.join(GlobalBaseConfig.task_running_dir, disable_info.get("task_name", "") + ".json")
-    # 如果文件存在，则移动
-    if os.path.exists(file_path):
-        shutil.move(file_path, GlobalBaseConfig.task_repository)
-        return JSONResponse(content={"message": "diEnable task success"}, status_code=200)
-    else:
-        return JSONResponse(content={"message": "Task not found"}, status_code=501)
+async def disable_task(request_dict: dict, db: Session = Depends(get_db)):
+    task_id = request_dict.get("task_id", None)
+    if not task_id:
+        return JSONResponse(content={"message": "Task id is required"}, status_code=400)
+
+    db_task: Task = db.query(Task).get(task_id)
+    if db_task:
+        db_task.task_status = TaskPlanStatus.NOT_STARTED.value
+        db.commit()
+    return JSONResponse(content={"message": "Task deleted successfully"}, status_code=200)
 
 
-@app.get("/task-list")
-async def task_list(request: Request):
-    task_running_dir = GlobalBaseConfig.task_running_dir
-    task_repository_dir = GlobalBaseConfig.task_repository
+@app.get("/task-list", response_model=List[TaskModel])
+async def task_list(db: Session = Depends(get_db)):
+    tasks: List[Task] = db.query(Task).all()
+    task_array: list[TaskModel] = []
+    for task in tasks:
+        task_array.append(db_task_to_model(task))
+    return task_array
 
-    task_json_dict = {}
 
-    task_list: list[TaskModel] = GeneratorCoreEngine.tasks.values()
-    # 运行中的
-    for task in task_list:
-        task_json_dict[task.id] = task.json()
-
-    # 在运行目录中，但是未运行的
-    for root, dirs, files in os.walk(task_running_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            task: TaskModel = ConfigParser.analysis_by_file_path(file_path)
-            task.task_status = TaskPlanStatus.TERMINATED
-            task_json_dict[task.id] = task.json()
-    # 未在运行目录中的
-    for root, dirs, files in os.walk(task_repository_dir):
-        for file in files:
-            file_path = os.path.join(root, file)
-            task: TaskModel = ConfigParser.analysis_by_file_path(file_path)
-            task.task_status = TaskPlanStatus.NOT_STARTED
-            task_json_dict[task.id] = task.json()
-
-    return JSONResponse(content=[ujson.loads(task_json) for task_json in task_json_dict.values()], status_code=200)
+@app.get("/task-detail/{task_id}", response_model=TaskModel)
+async def task_list(task_id: str, db: Session = Depends(get_db)):
+    task_db = db.query(Task).filter(Task.id == task_id).first()
+    if not task_db:
+        return JSONResponse(content={"message": "Task not found"}, status_code=200)
+    return TaskModel.from_orm(task_db)
 
 
 @app.get("/data-type-list")
@@ -141,7 +167,7 @@ async def data_type_list(request: Request):
 
 
 @app.get("/helper-file")
-async def data_type_list(file_name: str = Body(...)):
+async def helper_file(file_name: str = Body(...)):
     file_path = os.path.join(GlobalBaseConfig.helper_file_dir, file_name)
     if os.path.exists(file_path):
         return FileResponse(file_path)

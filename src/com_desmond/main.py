@@ -13,6 +13,7 @@ import asyncio
 import os
 import time
 
+from config.basic_config import GlobalBaseConfig
 from src.com_desmond.models.TaskModel import TaskModel
 from src.com_desmond.services.config_parsers.ConfigParser import ConfigParser
 from src.com_desmond.services.engine.engine import GeneratorCoreEngine
@@ -21,7 +22,7 @@ from watchdog.observers import Observer
 
 if __name__ == '__main__':
     # 指定要监控的目录
-    directory_to_watch = 'tasks_running/'
+    directory_to_watch = "../../" + GlobalBaseConfig.task_running_dir
 
     for root, dirs, files in os.walk(directory_to_watch):
         for file in files:

@@ -3,1049 +3,1659 @@
   "title": "任务配置",
   "body": [
     {
-      "type": "tabs",
-      "id": "u:0e79118fa77e",
-      "tabs": [
+      "type": "page",
+      "id": "u:839127e50e91",
+      "toolbar": [
         {
-          "title": "任务配置",
-          "body": [
+          "type": "nav",
+          "stacked": false,
+          "popupClassName": "app-popover :AMISCSSWrapper",
+          "links": [
             {
-              "type": "collapse-group",
-              "activeKey": [
-                "1"
-              ],
+              "label": "任务配置",
+              "to": "?id=0",
+              "target": "_self",
+              "id": "0",
+              "children": [],
+              "icon": "",
+              "badge": ""
+            },
+            {
+              "label": "任务列表",
+              "to": "?id=1",
+              "target": "_self",
+              "id": "1",
+              "children": []
+            },
+            {
+              "label": "运行监控",
+              "to": "?id=2",
+              "target": "_self",
+              "children": [],
+              "id": "2"
+            }
+          ],
+          "id": "u:1be8e72c5716",
+          "badge": {
+            "mode": "ribbon",
+            "offset": [
+              0,
+              0
+            ],
+            "level": "success",
+            "visibleOn": "${badge}",
+            "text": "${badge}"
+          },
+          "style": {
+            "color": "#50e3c2",
+            "fontFamily": "",
+            "fontSize": 15,
+            "backgroundColor": "rgba(231, 241, 220, 1)",
+            "borderLeftStyle": "dashed",
+            "borderTopStyle": "dashed",
+            "borderRightStyle": "dashed",
+            "borderBottomStyle": "dashed",
+            "borderLeftWidth": 1,
+            "borderTopWidth": 1,
+            "borderRightWidth": 1,
+            "borderBottomWidth": 1,
+            "borderLeftColor": "#f4e1e1",
+            "borderTopColor": "#f4e1e1",
+            "borderRightColor": "#f4e1e1",
+            "borderBottomColor": "#f4e1e1",
+            "borderTopLeftRadius": 3,
+            "borderTopRightRadius": 3,
+            "borderBottomLeftRadius": 3,
+            "borderBottomRightRadius": 3
+          }
+        }
+      ],
+      "title": "任务配置",
+      "body": [
+        {
+          "type": "tabs",
+          "id": "u:0e79118fa77e",
+          "tabs": [
+            {
+              "title": "任务配置",
               "body": [
                 {
-                  "type": "collapse",
-                  "key": "1",
-                  "active": true,
-                  "header": "基本信息配置",
-                  "body": [
-                    {
-                      "type": "input-text",
-                      "label": "任务名称",
-                      "name": "name",
-                      "id": "u:8f919146f6e3",
-                      "labelRemark": {
-                        "icon": "fa fa-question-circle",
-                        "trigger": [
-                          "hover"
-                        ],
-                        "className": "Remark--warning",
-                        "placement": "top",
-                        "title": "任务名称需要唯一"
-                      },
-                      "size": "md",
-                      "mode": "inline"
-                    },
-                    {
-                      "type": "input-text",
-                      "label": "任务描述",
-                      "name": "description",
-                      "id": "u:91a6fccfd368",
-                      "size": "sm",
-                      "mode": "inline"
-                    },
-                    {
-                      "type": "uuid",
-                      "name": "id",
-                      "id": "u:e85c2172428a",
-                      "mode": "inline",
-                      "label": "任务ID",
-                      "visible": true,
-                      "required": true,
-                      "validateOnChange": true,
-                      "submitOnChange": false,
-                      "labelRemark": {
-                        "icon": "fa fa-question-circle",
-                        "trigger": [
-                          "hover"
-                        ],
-                        "className": "Remark--warning",
-                        "placement": "top",
-                        "title": "UUID"
-                      }
-                    }
+                  "type": "collapse-group",
+                  "activeKey": [
+                    "1"
                   ],
-                  "id": "u:58200a6ac236",
-                  "collapseHeader": "",
-                  "showArrow": true,
-                  "collapsable": true,
-                  "headerPosition": "top"
-                },
-                {
-                  "type": "collapse",
-                  "key": "2",
-                  "header": "范围频率",
                   "body": [
                     {
-                      "type": "tpl",
-                      "tpl": "执行范围",
-                      "inline": true,
-                      "wrapperComponent": "",
-                      "id": "u:389d1e8182b3",
-                      "maxLine": 1,
-                      "themeCss": {
-                        "baseControlClassName": {
-                          "font:default": {
-                            "fontSize": "var(--fonts-size-6)",
-                            "color": "var(--colors-neutral-text-6)"
-                          }
-                        }
-                      },
-                      "hidden": false
-                    },
-                    {
-                      "type": "input-datetime-range",
-                      "label": "",
-                      "name": "range_frequency.start_timestamp",
-                      "id": "u:4bfd0c3f4904",
-                      "displayFormat": "YYYY-MM-DD HH:mm:ss",
-                      "placeholder": "请选择日期时间范围",
-                      "valueFormat": "x",
-                      "minDate": "${DATE()}",
-                      "maxDate": "",
-                      "value": "",
-                      "shortcuts": [],
-                      "mode": "inline",
-                      "embed": false,
-                      "extraName": "range_frequency.end_timestamp"
-                    },
-                    {
-                      "type": "tpl",
-                      "tpl": "数据分布模型",
-                      "inline": true,
-                      "wrapperComponent": "",
-                      "id": "u:284e2ff26bd1",
-                      "maxLine": 1,
-                      "themeCss": {
-                        "baseControlClassName": {
-                          "font:default": {
-                            "fontSize": "var(--fonts-size-6)",
-                            "color": "var(--colors-neutral-text-6)"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "type": "select",
-                      "label": "",
-                      "name": "range_frequency.data_distribution",
-                      "options": [
-                        {
-                          "label": "随机",
-                          "value": "RANDOM"
-                        },
-                        {
-                          "label": "线性",
-                          "value": "LINEAR"
-                        },
-                        {
-                          "label": "周期",
-                          "value": "LINEAR"
-                        },
-                        {
-                          "label": "全力输出",
-                          "value": "ALL_OUT_DATA"
-                        }
-                      ],
-                      "id": "u:cb34e1b54391",
-                      "multiple": false,
-                      "value": "RANDOM",
-                      "selectFirst": true,
-                      "mode": "inline",
-                      "size": "xs",
-                      "required": true
-                    },
-                    {
-                      "type": "input-number",
-                      "label": "最大值/秒",
-                      "name": "range_frequency.data_distribution_config.max_data_num",
-                      "keyboard": true,
-                      "id": "u:b6f99de0a446",
-                      "step": 1,
-                      "value": 1,
-                      "min": 1,
-                      "mode": "inline",
-                      "size": "xs"
-                    },
-                    {
-                      "type": "input-number",
-                      "label": "最小值/秒",
-                      "name": "range_frequency.data_distribution_config.min_data_num",
-                      "keyboard": true,
-                      "id": "u:cc7cca9289e7",
-                      "step": 1,
-                      "value": 1,
-                      "min": 1,
-                      "mode": "inline",
-                      "size": "xs"
-                    },
-                    {
-                      "type": "input-number",
-                      "label": "抖动",
-                      "name": "range_frequency.data_distribution_config.shake",
-                      "keyboard": true,
-                      "id": "u:469a5b96b84f",
-                      "step": 0.01,
-                      "value": 0.1,
-                      "min": 0,
-                      "mode": "inline",
-                      "size": "xs",
-                      "kilobitSeparator": true,
-                      "max": 1,
-                      "precision": 2
-                    },
-                    {
-                      "type": "tpl",
-                      "tpl": "数据异常点",
-                      "inline": true,
-                      "wrapperComponent": "",
-                      "id": "u:be376ebd5262",
-                      "maxLine": 1,
-                      "themeCss": {
-                        "baseControlClassName": {
-                          "font:default": {
-                            "fontSize": "var(--fonts-size-6)",
-                            "color": "var(--colors-neutral-text-6)"
-                          }
-                        }
-                      }
-                    },
-                    {
-                      "type": "combo",
-                      "label": "",
-                      "name": "range_frequency.data_anomaly",
-                      "multiple": true,
-                      "addable": true,
-                      "removable": true,
-                      "removableMode": "icon",
-                      "addBtn": {
-                        "label": "新增",
-                        "icon": "fa fa-plus",
-                        "level": "primary",
-                        "size": "sm",
-                        "id": "u:ae15179a933b"
-                      },
-                      "items": [
-                        {
-                          "type": "input-number",
-                          "id": "u:97fe2c71057e",
-                          "label": "数据概率",
-                          "name": "ratio",
-                          "keyboard": true,
-                          "step": 0.01,
-                          "value": 0,
-                          "min": 0,
-                          "max": 1,
-                          "precision": 2,
-                          "mode": "inline",
-                          "size": "xs"
-                        },
-                        {
-                          "type": "input-number",
-                          "label": "数据倍率",
-                          "name": "magnification",
-                          "keyboard": true,
-                          "id": "u:5494a438f41a",
-                          "step": 1,
-                          "value": 3,
-                          "min": 0,
-                          "max": "",
-                          "mode": "inline",
-                          "size": "xs"
-                        }
-                      ],
-                      "id": "u:195f8f77ff0c",
-                      "strictMode": true,
-                      "syncFields": [],
-                      "value": ""
-                    }
-                  ],
-                  "id": "u:9ad7625711c8"
-                },
-                {
-                  "type": "collapse",
-                  "header": "配置字段",
-                  "body": [
-                    {
-                      "type": "combo",
-                      "label": "",
-                      "name": "fields",
-                      "multiple": true,
-                      "addable": true,
-                      "removable": true,
-                      "removableMode": "icon",
-                      "addBtn": {
-                        "label": "新增",
-                        "icon": "fa fa-plus",
-                        "level": "primary",
-                        "size": "sm",
-                        "id": "u:5c48cf851b25"
-                      },
-                      "items": [
+                      "type": "collapse",
+                      "key": "1",
+                      "active": true,
+                      "header": "基本信息配置",
+                      "body": [
                         {
                           "type": "input-text",
+                          "label": "任务名称",
                           "name": "name",
-                          "placeholder": "文本",
-                          "id": "u:7764af87e287",
-                          "label": "字段名称"
-                        },
-                        {
-                          "type": "select",
-                          "id": "u:e18bec5238cd",
-                          "name": "data_type",
-                          "placeholder": "选项",
-                          "multiple": false,
-                          "label": "字段类型",
-                          "source": {
-                            "url": "/data-type-list",
-                            "method": "get",
-                            "requestAdaptor": "",
-                            "adaptor": "",
-                            "messages": {},
-                            "silent": false,
-                            "cache": 86400000
-                          },
-                          "labelField": "name",
-                          "valueField": "type",
-                          "searchable": true,
-                          "clearable": true,
-                          "selectFirst": true,
-                          "static": false,
-                          "disabled": false,
-                          "onEvent": {},
-                          "description": "",
-                          "remark": {
+                          "id": "u:8f919146f6e3",
+                          "labelRemark": {
                             "icon": "fa fa-question-circle",
                             "trigger": [
                               "hover"
                             ],
                             "className": "Remark--warning",
                             "placement": "top",
-                            "title": "说明文档查看类型说明"
+                            "title": "任务名称需要唯一"
+                          },
+                          "size": "md",
+                          "mode": "inline"
+                        },
+                        {
+                          "type": "input-text",
+                          "label": "任务描述",
+                          "name": "description",
+                          "id": "u:91a6fccfd368",
+                          "size": "sm",
+                          "mode": "inline"
+                        },
+                        {
+                          "type": "uuid",
+                          "name": "id",
+                          "id": "u:e85c2172428a",
+                          "mode": "inline",
+                          "label": "任务ID",
+                          "visible": true,
+                          "required": true,
+                          "validateOnChange": true,
+                          "submitOnChange": false,
+                          "labelRemark": {
+                            "icon": "fa fa-question-circle",
+                            "trigger": [
+                              "hover"
+                            ],
+                            "className": "Remark--warning",
+                            "placement": "top",
+                            "title": "UUID"
                           }
                         }
                       ],
-                      "id": "u:b3460704c38b",
-                      "strictMode": true,
-                      "syncFields": [],
-                      "tabsMode": false
-                    }
-                  ],
-                  "id": "u:641b08514c91",
-                  "key": "3"
-                },
-                {
-                  "type": "collapse",
-                  "header": "输出配置",
-                  "body": [
+                      "id": "u:58200a6ac236",
+                      "collapseHeader": "",
+                      "showArrow": true,
+                      "collapsable": true,
+                      "headerPosition": "top"
+                    },
                     {
-                      "type": "select",
-                      "label": "输出类型",
-                      "name": "output.output_type",
-                      "options": [
+                      "type": "collapse",
+                      "key": "2",
+                      "header": "范围频率",
+                      "body": [
                         {
-                          "label": "KAFKA",
-                          "value": "kafka"
+                          "type": "tpl",
+                          "tpl": "执行范围",
+                          "inline": true,
+                          "wrapperComponent": "",
+                          "id": "u:389d1e8182b3",
+                          "maxLine": 1,
+                          "themeCss": {
+                            "baseControlClassName": {
+                              "font:default": {
+                                "fontSize": "var(--fonts-size-6)",
+                                "color": "var(--colors-neutral-text-6)"
+                              }
+                            }
+                          },
+                          "hidden": false
                         },
                         {
-                          "label": "FILE",
-                          "value": "file"
+                          "type": "input-datetime-range",
+                          "label": "",
+                          "name": "range_frequency.start_timestamp",
+                          "id": "u:4bfd0c3f4904",
+                          "displayFormat": "YYYY-MM-DD HH:mm:ss",
+                          "placeholder": "请选择日期时间范围",
+                          "valueFormat": "x",
+                          "minDate": "${DATE()}",
+                          "maxDate": "",
+                          "value": "",
+                          "shortcuts": [],
+                          "mode": "inline",
+                          "embed": false,
+                          "extraName": "range_frequency.end_timestamp"
+                        },
+                        {
+                          "type": "tpl",
+                          "tpl": "数据分布模型",
+                          "inline": true,
+                          "wrapperComponent": "",
+                          "id": "u:284e2ff26bd1",
+                          "maxLine": 1,
+                          "themeCss": {
+                            "baseControlClassName": {
+                              "font:default": {
+                                "fontSize": "var(--fonts-size-6)",
+                                "color": "var(--colors-neutral-text-6)"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "select",
+                          "label": "",
+                          "name": "range_frequency.data_distribution",
+                          "options": [
+                            {
+                              "label": "随机",
+                              "value": "RANDOM"
+                            },
+                            {
+                              "label": "线性",
+                              "value": "LINEAR"
+                            },
+                            {
+                              "label": "周期",
+                              "value": "LINEAR"
+                            },
+                            {
+                              "label": "全力输出",
+                              "value": "ALL_OUT_DATA"
+                            }
+                          ],
+                          "id": "u:cb34e1b54391",
+                          "multiple": false,
+                          "value": "RANDOM",
+                          "selectFirst": true,
+                          "mode": "inline",
+                          "size": "xs",
+                          "required": true
+                        },
+                        {
+                          "type": "input-number",
+                          "label": "最大值/秒",
+                          "name": "range_frequency.data_distribution_config.max_data_num",
+                          "keyboard": true,
+                          "id": "u:b6f99de0a446",
+                          "step": 1,
+                          "value": 1,
+                          "min": 1,
+                          "mode": "inline",
+                          "size": "xs"
+                        },
+                        {
+                          "type": "input-number",
+                          "label": "最小值/秒",
+                          "name": "range_frequency.data_distribution_config.min_data_num",
+                          "keyboard": true,
+                          "id": "u:cc7cca9289e7",
+                          "step": 1,
+                          "value": 1,
+                          "min": 1,
+                          "mode": "inline",
+                          "size": "xs"
+                        },
+                        {
+                          "type": "input-number",
+                          "label": "抖动",
+                          "name": "range_frequency.data_distribution_config.shake",
+                          "keyboard": true,
+                          "id": "u:469a5b96b84f",
+                          "step": 0.01,
+                          "value": 0.1,
+                          "min": 0,
+                          "mode": "inline",
+                          "size": "xs",
+                          "kilobitSeparator": true,
+                          "max": 1,
+                          "precision": 2
+                        },
+                        {
+                          "type": "tpl",
+                          "tpl": "数据异常点",
+                          "inline": true,
+                          "wrapperComponent": "",
+                          "id": "u:be376ebd5262",
+                          "maxLine": 1,
+                          "themeCss": {
+                            "baseControlClassName": {
+                              "font:default": {
+                                "fontSize": "var(--fonts-size-6)",
+                                "color": "var(--colors-neutral-text-6)"
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "type": "combo",
+                          "label": "",
+                          "name": "range_frequency.data_anomaly",
+                          "multiple": true,
+                          "addable": true,
+                          "removable": true,
+                          "removableMode": "icon",
+                          "addBtn": {
+                            "label": "新增",
+                            "icon": "fa fa-plus",
+                            "level": "primary",
+                            "size": "sm",
+                            "id": "u:ae15179a933b"
+                          },
+                          "items": [
+                            {
+                              "type": "input-number",
+                              "id": "u:97fe2c71057e",
+                              "label": "数据概率",
+                              "name": "ratio",
+                              "keyboard": true,
+                              "step": 0.01,
+                              "value": 0,
+                              "min": 0,
+                              "max": 1,
+                              "precision": 2,
+                              "mode": "inline",
+                              "size": "xs"
+                            },
+                            {
+                              "type": "input-number",
+                              "label": "数据倍率",
+                              "name": "magnification",
+                              "keyboard": true,
+                              "id": "u:5494a438f41a",
+                              "step": 1,
+                              "value": 3,
+                              "min": 0,
+                              "max": "",
+                              "mode": "inline",
+                              "size": "xs"
+                            }
+                          ],
+                          "id": "u:195f8f77ff0c",
+                          "strictMode": true,
+                          "syncFields": [],
+                          "value": ""
                         }
                       ],
-                      "id": "u:f69c79fdbd15",
-                      "multiple": false,
-                      "value": "kafka",
-                      "selectFirst": true,
-                      "mode": "inline",
-                      "size": "sm",
+                      "id": "u:9ad7625711c8"
+                    },
+                    {
+                      "type": "collapse",
+                      "header": "配置字段",
+                      "body": [
+                        {
+                          "type": "combo",
+                          "label": "",
+                          "name": "fields",
+                          "multiple": true,
+                          "addable": true,
+                          "removable": true,
+                          "removableMode": "icon",
+                          "addBtn": {
+                            "label": "新增",
+                            "icon": "fa fa-plus",
+                            "level": "primary",
+                            "size": "sm",
+                            "id": "u:5c48cf851b25"
+                          },
+                          "items": [
+                            {
+                              "type": "input-text",
+                              "name": "name",
+                              "placeholder": "文本",
+                              "id": "u:7764af87e287",
+                              "label": "字段名称"
+                            },
+                            {
+                              "type": "select",
+                              "id": "u:e18bec5238cd",
+                              "name": "data_type",
+                              "placeholder": "选项",
+                              "multiple": false,
+                              "label": "字段类型",
+                              "source": {
+                                "url": "/data-type-list",
+                                "method": "get",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {},
+                                "silent": false,
+                                "cache": 86400000
+                              },
+                              "labelField": "name",
+                              "valueField": "type",
+                              "searchable": true,
+                              "clearable": true,
+                              "selectFirst": true,
+                              "static": false,
+                              "disabled": false,
+                              "onEvent": {},
+                              "description": "",
+                              "remark": {
+                                "icon": "fa fa-question-circle",
+                                "trigger": [
+                                  "hover"
+                                ],
+                                "className": "Remark--warning",
+                                "placement": "top",
+                                "title": "说明文档查看类型说明"
+                              }
+                            }
+                          ],
+                          "id": "u:b3460704c38b",
+                          "strictMode": true,
+                          "syncFields": [],
+                          "tabsMode": false
+                        }
+                      ],
+                      "id": "u:641b08514c91",
+                      "key": "3"
+                    },
+                    {
+                      "type": "collapse",
+                      "header": "输出配置",
+                      "body": [
+                        {
+                          "type": "select",
+                          "label": "输出类型",
+                          "name": "output.output_type",
+                          "options": [
+                            {
+                              "label": "KAFKA",
+                              "value": "kafka"
+                            },
+                            {
+                              "label": "FILE",
+                              "value": "file"
+                            }
+                          ],
+                          "id": "u:f69c79fdbd15",
+                          "multiple": false,
+                          "value": "kafka",
+                          "selectFirst": true,
+                          "mode": "inline",
+                          "size": "sm",
+                          "onEvent": {
+                            "change": {
+                              "weight": 0,
+                              "actions": [
+                                {
+                                  "componentId": "u:c39a06a1ca76",
+                                  "ignoreError": false,
+                                  "actionType": "show"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        {
+                          "type": "container",
+                          "body": [
+                            {
+                              "type": "input-text",
+                              "label": "Kafka地址",
+                              "name": "output.kafka_output.kafka_address",
+                              "id": "u:195881b8d4bf",
+                              "mode": "inline",
+                              "size": "sm",
+                              "placeholder": "127.0.0.1:9092"
+                            },
+                            {
+                              "type": "input-text",
+                              "label": "Topic",
+                              "name": "output.kafka_output.kafka_topic",
+                              "id": "u:cf3f3bda23ef",
+                              "placeholder": "test_topic",
+                              "mode": "inline",
+                              "size": "sm"
+                            },
+                            {
+                              "draggable": true,
+                              "type": "input-kv",
+                              "label": "kafka其他配置",
+                              "name": "output.kafka_output.extra_config",
+                              "id": "u:b811958555d4",
+                              "multiple": true,
+                              "items": [
+                                {
+                                  "placeholder": "Key",
+                                  "type": "input-text",
+                                  "unique": true,
+                                  "name": "key",
+                                  "required": true,
+                                  "validateOnChange": true
+                                },
+                                {
+                                  "placeholder": "Value",
+                                  "type": "input-text",
+                                  "name": "value"
+                                }
+                              ],
+                              "placeholder": "可配置认证等信息",
+                              "mode": "inline",
+                              "size": "lg",
+                              "valueType": "input-text"
+                            }
+                          ],
+                          "style": {
+                            "position": "static",
+                            "display": "block"
+                          },
+                          "size": "none",
+                          "wrapperBody": false,
+                          "id": "u:c39a06a1ca76",
+                          "isFixedHeight": false,
+                          "isFixedWidth": false,
+                          "hidden": false
+                        }
+                      ],
+                      "id": "u:c9e60ec808f1",
+                      "key": "4"
+                    }
+                  ],
+                  "id": "u:55390ec1255d",
+                  "expandIcon": {
+                    "type": "icon",
+                    "vendor": "",
+                    "icon": ""
+                  },
+                  "accordion": true,
+                  "expandIconPosition": "left"
+                },
+                {
+                  "type": "button-group",
+                  "buttons": [
+                    {
+                      "type": "button",
+                      "label": "提交",
                       "onEvent": {
-                        "change": {
-                          "weight": 0,
+                        "click": {
                           "actions": [
                             {
-                              "componentId": "u:c39a06a1ca76",
-                              "ignoreError": false,
-                              "actionType": "show"
+                              "ignoreError": true,
+                              "outputVar": "responseResult",
+                              "actionType": "ajax",
+                              "options": {},
+                              "api": {
+                                "url": "/create-task",
+                                "method": "post",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {
+                                  "success": "数据已经保存，请稍后启动",
+                                  "failed": "请求错误，请重试"
+                                },
+                                "dataType": "json",
+                                "data": {
+                                  "&": "$$"
+                                }
+                              }
                             }
                           ]
+                        }
+                      },
+                      "id": "u:79e4ef5b5999",
+                      "confirmText": "确定保存？",
+                      "size": "lg",
+                      "block": false,
+                      "themeCss": {
+                        "className": {
+                          "border:default": {},
+                          "background:default": "var(--colors-success-5)",
+                          "padding-and-margin:default": {}
                         }
                       }
                     },
                     {
-                      "type": "container",
-                      "body": [
-                        {
-                          "type": "input-text",
-                          "label": "Kafka地址",
-                          "name": "output.kafka_output.kafka_address",
-                          "id": "u:195881b8d4bf",
-                          "mode": "inline",
-                          "size": "sm",
-                          "placeholder": "127.0.0.1:9092"
-                        },
-                        {
-                          "type": "input-text",
-                          "label": "Topic",
-                          "name": "output.kafka_output.kafka_topic",
-                          "id": "u:cf3f3bda23ef",
-                          "placeholder": "test_topic",
-                          "mode": "inline",
-                          "size": "sm"
-                        },
-                        {
-                          "draggable": true,
-                          "type": "input-kv",
-                          "label": "kafka其他配置",
-                          "name": "output.kafka_output.extra_config",
-                          "id": "u:b811958555d4",
-                          "multiple": true,
-                          "items": [
+                      "type": "button",
+                      "label": "重置",
+                      "onEvent": {
+                        "click": {
+                          "actions": [
                             {
-                              "placeholder": "Key",
-                              "type": "input-text",
-                              "unique": true,
-                              "name": "key",
-                              "required": true,
-                              "validateOnChange": true
-                            },
-                            {
-                              "placeholder": "Value",
-                              "type": "input-text",
-                              "name": "value"
+                              "componentId": "u:55390ec1255d",
+                              "ignoreError": false,
+                              "actionType": "reset"
                             }
-                          ],
-                          "placeholder": "可配置认证等信息",
-                          "mode": "inline",
-                          "size": "lg",
-                          "valueType": "input-text"
+                          ]
                         }
-                      ],
-                      "style": {
-                        "position": "static",
-                        "display": "block"
                       },
-                      "size": "none",
-                      "wrapperBody": false,
-                      "id": "u:c39a06a1ca76",
-                      "isFixedHeight": false,
-                      "isFixedWidth": false,
-                      "hidden": false
+                      "id": "u:8af64b1dc43e",
+                      "confirmText": "重置后所有配置清空，确认重置？？",
+                      "size": "lg",
+                      "block": false,
+                      "themeCss": {
+                        "className": {
+                          "border:default": {
+                            "top-border-style": "var(--borders-style-2)",
+                            "left-border-style": "var(--borders-style-2)",
+                            "right-border-style": "var(--borders-style-2)",
+                            "bottom-border-style": "var(--borders-style-2)"
+                          },
+                          "background:default": "var(--colors-error-5)"
+                        }
+                      }
                     }
                   ],
-                  "id": "u:c9e60ec808f1",
-                  "key": "4"
+                  "id": "u:4ddd24e82615",
+                  "tiled": false,
+                  "size": "lg",
+                  "btnLevel": "info",
+                  "vertical": false
                 }
               ],
-              "id": "u:55390ec1255d",
-              "expandIcon": {
-                "type": "icon",
-                "vendor": "",
-                "icon": ""
-              },
-              "accordion": true,
-              "expandIconPosition": "left"
+              "id": "u:e4fc540dd185",
+              "icon": "fa fa-slideshare",
+              "mountOnEnter": true,
+              "hash": "create-task"
             },
             {
-              "type": "button-group",
-              "buttons": [
+              "title": "任务列表",
+              "body": [
                 {
-                  "type": "button",
-                  "label": "提交",
-                  "onEvent": {
-                    "click": {
-                      "actions": [
-                        {
-                          "ignoreError": true,
-                          "outputVar": "responseResult",
-                          "actionType": "ajax",
-                          "options": {},
-                          "api": {
-                            "url": "/create-task",
-                            "method": "post",
-                            "requestAdaptor": "",
-                            "adaptor": "",
-                            "messages": {
-                              "success": "数据已经保存，请稍后启动",
-                              "failed": "请求错误，请重试"
-                            },
-                            "dataType": "json",
-                            "data": {
-                              "&": "$$"
-                            }
-                          }
-                        }
-                      ]
-                    }
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "get",
+                    "url": "/task-list",
+                    "messages": {},
+                    "requestAdaptor": "",
+                    "adaptor": ""
                   },
-                  "id": "u:79e4ef5b5999",
-                  "confirmText": "确定保存？",
-                  "size": "lg",
-                  "block": false,
-                  "themeCss": {
-                    "className": {
-                      "border:default": {},
-                      "background:default": "var(--colors-success-5)",
-                      "padding-and-margin:default": {}
-                    }
-                  }
-                },
-                {
-                  "type": "button",
-                  "label": "重置",
-                  "onEvent": {
-                    "click": {
-                      "actions": [
-                        {
-                          "componentId": "u:55390ec1255d",
-                          "ignoreError": false,
-                          "actionType": "reset"
+                  "bulkActions": [
+                    {
+                      "type": "button",
+                      "level": "danger",
+                      "label": "批量删除",
+                      "actionType": "ajax",
+                      "confirmText": "确定要删除？",
+                      "api": {
+                        "method": "post",
+                        "url": "/batch-delete",
+                        "dataType": "json",
+                        "data": {
+                          "tasks_id": "${id}"
                         }
-                      ]
-                    }
-                  },
-                  "id": "u:8af64b1dc43e",
-                  "confirmText": "重置后所有配置清空，确认重置？？",
-                  "size": "lg",
-                  "block": false,
-                  "themeCss": {
-                    "className": {
-                      "border:default": {
-                        "top-border-style": "var(--borders-style-2)",
-                        "left-border-style": "var(--borders-style-2)",
-                        "right-border-style": "var(--borders-style-2)",
-                        "bottom-border-style": "var(--borders-style-2)"
                       },
-                      "background:default": "var(--colors-error-5)"
+                      "editorSetting": {
+                        "behavior": "bulkDelete"
+                      },
+                      "id": "u:95c173c38da2",
+                      "onEvent": {
+                        "click": {
+                          "weight": 0,
+                          "actions": [
+                            {
+                              "ignoreError": false,
+                              "outputVar": "responseResult",
+                              "actionType": "ajax",
+                              "options": {},
+                              "api": {
+                                "url": "/task-list",
+                                "method": "get",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {},
+                                "cache": 86400000,
+                                "dataType": "json"
+                              }
+                            },
+                            {
+                              "componentId": "u:a40e379717eb",
+                              "groupType": "component",
+                              "actionType": "reload"
+                            }
+                          ]
+                        }
+                      }
                     }
-                  }
-                }
-              ],
-              "id": "u:4ddd24e82615",
-              "tiled": false,
-              "size": "lg",
-              "btnLevel": "info",
-              "vertical": false
-            }
-          ],
-          "id": "u:e4fc540dd185",
-          "icon": "fa fa-slideshare",
-          "mountOnEnter": true,
-          "hash": "create-task"
-        },
-        {
-          "title": "任务列表",
-          "body": [
-            {
-              "type": "crud",
-              "syncLocation": false,
-              "api": {
-                "method": "get",
-                "url": "/task-list",
-                "messages": {},
-                "requestAdaptor": "",
-                "adaptor": ""
-              },
-              "bulkActions": [
-                {
-                  "type": "button",
-                  "level": "danger",
-                  "label": "批量删除",
-                  "actionType": "ajax",
-                  "confirmText": "确定要删除？",
-                  "api": "/xxx/batch-delete",
-                  "editorSetting": {
-                    "behavior": "bulkDelete"
-                  },
-                  "id": "u:95c173c38da2"
-                }
-              ],
-              "itemActions": [],
-              "headerToolbar": [
-                {
-                  "label": "新增",
-                  "type": "button",
-                  "actionType": "dialog",
-                  "level": "primary",
-                  "editorSetting": {
-                    "behavior": "create"
-                  },
-                  "dialog": {
-                    "title": "新增",
-                    "body": [
-                      {
+                  ],
+                  "itemActions": [],
+                  "headerToolbar": [
+                    {
+                      "label": "新增",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "primary",
+                      "editorSetting": {
+                        "behavior": "create"
+                      },
+                      "dialog": {
+                        "title": "新增",
                         "body": [
                           {
-                            "type": "collapse",
                             "body": [
                               {
-                                "type": "input-text",
-                                "id": "u:8f919146f6e3",
-                                "label": "任务名称",
-                                "name": "name",
-                                "labelRemark": {
-                                  "icon": "fa fa-question-circle",
-                                  "trigger": [
-                                    "hover"
-                                  ],
-                                  "className": "Remark--warning",
-                                  "placement": "top",
-                                  "title": "任务名称需要唯一"
-                                },
-                                "size": "md",
-                                "mode": "inline"
-                              },
-                              {
-                                "type": "input-text",
-                                "id": "u:91a6fccfd368",
-                                "label": "任务描述",
-                                "name": "description",
-                                "size": "sm",
-                                "mode": "inline"
-                              },
-                              {
-                                "type": "uuid",
-                                "id": "u:e85c2172428a",
-                                "name": "id",
-                                "mode": "inline",
-                                "label": "任务ID",
-                                "visible": true,
-                                "required": true,
-                                "validateOnChange": true,
-                                "submitOnChange": false,
-                                "labelRemark": {
-                                  "icon": "fa fa-question-circle",
-                                  "trigger": [
-                                    "hover"
-                                  ],
-                                  "className": "Remark--warning",
-                                  "placement": "top",
-                                  "title": "UUID"
-                                }
-                              }
-                            ],
-                            "id": "u:58200a6ac236",
-                            "key": "1",
-                            "active": true,
-                            "header": "基本信息配置",
-                            "collapseHeader": "",
-                            "showArrow": true,
-                            "collapsable": true,
-                            "headerPosition": "top"
-                          },
-                          {
-                            "type": "collapse",
-                            "key": "2",
-                            "header": "范围频率",
-                            "body": [
-                              {
-                                "type": "tpl",
-                                "tpl": "执行范围",
-                                "inline": true,
-                                "wrapperComponent": "",
-                                "id": "u:389d1e8182b3",
-                                "maxLine": 1,
-                                "themeCss": {
-                                  "baseControlClassName": {
-                                    "font:default": {
-                                      "fontSize": "var(--fonts-size-6)",
-                                      "color": "var(--colors-neutral-text-6)"
-                                    }
-                                  }
-                                },
-                                "hidden": false
-                              },
-                              {
-                                "type": "input-datetime-range",
-                                "label": "",
-                                "name": "range_frequency.start_timestamp",
-                                "id": "u:4bfd0c3f4904",
-                                "displayFormat": "YYYY-MM-DD HH:mm:ss",
-                                "placeholder": "请选择日期时间范围",
-                                "valueFormat": "x",
-                                "minDate": "${DATE()}",
-                                "maxDate": "",
-                                "value": "",
-                                "shortcuts": [],
-                                "mode": "inline",
-                                "embed": false,
-                                "extraName": "range_frequency.end_timestamp"
-                              },
-                              {
-                                "type": "tpl",
-                                "tpl": "数据分布模型",
-                                "inline": true,
-                                "wrapperComponent": "",
-                                "id": "u:284e2ff26bd1",
-                                "maxLine": 1,
-                                "themeCss": {
-                                  "baseControlClassName": {
-                                    "font:default": {
-                                      "fontSize": "var(--fonts-size-6)",
-                                      "color": "var(--colors-neutral-text-6)"
-                                    }
-                                  }
-                                }
-                              },
-                              {
-                                "type": "select",
-                                "label": "",
-                                "name": "range_frequency.data_distribution",
-                                "options": [
-                                  {
-                                    "label": "随机",
-                                    "value": "RANDOM"
-                                  },
-                                  {
-                                    "label": "线性",
-                                    "value": "LINEAR"
-                                  },
-                                  {
-                                    "label": "周期",
-                                    "value": "LINEAR"
-                                  },
-                                  {
-                                    "label": "全力输出",
-                                    "value": "ALL_OUT_DATA"
-                                  }
-                                ],
-                                "id": "u:cb34e1b54391",
-                                "multiple": false,
-                                "value": "RANDOM",
-                                "selectFirst": true,
-                                "mode": "inline",
-                                "size": "xs",
-                                "required": true
-                              },
-                              {
-                                "type": "input-number",
-                                "label": "最大值/秒",
-                                "name": "range_frequency.data_distribution_config.max_data_num",
-                                "keyboard": true,
-                                "id": "u:b6f99de0a446",
-                                "step": 1,
-                                "value": 1,
-                                "min": 1,
-                                "mode": "inline",
-                                "size": "xs"
-                              },
-                              {
-                                "type": "input-number",
-                                "label": "最小值/秒",
-                                "name": "range_frequency.data_distribution_config.min_data_num",
-                                "keyboard": true,
-                                "id": "u:cc7cca9289e7",
-                                "step": 1,
-                                "value": 1,
-                                "min": 1,
-                                "mode": "inline",
-                                "size": "xs"
-                              },
-                              {
-                                "type": "input-number",
-                                "label": "抖动",
-                                "name": "range_frequency.data_distribution_config.shake",
-                                "keyboard": true,
-                                "id": "u:469a5b96b84f",
-                                "step": 0.01,
-                                "value": 0.1,
-                                "min": 0,
-                                "mode": "inline",
-                                "size": "xs",
-                                "max": 1,
-                                "precision": 2,
-                                "kilobitSeparator": true
-                              },
-                              {
-                                "type": "tpl",
-                                "tpl": "数据异常点",
-                                "inline": true,
-                                "wrapperComponent": "",
-                                "id": "u:be376ebd5262",
-                                "maxLine": 1,
-                                "themeCss": {
-                                  "baseControlClassName": {
-                                    "font:default": {
-                                      "fontSize": "var(--fonts-size-6)",
-                                      "color": "var(--colors-neutral-text-6)"
-                                    }
-                                  }
-                                }
-                              },
-                              {
-                                "type": "combo",
-                                "label": "",
-                                "name": "range_frequency.data_anomaly",
-                                "multiple": true,
-                                "addable": true,
-                                "removable": true,
-                                "removableMode": "icon",
-                                "addBtn": {
-                                  "label": "新增",
-                                  "icon": "fa fa-plus",
-                                  "level": "primary",
-                                  "size": "sm",
-                                  "id": "u:ae15179a933b"
-                                },
-                                "items": [
-                                  {
-                                    "type": "input-number",
-                                    "name": "ratio",
-                                    "id": "u:97fe2c71057e",
-                                    "label": "数据概率",
-                                    "keyboard": true,
-                                    "step": 0.01,
-                                    "value": 0,
-                                    "min": 0,
-                                    "max": 1,
-                                    "precision": 2,
-                                    "mode": "inline",
-                                    "size": "xs"
-                                  },
-                                  {
-                                    "type": "input-number",
-                                    "name": "magnification",
-                                    "id": "u:5494a438f41a",
-                                    "label": "数据倍率",
-                                    "keyboard": true,
-                                    "step": 1,
-                                    "value": 3,
-                                    "min": 0,
-                                    "max": "",
-                                    "mode": "inline",
-                                    "size": "xs"
-                                  }
-                                ],
-                                "id": "u:195f8f77ff0c",
-                                "strictMode": true,
-                                "syncFields": [],
-                                "value": ""
-                              }
-                            ],
-                            "id": "u:9ad7625711c8"
-                          },
-                          {
-                            "type": "collapse",
-                            "header": "配置字段",
-                            "body": [
-                              {
-                                "type": "combo",
-                                "label": "",
-                                "name": "fields",
-                                "multiple": true,
-                                "addable": true,
-                                "removable": true,
-                                "removableMode": "icon",
-                                "addBtn": {
-                                  "label": "新增",
-                                  "icon": "fa fa-plus",
-                                  "level": "primary",
-                                  "size": "sm",
-                                  "id": "u:5c48cf851b25"
-                                },
-                                "items": [
+                                "type": "collapse",
+                                "body": [
                                   {
                                     "type": "input-text",
+                                    "id": "u:8f919146f6e3",
+                                    "label": "任务名称",
                                     "name": "name",
-                                    "placeholder": "文本",
-                                    "id": "u:7764af87e287",
-                                    "label": "字段名称"
-                                  },
-                                  {
-                                    "type": "select",
-                                    "name": "data_type",
-                                    "placeholder": "选项",
-                                    "id": "u:e18bec5238cd",
-                                    "multiple": false,
-                                    "label": "字段类型",
-                                    "source": {
-                                      "url": "/data-type-list",
-                                      "method": "get",
-                                      "requestAdaptor": "",
-                                      "adaptor": "",
-                                      "messages": {},
-                                      "silent": false,
-                                      "cache": 86400000
-                                    },
-                                    "labelField": "name",
-                                    "valueField": "type",
-                                    "remark": {
+                                    "labelRemark": {
                                       "icon": "fa fa-question-circle",
                                       "trigger": [
                                         "hover"
                                       ],
                                       "className": "Remark--warning",
                                       "placement": "top",
-                                      "title": "说明文档查看类型说明"
+                                      "title": "任务名称需要唯一"
                                     },
-                                    "searchable": true,
-                                    "clearable": true,
-                                    "selectFirst": true,
-                                    "static": false,
-                                    "disabled": false,
-                                    "onEvent": {},
-                                    "description": ""
-                                  }
-                                ],
-                                "id": "u:b3460704c38b",
-                                "strictMode": true,
-                                "syncFields": [],
-                                "tabsMode": false
-                              }
-                            ],
-                            "id": "u:641b08514c91",
-                            "key": "3"
-                          },
-                          {
-                            "type": "collapse",
-                            "header": "输出配置",
-                            "body": [
-                              {
-                                "type": "select",
-                                "label": "输出类型",
-                                "name": "output.output_type",
-                                "options": [
-                                  {
-                                    "label": "KAFKA",
-                                    "value": "kafka"
+                                    "size": "md",
+                                    "mode": "inline"
                                   },
                                   {
-                                    "label": "FILE",
-                                    "value": "file"
+                                    "type": "input-text",
+                                    "id": "u:91a6fccfd368",
+                                    "label": "任务描述",
+                                    "name": "description",
+                                    "size": "sm",
+                                    "mode": "inline"
+                                  },
+                                  {
+                                    "type": "uuid",
+                                    "id": "u:e85c2172428a",
+                                    "name": "id",
+                                    "mode": "inline",
+                                    "label": "任务ID",
+                                    "visible": true,
+                                    "required": true,
+                                    "validateOnChange": true,
+                                    "submitOnChange": false,
+                                    "labelRemark": {
+                                      "icon": "fa fa-question-circle",
+                                      "trigger": [
+                                        "hover"
+                                      ],
+                                      "className": "Remark--warning",
+                                      "placement": "top",
+                                      "title": "UUID"
+                                    }
                                   }
                                 ],
-                                "id": "u:f69c79fdbd15",
-                                "multiple": false,
-                                "value": "kafka",
-                                "selectFirst": true,
-                                "mode": "inline",
-                                "size": "sm",
-                                "onEvent": {
-                                  "change": {
-                                    "weight": 0,
-                                    "actions": [
-                                      {
-                                        "componentId": "u:c39a06a1ca76",
-                                        "ignoreError": false,
-                                        "actionType": "show"
-                                      }
-                                    ]
-                                  }
-                                }
+                                "id": "u:58200a6ac236",
+                                "key": "1",
+                                "active": true,
+                                "header": "基本信息配置",
+                                "collapseHeader": "",
+                                "showArrow": true,
+                                "collapsable": true,
+                                "headerPosition": "top"
                               },
                               {
-                                "type": "container",
+                                "type": "collapse",
+                                "key": "2",
+                                "header": "范围频率",
                                 "body": [
                                   {
-                                    "type": "input-text",
-                                    "label": "Kafka地址",
-                                    "name": "output.kafka_output.kafka_address",
-                                    "id": "u:195881b8d4bf",
-                                    "mode": "inline",
-                                    "size": "sm",
-                                    "placeholder": "127.0.0.1:9092"
+                                    "type": "tpl",
+                                    "tpl": "执行范围",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "id": "u:389d1e8182b3",
+                                    "maxLine": 1,
+                                    "themeCss": {
+                                      "baseControlClassName": {
+                                        "font:default": {
+                                          "fontSize": "var(--fonts-size-6)",
+                                          "color": "var(--colors-neutral-text-6)"
+                                        }
+                                      }
+                                    },
+                                    "hidden": false
                                   },
                                   {
-                                    "type": "input-text",
-                                    "label": "Topic",
-                                    "name": "output.kafka_output.kafka_topic",
-                                    "id": "u:cf3f3bda23ef",
-                                    "placeholder": "test_topic",
+                                    "type": "input-datetime-range",
+                                    "label": "",
+                                    "name": "range_frequency.start_timestamp",
+                                    "id": "u:4bfd0c3f4904",
+                                    "displayFormat": "YYYY-MM-DD HH:mm:ss",
+                                    "placeholder": "请选择日期时间范围",
+                                    "valueFormat": "x",
+                                    "minDate": "${DATE()}",
+                                    "maxDate": "",
+                                    "value": "",
+                                    "shortcuts": [],
                                     "mode": "inline",
-                                    "size": "sm"
+                                    "embed": false,
+                                    "extraName": "range_frequency.end_timestamp"
                                   },
                                   {
-                                    "draggable": true,
-                                    "type": "input-kv",
-                                    "label": "kafka其他配置",
-                                    "name": "output.kafka_output.extra_config",
-                                    "id": "u:b811958555d4",
-                                    "multiple": true,
-                                    "items": [
+                                    "type": "tpl",
+                                    "tpl": "数据分布模型",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "id": "u:284e2ff26bd1",
+                                    "maxLine": 1,
+                                    "themeCss": {
+                                      "baseControlClassName": {
+                                        "font:default": {
+                                          "fontSize": "var(--fonts-size-6)",
+                                          "color": "var(--colors-neutral-text-6)"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "select",
+                                    "label": "",
+                                    "name": "range_frequency.data_distribution",
+                                    "options": [
                                       {
-                                        "placeholder": "Key",
-                                        "type": "input-text",
-                                        "unique": true,
-                                        "name": "key",
-                                        "required": true,
-                                        "validateOnChange": true
+                                        "label": "随机",
+                                        "value": "RANDOM"
                                       },
                                       {
-                                        "placeholder": "Value",
-                                        "type": "input-text",
-                                        "name": "value"
+                                        "label": "线性",
+                                        "value": "LINEAR"
+                                      },
+                                      {
+                                        "label": "周期",
+                                        "value": "LINEAR"
+                                      },
+                                      {
+                                        "label": "全力输出",
+                                        "value": "ALL_OUT_DATA"
                                       }
                                     ],
-                                    "placeholder": "可配置认证等信息",
+                                    "id": "u:cb34e1b54391",
+                                    "multiple": false,
+                                    "value": "RANDOM",
+                                    "selectFirst": true,
                                     "mode": "inline",
-                                    "size": "lg",
-                                    "valueType": "input-text"
+                                    "size": "xs",
+                                    "required": true
+                                  },
+                                  {
+                                    "type": "input-number",
+                                    "label": "最大值/秒",
+                                    "name": "range_frequency.data_distribution_config.max_data_num",
+                                    "keyboard": true,
+                                    "id": "u:b6f99de0a446",
+                                    "step": 1,
+                                    "value": 1,
+                                    "min": 1,
+                                    "mode": "inline",
+                                    "size": "xs"
+                                  },
+                                  {
+                                    "type": "input-number",
+                                    "label": "最小值/秒",
+                                    "name": "range_frequency.data_distribution_config.min_data_num",
+                                    "keyboard": true,
+                                    "id": "u:cc7cca9289e7",
+                                    "step": 1,
+                                    "value": 1,
+                                    "min": 1,
+                                    "mode": "inline",
+                                    "size": "xs"
+                                  },
+                                  {
+                                    "type": "input-number",
+                                    "label": "抖动",
+                                    "name": "range_frequency.data_distribution_config.shake",
+                                    "keyboard": true,
+                                    "id": "u:469a5b96b84f",
+                                    "step": 0.01,
+                                    "value": 0.1,
+                                    "min": 0,
+                                    "mode": "inline",
+                                    "size": "xs",
+                                    "max": 1,
+                                    "precision": 2,
+                                    "kilobitSeparator": true
+                                  },
+                                  {
+                                    "type": "tpl",
+                                    "tpl": "数据异常点",
+                                    "inline": true,
+                                    "wrapperComponent": "",
+                                    "id": "u:be376ebd5262",
+                                    "maxLine": 1,
+                                    "themeCss": {
+                                      "baseControlClassName": {
+                                        "font:default": {
+                                          "fontSize": "var(--fonts-size-6)",
+                                          "color": "var(--colors-neutral-text-6)"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "combo",
+                                    "label": "",
+                                    "name": "range_frequency.data_anomaly",
+                                    "multiple": true,
+                                    "addable": true,
+                                    "removable": true,
+                                    "removableMode": "icon",
+                                    "addBtn": {
+                                      "label": "新增",
+                                      "icon": "fa fa-plus",
+                                      "level": "primary",
+                                      "size": "sm",
+                                      "id": "u:ae15179a933b"
+                                    },
+                                    "items": [
+                                      {
+                                        "type": "input-number",
+                                        "name": "ratio",
+                                        "id": "u:97fe2c71057e",
+                                        "label": "数据概率",
+                                        "keyboard": true,
+                                        "step": 0.01,
+                                        "value": 0,
+                                        "min": 0,
+                                        "max": 1,
+                                        "precision": 2,
+                                        "mode": "inline",
+                                        "size": "xs"
+                                      },
+                                      {
+                                        "type": "input-number",
+                                        "name": "magnification",
+                                        "id": "u:5494a438f41a",
+                                        "label": "数据倍率",
+                                        "keyboard": true,
+                                        "step": 1,
+                                        "value": 3,
+                                        "min": 0,
+                                        "max": "",
+                                        "mode": "inline",
+                                        "size": "xs"
+                                      }
+                                    ],
+                                    "id": "u:195f8f77ff0c",
+                                    "strictMode": true,
+                                    "syncFields": [],
+                                    "value": ""
                                   }
                                 ],
-                                "style": {
-                                  "position": "static",
-                                  "display": "block"
-                                },
-                                "size": "none",
-                                "wrapperBody": false,
-                                "id": "u:c39a06a1ca76",
-                                "isFixedHeight": false,
-                                "isFixedWidth": false,
-                                "hidden": false
+                                "id": "u:9ad7625711c8"
+                              },
+                              {
+                                "type": "collapse",
+                                "header": "配置字段",
+                                "body": [
+                                  {
+                                    "type": "combo",
+                                    "label": "",
+                                    "name": "fields",
+                                    "multiple": true,
+                                    "addable": true,
+                                    "removable": true,
+                                    "removableMode": "icon",
+                                    "addBtn": {
+                                      "label": "新增",
+                                      "icon": "fa fa-plus",
+                                      "level": "primary",
+                                      "size": "sm",
+                                      "id": "u:5c48cf851b25"
+                                    },
+                                    "items": [
+                                      {
+                                        "type": "input-text",
+                                        "name": "name",
+                                        "placeholder": "文本",
+                                        "id": "u:7764af87e287",
+                                        "label": "字段名称"
+                                      },
+                                      {
+                                        "type": "select",
+                                        "name": "data_type",
+                                        "placeholder": "选项",
+                                        "id": "u:e18bec5238cd",
+                                        "multiple": false,
+                                        "label": "字段类型",
+                                        "source": {
+                                          "url": "/data-type-list",
+                                          "method": "get",
+                                          "requestAdaptor": "",
+                                          "adaptor": "",
+                                          "messages": {},
+                                          "silent": false,
+                                          "cache": 86400000
+                                        },
+                                        "labelField": "name",
+                                        "valueField": "type",
+                                        "remark": {
+                                          "icon": "fa fa-question-circle",
+                                          "trigger": [
+                                            "hover"
+                                          ],
+                                          "className": "Remark--warning",
+                                          "placement": "top",
+                                          "title": "说明文档查看类型说明"
+                                        },
+                                        "searchable": true,
+                                        "clearable": true,
+                                        "selectFirst": true,
+                                        "static": false,
+                                        "disabled": false,
+                                        "onEvent": {},
+                                        "description": ""
+                                      }
+                                    ],
+                                    "id": "u:b3460704c38b",
+                                    "strictMode": true,
+                                    "syncFields": [],
+                                    "tabsMode": false
+                                  }
+                                ],
+                                "id": "u:641b08514c91",
+                                "key": "3"
+                              },
+                              {
+                                "type": "collapse",
+                                "header": "输出配置",
+                                "body": [
+                                  {
+                                    "type": "select",
+                                    "label": "输出类型",
+                                    "name": "output.output_type",
+                                    "options": [
+                                      {
+                                        "label": "KAFKA",
+                                        "value": "kafka"
+                                      },
+                                      {
+                                        "label": "FILE",
+                                        "value": "file"
+                                      }
+                                    ],
+                                    "id": "u:f69c79fdbd15",
+                                    "multiple": false,
+                                    "value": "kafka",
+                                    "selectFirst": true,
+                                    "mode": "inline",
+                                    "size": "sm",
+                                    "onEvent": {
+                                      "change": {
+                                        "weight": 0,
+                                        "actions": [
+                                          {
+                                            "componentId": "u:c39a06a1ca76",
+                                            "ignoreError": false,
+                                            "actionType": "show"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "container",
+                                    "body": [
+                                      {
+                                        "type": "input-text",
+                                        "label": "Kafka地址",
+                                        "name": "output.kafka_output.kafka_address",
+                                        "id": "u:195881b8d4bf",
+                                        "mode": "inline",
+                                        "size": "sm",
+                                        "placeholder": "127.0.0.1:9092"
+                                      },
+                                      {
+                                        "type": "input-text",
+                                        "label": "Topic",
+                                        "name": "output.kafka_output.kafka_topic",
+                                        "id": "u:cf3f3bda23ef",
+                                        "placeholder": "test_topic",
+                                        "mode": "inline",
+                                        "size": "sm"
+                                      },
+                                      {
+                                        "draggable": true,
+                                        "type": "input-kv",
+                                        "label": "kafka其他配置",
+                                        "name": "output.kafka_output.extra_config",
+                                        "id": "u:b811958555d4",
+                                        "multiple": true,
+                                        "items": [
+                                          {
+                                            "placeholder": "Key",
+                                            "type": "input-text",
+                                            "unique": true,
+                                            "name": "key",
+                                            "required": true,
+                                            "validateOnChange": true
+                                          },
+                                          {
+                                            "placeholder": "Value",
+                                            "type": "input-text",
+                                            "name": "value"
+                                          }
+                                        ],
+                                        "placeholder": "可配置认证等信息",
+                                        "mode": "inline",
+                                        "size": "lg",
+                                        "valueType": "input-text"
+                                      }
+                                    ],
+                                    "style": {
+                                      "position": "static",
+                                      "display": "block"
+                                    },
+                                    "size": "none",
+                                    "wrapperBody": false,
+                                    "id": "u:c39a06a1ca76",
+                                    "isFixedHeight": false,
+                                    "isFixedWidth": false,
+                                    "hidden": false
+                                  }
+                                ],
+                                "id": "u:c9e60ec808f1",
+                                "key": "4"
                               }
                             ],
-                            "id": "u:c9e60ec808f1",
-                            "key": "4"
+                            "id": "u:55390ec1255d",
+                            "type": "collapse-group",
+                            "activeKey": [
+                              "1"
+                            ],
+                            "expandIcon": {
+                              "type": "icon",
+                              "vendor": "",
+                              "icon": ""
+                            },
+                            "accordion": true,
+                            "expandIconPosition": "left",
+                            "title": "任务配置",
+                            "icon": "fa fa-slideshare",
+                            "mountOnEnter": true,
+                            "hash": "create-task"
                           }
                         ],
-                        "id": "u:55390ec1255d",
-                        "type": "collapse-group",
-                        "activeKey": [
-                          "1"
+                        "id": "u:736e1d2c1d37",
+                        "actions": [
+                          {
+                            "type": "button",
+                            "actionType": "cancel",
+                            "label": "取消",
+                            "id": "u:09188fddb7f3",
+                            "onEvent": {
+                              "click": {
+                                "weight": 0,
+                                "actions": [
+                                  {
+                                    "ignoreError": false,
+                                    "actionType": "closeDialog"
+                                  }
+                                ]
+                              }
+                            },
+                            "confirmText": "确定取消，不保存？"
+                          },
+                          {
+                            "type": "button",
+                            "actionType": "confirm",
+                            "label": "确定",
+                            "primary": true,
+                            "id": "u:441c0e2874e1",
+                            "onEvent": {
+                              "click": {
+                                "weight": 0,
+                                "actions": [
+                                  {
+                                    "ignoreError": true,
+                                    "outputVar": "responseResult",
+                                    "actionType": "ajax",
+                                    "options": {},
+                                    "api": {
+                                      "url": "/create-task",
+                                      "method": "post",
+                                      "requestAdaptor": "",
+                                      "adaptor": "",
+                                      "messages": {
+                                        "success": "保存成功",
+                                        "failed": "保存失败，请重试！"
+                                      },
+                                      "dataType": "json",
+                                      "data": {
+                                        "&": "$$"
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "confirmText": "确认保存？"
+                          }
                         ],
-                        "expandIcon": {
-                          "type": "icon",
-                          "vendor": "",
-                          "icon": ""
+                        "showCloseButton": true,
+                        "closeOnOutside": true,
+                        "closeOnEsc": true,
+                        "showErrorMsg": true,
+                        "showLoading": true,
+                        "draggable": true,
+                        "withDefaultData": false,
+                        "dataMapSwitch": false,
+                        "size": "md"
+                      },
+                      "id": "u:43048cb676ca",
+                      "align": "right",
+                      "onEvent": {
+                        "click": {
+                          "weight": 0,
+                          "actions": [
+                            {
+                              "componentId": "u:0e79118fa77e",
+                              "groupType": "component",
+                              "actionType": "changeActiveKey",
+                              "args": {
+                                "activeKey": "1"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "bulk-actions",
+                      "align": "left"
+                    },
+                    {
+                      "type": "export-csv",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:6ed756bfd9d1",
+                      "align": "right"
+                    },
+                    {
+                      "type": "statistics",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:9a082aa32124",
+                      "align": "left"
+                    },
+                    {
+                      "type": "button",
+                      "tpl": "内容",
+                      "wrapperComponent": "",
+                      "id": "u:f881968ebed5",
+                      "label": "刷新",
+                      "align": "right",
+                      "onEvent": {
+                        "click": {
+                          "weight": 0,
+                          "actions": [
+                            {
+                              "ignoreError": true,
+                              "outputVar": "responseResult",
+                              "actionType": "ajax",
+                              "options": {},
+                              "api": {
+                                "url": "/task-list",
+                                "method": "get",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {},
+                                "dataType": "json"
+                              }
+                            },
+                            {
+                              "componentId": "u:a40e379717eb",
+                              "groupType": "component",
+                              "actionType": "reload"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "id": "u:a40e379717eb",
+                  "perPageAvailable": [
+                    10
+                  ],
+                  "messages": {},
+                  "keepItemSelectionOnPageChange": false,
+                  "initFetch": true,
+                  "mode": "cards",
+                  "checkOnItemClick": true,
+                  "autoJumpToTopOnPagerChange": true,
+                  "placeholder": "暂无数据",
+                  "editorSetting": {
+                    "displayName": "task-list"
+                  },
+                  "filter": null,
+                  "quickSaveApi": {
+                    "url": "",
+                    "method": "get",
+                    "messages": {},
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "dataType": "json"
+                  },
+                  "quickSaveItemApi": {
+                    "url": "/create-task",
+                    "method": "get",
+                    "messages": {},
+                    "requestAdaptor": "",
+                    "adaptor": "",
+                    "dataType": "json"
+                  },
+                  "footerToolbar": [
+                    {
+                      "type": "pagination"
+                    }
+                  ],
+                  "card": {
+                    "type": "card",
+                    "header": {
+                      "title": "${name}",
+                      "subTitle": "${description}"
+                    },
+                    "body": [
+                      {
+                        "name": "task_status",
+                        "label": "任务状态",
+                        "type": "status",
+                        "id": "u:a499b36195b3",
+                        "placeholder": "-",
+                        "source": {
+                          "not_start": {
+                            "label": "未启动",
+                            "icon": "fa fa-stack-exchange",
+                            "color": "var(--colors-neutral-text-6)"
+                          }
+                        }
+                      },
+                      {
+                        "type": "datetime",
+                        "format": "YYYY-MM-DD HH:mm:ss",
+                        "value": "range_frequency.start_timestamp",
+                        "label": "开始时间",
+                        "id": "u:01b67e9fd2c6",
+                        "name": "range_frequency.start_timestamp",
+                        "valueFormat": "x"
+                      },
+                      {
+                        "type": "datetime",
+                        "format": "YYYY-MM-DD HH:mm:ss",
+                        "value": "range_frequency.end_timestamp",
+                        "label": "结束时间",
+                        "id": "u:a5bd3d4779fa",
+                        "name": "range_frequency.end_timestamp",
+                        "valueFormat": "x"
+                      },
+                      {
+                        "type": "mapping",
+                        "map": {
+                          "LINEAR": "线性(LINEAR)",
+                          "ALL_OUT_DATA": "全力输出(ALL_OUT_DATA)",
+                          "RANDOM_DATA": "随机(RANDOM)",
+                          "PERIODIC": "周期(PERIODIC)"
                         },
-                        "accordion": true,
-                        "expandIconPosition": "left",
-                        "title": "任务配置",
-                        "icon": "fa fa-slideshare",
-                        "mountOnEnter": true,
-                        "hash": "create-task"
+                        "label": "数据分布模型",
+                        "id": "u:d8ab774ad868",
+                        "value": "${range_frequency.data_distribution}"
+                      },
+                      {
+                        "type": "text",
+                        "label": "任务配置路径",
+                        "name": "file_path",
+                        "id": "u:8f7bfe7cb5a1"
+                      },
+                      {
+                        "type": "text",
+                        "label": "任务ID",
+                        "name": "id",
+                        "id": "u:ac20ec8fb369"
+                      },
+                      {
+                        "type": "mapping",
+                        "map": {
+                          "kafka": "KAFKA",
+                          "file": "FILE"
+                        },
+                        "label": "输出类型",
+                        "id": "u:83d30defb74d",
+                        "value": "${output.output_type}"
                       }
                     ],
-                    "id": "u:736e1d2c1d37",
                     "actions": [
                       {
+                        "label": "编辑",
                         "type": "button",
-                        "actionType": "cancel",
-                        "label": "取消",
-                        "id": "u:09188fddb7f3",
+                        "actionType": "dialog",
+                        "level": "link",
+                        "editorSetting": {
+                          "behavior": "update"
+                        },
+                        "dialog": {
+                          "title": "编辑",
+                          "body": [
+                            {
+                              "type": "form",
+                              "api": "xxx/update",
+                              "body": [
+                                {
+                                  "name": "name",
+                                  "label": "任务名称",
+                                  "type": "input-text",
+                                  "id": "u:bc3288266ca9"
+                                },
+                                {
+                                  "name": "task_status",
+                                  "label": "任务状态",
+                                  "type": "select",
+                                  "id": "u:033799678bab"
+                                },
+                                {
+                                  "label": "开始时间",
+                                  "name": "range_frequency.start_timestamp",
+                                  "type": "input-date",
+                                  "id": "u:8e78512f89b8"
+                                },
+                                {
+                                  "label": "结束时间",
+                                  "name": "range_frequency.end_timestamp",
+                                  "type": "input-date",
+                                  "id": "u:cb2853797ca9"
+                                },
+                                {
+                                  "label": "输出类型",
+                                  "name": "output.output_type",
+                                  "type": "input-text",
+                                  "id": "u:edb96902a37c"
+                                },
+                                {
+                                  "label": "数据分布模型",
+                                  "name": "range_frequency.data_distribution",
+                                  "type": "input-text",
+                                  "id": "u:4942eefaefff"
+                                },
+                                {
+                                  "label": "任务描述",
+                                  "name": "description",
+                                  "type": "input-text",
+                                  "id": "u:063aa1d0c791"
+                                },
+                                {
+                                  "label": "任务配置路径",
+                                  "name": "file_path",
+                                  "type": "input-text",
+                                  "id": "u:0027680cb3cc"
+                                },
+                                {
+                                  "label": "任务ID",
+                                  "name": "id",
+                                  "type": "input-text",
+                                  "id": "u:caeb48c53591"
+                                }
+                              ],
+                              "id": "u:798e3f624a12",
+                              "actions": [
+                                {
+                                  "type": "submit",
+                                  "label": "提交",
+                                  "primary": true
+                                }
+                              ],
+                              "feat": "Insert"
+                            }
+                          ],
+                          "id": "u:afc8db32a1fc",
+                          "actions": [
+                            {
+                              "type": "button",
+                              "actionType": "cancel",
+                              "label": "取消",
+                              "id": "u:fcf99e5e3120"
+                            },
+                            {
+                              "type": "button",
+                              "actionType": "confirm",
+                              "label": "确定",
+                              "primary": true,
+                              "id": "u:0660340705e5"
+                            }
+                          ]
+                        },
+                        "id": "u:16017534b011"
+                      },
+                      {
+                        "label": "查看",
+                        "type": "button",
+                        "actionType": "dialog",
+                        "level": "link",
+                        "editorSetting": {
+                          "behavior": "view"
+                        },
+                        "dialog": {
+                          "title": "查看详情",
+                          "body": [
+                            {
+                              "type": "form",
+                              "api": "xxx/update",
+                              "body": [
+                                {
+                                  "name": "name",
+                                  "label": "任务名称",
+                                  "type": "static",
+                                  "id": "u:47dc18d3aa17"
+                                },
+                                {
+                                  "name": "task_status",
+                                  "label": "任务状态",
+                                  "type": "static",
+                                  "id": "u:086967da1d1c"
+                                },
+                                {
+                                  "label": "开始时间",
+                                  "name": "range_frequency.start_timestamp",
+                                  "type": "static",
+                                  "id": "u:d229648533d1"
+                                },
+                                {
+                                  "label": "结束时间",
+                                  "name": "range_frequency.end_timestamp",
+                                  "type": "static",
+                                  "id": "u:ac835eef46c5"
+                                },
+                                {
+                                  "label": "输出类型",
+                                  "name": "output.output_type",
+                                  "type": "static",
+                                  "id": "u:003148b8471b"
+                                },
+                                {
+                                  "label": "数据分布模型",
+                                  "name": "range_frequency.data_distribution",
+                                  "type": "static",
+                                  "id": "u:da403a586840"
+                                },
+                                {
+                                  "label": "任务描述",
+                                  "name": "description",
+                                  "type": "static",
+                                  "id": "u:081144d13891"
+                                },
+                                {
+                                  "label": "任务配置路径",
+                                  "name": "file_path",
+                                  "type": "static",
+                                  "id": "u:92f5b558f0a8"
+                                },
+                                {
+                                  "label": "任务ID",
+                                  "name": "id",
+                                  "type": "static",
+                                  "id": "u:2a594dc8756b"
+                                }
+                              ],
+                              "id": "u:fac0b533ff0f",
+                              "actions": [
+                                {
+                                  "type": "submit",
+                                  "label": "提交",
+                                  "primary": true
+                                }
+                              ],
+                              "feat": "Insert"
+                            }
+                          ],
+                          "id": "u:a43d62cf867b",
+                          "actions": [
+                            {
+                              "type": "button",
+                              "actionType": "cancel",
+                              "label": "取消",
+                              "id": "u:c60096ec56b8"
+                            },
+                            {
+                              "type": "button",
+                              "actionType": "confirm",
+                              "label": "确定",
+                              "primary": true,
+                              "id": "u:7728a0569cd5"
+                            }
+                          ]
+                        },
+                        "id": "u:caa1ba64eaeb",
                         "onEvent": {
                           "click": {
                             "weight": 0,
                             "actions": [
                               {
                                 "ignoreError": false,
-                                "actionType": "closeDialog"
+                                "outputVar": "responseResult",
+                                "actionType": "ajax",
+                                "options": {},
+                                "api": {
+                                  "url": "/task-detail/{id}",
+                                  "method": "get",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {},
+                                  "dataType": "json",
+                                  "silent": false
+                                }
                               }
                             ]
                           }
-                        },
-                        "confirmText": "确定取消，不保存？"
+                        }
                       },
                       {
                         "type": "button",
-                        "actionType": "confirm",
-                        "label": "确定",
-                        "primary": true,
-                        "id": "u:441c0e2874e1",
+                        "label": "删除",
+                        "actionType": "",
+                        "level": "link",
+                        "className": "text-danger",
+                        "confirmText": "确定要删除？",
+                        "api": "",
+                        "editorSetting": {
+                          "behavior": "delete"
+                        },
+                        "id": "u:a324bdcdfa2c",
                         "onEvent": {
                           "click": {
                             "weight": 0,
+                            "actions": [
+                              {
+                                "ignoreError": false,
+                                "outputVar": "responseResult",
+                                "actionType": "ajax",
+                                "options": {},
+                                "api": {
+                                  "url": "/delete-task",
+                                  "method": "post",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {
+                                    "success": "删除成功！",
+                                    "failed": "删除失败，请重试！"
+                                  },
+                                  "dataType": "json",
+                                  "data": {
+                                    "task_id": "${id}"
+                                  }
+                                }
+                              },
+                              {
+                                "ignoreError": true,
+                                "outputVar": "responseResult",
+                                "actionType": "ajax",
+                                "options": {},
+                                "api": {
+                                  "url": "/task-list",
+                                  "method": "get",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {},
+                                  "dataType": "json",
+                                  "replaceData": true
+                                }
+                              },
+                              {
+                                "componentId": "u:a40e379717eb",
+                                "groupType": "component",
+                                "actionType": "reload"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "type": "button",
+                        "label": "启动",
+                        "onEvent": {
+                          "click": {
                             "actions": [
                               {
                                 "ignoreError": true,
@@ -1053,705 +1663,252 @@
                                 "actionType": "ajax",
                                 "options": {},
                                 "api": {
-                                  "url": "/create-task",
+                                  "url": "/enable-task",
                                   "method": "post",
                                   "requestAdaptor": "",
                                   "adaptor": "",
                                   "messages": {
-                                    "success": "保存成功",
-                                    "failed": "保存失败，请重试！"
+                                    "success": "任务启动成功",
+                                    "failed": "任务启动失败，请重试！"
                                   },
                                   "dataType": "json",
                                   "data": {
-                                    "&": "$$"
+                                    "task_id": "${id}"
                                   }
+                                }
+                              },
+                              {
+                                "ignoreError": true,
+                                "outputVar": "responseResult",
+                                "actionType": "ajax",
+                                "options": {},
+                                "api": {
+                                  "url": "/task-list",
+                                  "method": "get",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {},
+                                  "dataType": "json"
                                 }
                               }
                             ]
                           }
                         },
-                        "confirmText": "确认保存？"
+                        "id": "u:256f4daf70d8",
+                        "confirmText": "确定启动该任务？"
+                      },
+                      {
+                        "type": "button",
+                        "label": "停止",
+                        "onEvent": {
+                          "click": {
+                            "actions": [
+                              {
+                                "ignoreError": true,
+                                "outputVar": "responseResult",
+                                "actionType": "ajax",
+                                "options": {},
+                                "api": {
+                                  "url": "/disable-task",
+                                  "method": "post",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {
+                                    "success": "任务停止成功",
+                                    "failed": "任务停止失败，请重试！"
+                                  },
+                                  "dataType": "json",
+                                  "data": {
+                                    "task_id": "${id}"
+                                  }
+                                }
+                              },
+                              {
+                                "ignoreError": true,
+                                "outputVar": "responseResult",
+                                "actionType": "ajax",
+                                "options": {},
+                                "api": {
+                                  "url": "/task-list",
+                                  "method": "get",
+                                  "requestAdaptor": "",
+                                  "adaptor": "",
+                                  "messages": {},
+                                  "dataType": "json"
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "id": "u:07607a3f6eff",
+                        "confirmText": "确定停止该任务？"
                       }
                     ],
-                    "showCloseButton": true,
-                    "closeOnOutside": true,
-                    "closeOnEsc": true,
-                    "showErrorMsg": true,
-                    "showLoading": true,
-                    "draggable": true,
-                    "withDefaultData": false,
-                    "dataMapSwitch": false,
-                    "size": "md"
+                    "id": "u:329af5d0fa61",
+                    "actionsCount": 5
                   },
-                  "id": "u:43048cb676ca",
-                  "align": "right",
-                  "onEvent": {
-                    "click": {
-                      "weight": 0,
-                      "actions": [
-                        {
-                          "componentId": "u:0e79118fa77e",
-                          "groupType": "component",
-                          "actionType": "changeActiveKey",
-                          "args": {
-                            "activeKey": "1"
-                          }
-                        }
+                  "primaryField": "name"
+                }
+              ],
+              "id": "u:81953ec53638",
+              "icon": "fa fa-stack-exchange",
+              "hash": "task-list"
+            },
+            {
+              "title": "任务监控",
+              "body": [
+                {
+                  "type": "chart",
+                  "config": {
+                    "xAxis": {
+                      "type": "category",
+                      "data": [
+                        "Mon",
+                        "Tue",
+                        "Wed",
+                        "Thu",
+                        "Fri",
+                        "Sat",
+                        "Sun"
                       ]
-                    }
-                  }
-                },
+                    },
+                    "yAxis": {
+                      "type": "value"
+                    },
+                    "series": [
+                      {
+                        "data": [
+                          820,
+                          932,
+                          901,
+                          934,
+                          1290,
+                          1330,
+                          1320
+                        ],
+                        "type": "line"
+                      }
+                    ],
+                    "backgroundColor": "transparent"
+                  },
+                  "replaceChartOption": true,
+                  "id": "u:f0a9e5d4ed9b",
+                  "dataFilter": ""
+                }
+              ],
+              "id": "u:52689b1d0225",
+              "icon": "fa fa-stack-overflow",
+              "hash": "chart-line"
+            },
+            {
+              "title": "说明文档",
+              "body": [
                 {
-                  "type": "bulk-actions",
-                  "align": "left"
-                },
-                {
-                  "type": "export-csv",
-                  "tpl": "内容",
-                  "wrapperComponent": "",
-                  "id": "u:6ed756bfd9d1",
-                  "align": "right"
-                },
-                {
-                  "type": "statistics",
-                  "tpl": "内容",
-                  "wrapperComponent": "",
-                  "id": "u:9a082aa32124",
-                  "align": "left"
-                },
-                {
-                  "type": "button",
-                  "tpl": "内容",
-                  "wrapperComponent": "",
-                  "id": "u:f881968ebed5",
-                  "label": "刷新",
-                  "align": "right",
-                  "onEvent": {
-                    "click": {
-                      "weight": 0,
-                      "actions": [
+                  "type": "collapse-group",
+                  "activeKey": [
+                    "1"
+                  ],
+                  "body": [
+                    {
+                      "type": "collapse",
+                      "key": "1",
+                      "active": true,
+                      "header": "支持数据类型说明",
+                      "body": [
                         {
-                          "ignoreError": true,
-                          "outputVar": "responseResult",
-                          "actionType": "ajax",
-                          "options": {},
+                          "type": "crud",
+                          "syncLocation": false,
                           "api": {
-                            "url": "/task-list",
                             "method": "get",
+                            "url": "/data-type-list",
                             "requestAdaptor": "",
                             "adaptor": "",
                             "messages": {},
-                            "dataType": "json"
-                          }
-                        }
-                      ]
-                    }
-                  }
-                }
-              ],
-              "id": "u:a40e379717eb",
-              "perPageAvailable": [
-                10
-              ],
-              "messages": {},
-              "keepItemSelectionOnPageChange": false,
-              "initFetch": true,
-              "mode": "cards",
-              "checkOnItemClick": true,
-              "autoJumpToTopOnPagerChange": true,
-              "placeholder": "暂无数据",
-              "editorSetting": {
-                "displayName": "task-list"
-              },
-              "filter": null,
-              "quickSaveApi": {
-                "url": "",
-                "method": "get",
-                "messages": {},
-                "requestAdaptor": "",
-                "adaptor": "",
-                "dataType": "json"
-              },
-              "quickSaveItemApi": {
-                "url": "/create-task",
-                "method": "get",
-                "messages": {},
-                "requestAdaptor": "",
-                "adaptor": "",
-                "dataType": "json"
-              },
-              "footerToolbar": [
-                {
-                  "type": "pagination"
-                }
-              ],
-              "card": {
-                "type": "card",
-                "header": {
-                  "title": "${name}",
-                  "subTitle": "${description}"
-                },
-                "body": [
-                  {
-                    "name": "task_status",
-                    "label": "任务状态",
-                    "type": "status",
-                    "id": "u:a499b36195b3",
-                    "placeholder": "-"
-                  },
-                  {
-                    "type": "datetime",
-                    "format": "YYYY-MM-DD HH:mm:ss",
-                    "value": "range_frequency.start_timestamp",
-                    "label": "开始时间",
-                    "id": "u:01b67e9fd2c6",
-                    "name": "range_frequency.start_timestamp",
-                    "valueFormat": "x"
-                  },
-                  {
-                    "type": "datetime",
-                    "format": "YYYY-MM-DD HH:mm:ss",
-                    "value": "range_frequency.end_timestamp",
-                    "label": "结束时间",
-                    "id": "u:a5bd3d4779fa",
-                    "name": "range_frequency.end_timestamp",
-                    "valueFormat": "x"
-                  },
-                  {
-                    "type": "mapping",
-                    "map": {
-                      "LINEAR": "线性(LINEAR)",
-                      "ALL_OUT_DATA": "全力输出(ALL_OUT_DATA)",
-                      "RANDOM_DATA": "随机(RANDOM)",
-                      "PERIODIC": "周期(PERIODIC)"
-                    },
-                    "label": "数据分布模型",
-                    "id": "u:d8ab774ad868",
-                    "value": "${range_frequency.data_distribution}"
-                  },
-                  {
-                    "type": "text",
-                    "label": "任务配置路径",
-                    "name": "file_path",
-                    "id": "u:8f7bfe7cb5a1"
-                  },
-                  {
-                    "type": "text",
-                    "label": "任务ID",
-                    "name": "id",
-                    "id": "u:ac20ec8fb369"
-                  },
-                  {
-                    "type": "mapping",
-                    "map": {
-                      "kafka": "KAFKA",
-                      "file": "FILE"
-                    },
-                    "label": "输出类型",
-                    "id": "u:83d30defb74d",
-                    "value": "${output.output_type}"
-                  }
-                ],
-                "actions": [
-                  {
-                    "label": "编辑",
-                    "type": "button",
-                    "actionType": "dialog",
-                    "level": "link",
-                    "editorSetting": {
-                      "behavior": "update"
-                    },
-                    "dialog": {
-                      "title": "编辑",
-                      "body": [
-                        {
-                          "type": "form",
-                          "api": "xxx/update",
-                          "body": [
+                            "dataType": "json",
+                            "cache": 86400000
+                          },
+                          "bulkActions": [],
+                          "itemActions": [],
+                          "id": "u:81c21f31b49d",
+                          "perPageAvailable": [
+                            10
+                          ],
+                          "messages": {},
+                          "filter": null,
+                          "primaryField": "type",
+                          "initFetch": true,
+                          "mode": "table",
+                          "columns": [
                             {
                               "name": "name",
-                              "label": "任务名称",
-                              "type": "input-text",
-                              "id": "u:bc3288266ca9"
+                              "label": "类型名称",
+                              "type": "text",
+                              "id": "u:ac35631bb51b",
+                              "inline": true,
+                              "placeholder": "-",
+                              "popOver": false,
+                              "searchable": true
                             },
                             {
-                              "name": "task_status",
-                              "label": "任务状态",
-                              "type": "select",
-                              "id": "u:033799678bab"
-                            },
-                            {
-                              "label": "开始时间",
-                              "name": "range_frequency.start_timestamp",
-                              "type": "input-date",
-                              "id": "u:8e78512f89b8"
-                            },
-                            {
-                              "label": "结束时间",
-                              "name": "range_frequency.end_timestamp",
-                              "type": "input-date",
-                              "id": "u:cb2853797ca9"
-                            },
-                            {
-                              "label": "输出类型",
-                              "name": "output.output_type",
-                              "type": "input-text",
-                              "id": "u:edb96902a37c"
-                            },
-                            {
-                              "label": "数据分布模型",
-                              "name": "range_frequency.data_distribution",
-                              "type": "input-text",
-                              "id": "u:4942eefaefff"
-                            },
-                            {
-                              "label": "任务描述",
                               "name": "description",
-                              "type": "input-text",
-                              "id": "u:063aa1d0c791"
+                              "label": "描述",
+                              "type": "text",
+                              "id": "u:1b165120329b",
+                              "searchable": true
                             },
                             {
-                              "label": "任务配置路径",
-                              "name": "file_path",
-                              "type": "input-text",
-                              "id": "u:0027680cb3cc"
-                            },
-                            {
-                              "label": "任务ID",
-                              "name": "id",
-                              "type": "input-text",
-                              "id": "u:caeb48c53591"
+                              "type": "text",
+                              "label": "样例",
+                              "name": "sample",
+                              "id": "u:effd8bc4540f",
+                              "searchable": true
                             }
                           ],
-                          "id": "u:798e3f624a12",
-                          "actions": [
-                            {
-                              "type": "submit",
-                              "label": "提交",
-                              "primary": true
-                            }
-                          ],
-                          "feat": "Insert"
+                          "perPage": 20,
+                          "autoJumpToTopOnPagerChange": true,
+                          "loadDataOnce": true,
+                          "matchFunc": "",
+                          "footable": true,
+                          "defaultParams": {}
                         }
                       ],
-                      "id": "u:afc8db32a1fc",
-                      "actions": [
-                        {
-                          "type": "button",
-                          "actionType": "cancel",
-                          "label": "取消",
-                          "id": "u:fcf99e5e3120"
-                        },
-                        {
-                          "type": "button",
-                          "actionType": "confirm",
-                          "label": "确定",
-                          "primary": true,
-                          "id": "u:0660340705e5"
-                        }
-                      ]
+                      "id": "u:2a2aadf34296"
                     },
-                    "id": "u:16017534b011"
-                  },
-                  {
-                    "label": "查看",
-                    "type": "button",
-                    "actionType": "dialog",
-                    "level": "link",
-                    "editorSetting": {
-                      "behavior": "view"
-                    },
-                    "dialog": {
-                      "title": "查看详情",
-                      "body": [
-                        {
-                          "type": "form",
-                          "api": "xxx/update",
-                          "body": [
-                            {
-                              "name": "name",
-                              "label": "任务名称",
-                              "type": "static",
-                              "id": "u:47dc18d3aa17"
-                            },
-                            {
-                              "name": "task_status",
-                              "label": "任务状态",
-                              "type": "static",
-                              "id": "u:086967da1d1c"
-                            },
-                            {
-                              "label": "开始时间",
-                              "name": "range_frequency.start_timestamp",
-                              "type": "static",
-                              "id": "u:d229648533d1"
-                            },
-                            {
-                              "label": "结束时间",
-                              "name": "range_frequency.end_timestamp",
-                              "type": "static",
-                              "id": "u:ac835eef46c5"
-                            },
-                            {
-                              "label": "输出类型",
-                              "name": "output.output_type",
-                              "type": "static",
-                              "id": "u:003148b8471b"
-                            },
-                            {
-                              "label": "数据分布模型",
-                              "name": "range_frequency.data_distribution",
-                              "type": "static",
-                              "id": "u:da403a586840"
-                            },
-                            {
-                              "label": "任务描述",
-                              "name": "description",
-                              "type": "static",
-                              "id": "u:081144d13891"
-                            },
-                            {
-                              "label": "任务配置路径",
-                              "name": "file_path",
-                              "type": "static",
-                              "id": "u:92f5b558f0a8"
-                            },
-                            {
-                              "label": "任务ID",
-                              "name": "id",
-                              "type": "static",
-                              "id": "u:2a594dc8756b"
-                            }
-                          ],
-                          "id": "u:fac0b533ff0f",
-                          "actions": [
-                            {
-                              "type": "submit",
-                              "label": "提交",
-                              "primary": true
-                            }
-                          ],
-                          "feat": "Insert"
-                        }
-                      ],
-                      "id": "u:a43d62cf867b",
-                      "actions": [
-                        {
-                          "type": "button",
-                          "actionType": "cancel",
-                          "label": "取消",
-                          "id": "u:c60096ec56b8"
-                        },
-                        {
-                          "type": "button",
-                          "actionType": "confirm",
-                          "label": "确定",
-                          "primary": true,
-                          "id": "u:7728a0569cd5"
-                        }
-                      ]
-                    },
-                    "id": "u:caa1ba64eaeb"
-                  },
-                  {
-                    "type": "button",
-                    "label": "删除",
-                    "actionType": "",
-                    "level": "link",
-                    "className": "text-danger",
-                    "confirmText": "确定要删除？",
-                    "api": "",
-                    "editorSetting": {
-                      "behavior": "delete"
-                    },
-                    "id": "u:a324bdcdfa2c",
-                    "onEvent": {
-                      "click": {
-                        "weight": 0,
-                        "actions": [
-                          {
-                            "ignoreError": false,
-                            "outputVar": "responseResult",
-                            "actionType": "ajax",
-                            "options": {},
-                            "api": {
-                              "url": "/delete-task",
-                              "method": "post",
-                              "requestAdaptor": "",
-                              "adaptor": "",
-                              "messages": {},
-                              "dataType": "json",
-                              "data": {
-                                "task_name": "${name}"
-                              }
-                            }
-                          },
-                          {
-                            "ignoreError": true,
-                            "outputVar": "responseResult",
-                            "actionType": "ajax",
-                            "options": {},
-                            "api": {
-                              "url": "/task-list",
-                              "method": "get",
-                              "requestAdaptor": "",
-                              "adaptor": "",
-                              "messages": {},
-                              "dataType": "json"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "type": "button",
-                    "label": "启动",
-                    "onEvent": {
-                      "click": {
-                        "actions": [
-                          {
-                            "ignoreError": true,
-                            "outputVar": "responseResult",
-                            "actionType": "ajax",
-                            "options": {},
-                            "api": {
-                              "url": "/enable-task",
-                              "method": "post",
-                              "requestAdaptor": "",
-                              "adaptor": "",
-                              "messages": {
-                                "success": "任务启动成功",
-                                "failed": "任务启动失败，请重试！"
-                              },
-                              "dataType": "json",
-                              "data": {
-                                "&": "$$",
-                                "task_name": "${name}"
-                              }
-                            }
-                          },
-                          {
-                            "ignoreError": true,
-                            "outputVar": "responseResult",
-                            "actionType": "ajax",
-                            "options": {},
-                            "api": {
-                              "url": "/task-list",
-                              "method": "get",
-                              "requestAdaptor": "",
-                              "adaptor": "",
-                              "messages": {},
-                              "dataType": "json"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    "id": "u:256f4daf70d8",
-                    "confirmText": "确定启动该任务？"
-                  },
-                  {
-                    "type": "button",
-                    "label": "停止",
-                    "onEvent": {
-                      "click": {
-                        "actions": [
-                          {
-                            "ignoreError": true,
-                            "outputVar": "responseResult",
-                            "actionType": "ajax",
-                            "options": {},
-                            "api": {
-                              "url": "/disable-task",
-                              "method": "post",
-                              "requestAdaptor": "",
-                              "adaptor": "",
-                              "messages": {
-                                "success": "任务停止成功",
-                                "failed": "任务停止失败，请重试！"
-                              },
-                              "dataType": "json",
-                              "data": {
-                                "&": "$$",
-                                "task_name": "${name}"
-                              }
-                            }
-                          },
-                          {
-                            "ignoreError": true,
-                            "outputVar": "responseResult",
-                            "actionType": "ajax",
-                            "options": {},
-                            "api": {
-                              "url": "/task-list",
-                              "method": "get",
-                              "requestAdaptor": "",
-                              "adaptor": "",
-                              "messages": {},
-                              "dataType": "json"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    "id": "u:07607a3f6eff",
-                    "confirmText": "确定停止该任务？"
-                  }
-                ],
-                "id": "u:329af5d0fa61",
-                "actionsCount": 5
-              },
-              "primaryField": "name"
-            }
-          ],
-          "id": "u:81953ec53638",
-          "icon": "fa fa-stack-exchange",
-          "hash": "task-list"
-        },
-        {
-          "title": "任务监控",
-          "body": [
-            {
-              "type": "chart",
-              "config": {
-                "xAxis": {
-                  "type": "category",
-                  "data": [
-                    "Mon",
-                    "Tue",
-                    "Wed",
-                    "Thu",
-                    "Fri",
-                    "Sat",
-                    "Sun"
-                  ]
-                },
-                "yAxis": {
-                  "type": "value"
-                },
-                "series": [
-                  {
-                    "data": [
-                      820,
-                      932,
-                      901,
-                      934,
-                      1290,
-                      1330,
-                      1320
-                    ],
-                    "type": "line"
-                  }
-                ],
-                "backgroundColor": "transparent"
-              },
-              "replaceChartOption": true,
-              "id": "u:f0a9e5d4ed9b",
-              "dataFilter": ""
-            }
-          ],
-          "id": "u:52689b1d0225",
-          "icon": "fa fa-stack-overflow",
-          "hash": "chart-line"
-        },
-        {
-          "title": "说明文档",
-          "body": [
-            {
-              "type": "collapse-group",
-              "activeKey": [
-                "1"
-              ],
-              "body": [
-                {
-                  "type": "collapse",
-                  "key": "1",
-                  "active": true,
-                  "header": "支持数据类型说明",
-                  "body": [
                     {
-                      "type": "crud",
-                      "syncLocation": false,
-                      "api": {
-                        "method": "get",
-                        "url": "/data-type-list",
-                        "requestAdaptor": "",
-                        "adaptor": "",
-                        "messages": {},
-                        "dataType": "json",
-                        "cache": 86400000
-                      },
-                      "bulkActions": [],
-                      "itemActions": [],
-                      "id": "u:81c21f31b49d",
-                      "perPageAvailable": [
-                        10
-                      ],
-                      "messages": {},
-                      "filter": null,
-                      "primaryField": "type",
-                      "initFetch": true,
-                      "mode": "table",
-                      "columns": [
-                        {
-                          "name": "name",
-                          "label": "类型名称",
-                          "type": "text",
-                          "id": "u:ac35631bb51b",
-                          "inline": true,
-                          "placeholder": "-",
-                          "popOver": false,
-                          "searchable": true
-                        },
-                        {
-                          "name": "description",
-                          "label": "描述",
-                          "type": "text",
-                          "id": "u:1b165120329b",
-                          "searchable": true
-                        },
-                        {
-                          "type": "text",
-                          "label": "样例",
-                          "name": "sample",
-                          "id": "u:effd8bc4540f",
-                          "searchable": true
-                        }
-                      ],
-                      "perPage": 20,
-                      "autoJumpToTopOnPagerChange": true,
-                      "loadDataOnce": true,
-                      "matchFunc": "",
-                      "footable": true,
-                      "defaultParams": {}
+                      "type": "collapse",
+                      "key": "2",
+                      "header": "设计文档说明",
+                      "body": [],
+                      "id": "u:bdda558fb306"
                     }
                   ],
-                  "id": "u:2a2aadf34296"
-                },
-                {
-                  "type": "collapse",
-                  "key": "2",
-                  "header": "设计文档说明",
-                  "body": [],
-                  "id": "u:bdda558fb306"
+                  "id": "u:2466fa351ceb"
                 }
               ],
-              "id": "u:2466fa351ceb"
+              "id": "u:3a6627a8b945"
             }
           ],
-          "id": "u:3a6627a8b945"
+          "toolbar": [],
+          "onEvent": {
+            "change": {
+              "weight": 0,
+              "actions": []
+            }
+          },
+          "defaultKey": "",
+          "activeKey": ""
         }
       ],
-      "toolbar": [],
-      "onEvent": {
-        "change": {
-          "weight": 0,
-          "actions": []
-        }
+      "asideResizor": true,
+      "pullRefresh": {
+        "disabled": false,
+        "pullingText": "下拉刷新",
+        "loosingText": "正在刷新......"
       },
-      "defaultKey": "",
-      "activeKey": ""
+      "aside": [],
+      "regions": [
+        "body"
+      ]
     }
   ],
   "id": "u:839127e50e91",

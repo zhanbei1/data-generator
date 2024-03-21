@@ -26,8 +26,6 @@ if not os.path.exists(LOG_PATH):
 
 
 class GlobalBaseConfig:
-    task_running_dir = "tasks_running/"
-    task_repository = "tasks_repository/"
     task_default_max_data_num = 10000
     task_data_batch_size = 1000
 
