@@ -4,16 +4,22 @@
 API_SERVER_SCRIPT="main.py"
 CORE_DATA_GENERATOR_SCRIPT="src/com_desmond/main.py"
 
+# 定义服务对应的进程PID文件路径
+API_SERVER_PID_FILE="api_server.pid"
+CORE_DATA_GENERATOR_PID_FILE="core_data_generator.pid"
+
 # 启动函数
 start_api_server() {
     echo "Starting API Server..."
     nohup python3 $API_SERVER_SCRIPT > /dev/null 2>&1 &
+    echo $! > $API_SERVER_PID_FILE
     echo "API Server is running in the background."
 }
 
 start_core_data_generator() {
     echo "Starting Core Data Generator..."
     nohup python3 $CORE_DATA_GENERATOR_SCRIPT /dev/null 2>&1 &
+    echo $! > $CORE_DATA_GENERATOR_PID_FILE
     echo "Core Data Generator is running in the background."
 }
 
@@ -23,19 +29,58 @@ start_all() {
     echo "Both services are now running."
 }
 
+# 停止函数
+stop_api_server() {
+    if [ -f "$API_SERVER_PID_FILE" ]; then
+        api_pid=$(cat $API_SERVER_PID_FILE)
+        echo "Stopping API Server (PID: $api_pid)..."
+        kill $api_pid && rm $API_SERVER_PID_FILE
+        echo "API Server has been stopped."
+    else
+        echo "API Server is not currently running."
+    fi
+}
+
+stop_core_data_generator() {
+    if [ -f "$CORE_DATA_GENERATOR_PID_FILE" ]; then
+        core_pid=$(cat $CORE_DATA_GENERATOR_PID_FILE)
+        echo "Stopping Core Data Generator (PID: $core_pid)..."
+        kill $core_pid && rm $CORE_DATA_GENERATOR_PID_FILE
+        echo "Core Data Generator has been stopped."
+    else
+        echo "Core Data Generator is not currently running."
+    fi
+}
+
+stop_all() {
+    stop_api_server
+    stop_core_data_generator
+    echo "All services have been stopped."
+}
+
+
 # 检查参数并启动相应的服务
 case "$1" in
-    "api")
+    "start-api")
         start_api_server
         ;;
-    "core")
+    "start-core")
         start_core_data_generator
         ;;
-    "all")
+    "start-all")
         start_all
         ;;
+    "stop-api")
+        stop_api_server
+        ;;
+    "stop-core")
+        stop_core_data_generator
+        ;;
+    "stop-all")
+        stop_all
+        ;;
     *)
-        echo "Usage: $0 [api|core|all]"
+        echo "Usage: $0 [start-api|start-core|start-all|stop-api|stop-core|stop-all]"
         exit 1
         ;;
 esac
