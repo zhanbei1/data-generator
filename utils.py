@@ -26,7 +26,7 @@ def db_task_to_model(task: Task) -> TaskModel:
         output=OutputConfig.model_validate(ujson.loads(task.output)),
         fields=[FiledConfig.model_validate(ujson.loads(filed)) for filed in ujson.loads(task.fields)]
     )
-    return task_model;
+    return task_model
 
 
 def model_to_db_task(task: TaskModel) -> Task:

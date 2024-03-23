@@ -21,10 +21,13 @@ from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
 from database.sqllite3 import Session, Task, session
+from master_node import MasterNode
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum, DataType
 from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
 from src.com_desmond.models.TaskModel import TaskModel
 from utils import db_task_to_model
+from sqlalchemy import event
+from sqlalchemy.sql import desc
 from vo.vo import DataTypeVo
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
@@ -36,6 +39,42 @@ env = Environment(loader=FileSystemLoader('static/html_json_config'))  # 假设�
 
 html_template_path = "index.html"
 html_view_json = "static/html_json_config/task_view.json"
+
+# master节点
+master_node = MasterNode()
+master_node.start_listening()
+
+
+@event.listens_for(session, 'before_flush')
+def receive_before_flush(session: Session, flush_context, instances):
+    # listen for the 'before_flush' event
+    original_values = []
+    # 记录新增的对
+    for obj in session.new:
+        original_values.append(obj)
+    # 记录被删除的对象及其原始值
+    for obj in session.deleted:
+        original_values.append(obj)
+    # 记录被修改的对象及其原始值
+    for obj in session.dirty:
+        # original_state = session.identity_map.get_state(obj)  # 获取原始状态
+        # if ('task_status' in original_state.dict and original_state.dict['task_status'] != obj.task_status) \
+        #         or ('range_frequency' in original_state.dict and original_state.dict[
+        #     'range_frequency'] != obj.range_frequency) \
+        #         or ('fields' in original_state.dict and original_state.dict['fields'] != obj.fields) \
+        #         or ('output' in original_state.dict and original_state.dict['output'] != obj.fields):
+            # my_field 字段发生了变化
+            # 在这里发送通知
+        original_values.append(obj)
+
+    if original_values is not None:
+        slave_task = []
+        for v in original_values:
+            task_model = db_task_to_model(v)
+            slave_task.append(task_model.json())
+
+        # 通知
+        master_node.broadcast_message(ujson.dumps(slave_task))
 
 
 # 依赖项，用于数据库会话管理
@@ -139,7 +178,7 @@ async def disable_task(request_dict: dict, db: Session = Depends(get_db)):
 
 @app.get("/task-list", response_model=List[TaskModel])
 async def task_list(db: Session = Depends(get_db)):
-    tasks: List[Task] = db.query(Task).all()
+    tasks: List[Task] = db.query(Task).order_by(desc(Task.update_time)).all()
     task_array: list[TaskModel] = []
     for task in tasks:
         task_array.append(db_task_to_model(task))
@@ -173,7 +212,19 @@ async def helper_file(file_name: str = Body(...)):
         return FileResponse(file_path)
 
 
+@app.get("/node-list")
+async def node_list(request: Request):
+    nodes: dict = master_node.nodes
+    node_address_list = [{"ip": v.ip, "port": v.port} for k, v in nodes.items()]
+    return JSONResponse(content=node_address_list, status_code=200)
+
+
 if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+    # 关闭所有资源
+    master_node.close()
+    session.close()
+    print("API stop =======> ")

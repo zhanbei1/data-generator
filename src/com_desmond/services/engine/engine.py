@@ -38,12 +38,12 @@ class GeneratorCoreEngine:
         print(f"register_task {task_model.name}")
         try:
             task_model.task_status = TaskPlanStatus.IN_PROGRESS
-            GeneratorCoreEngine.tasks[task_model.file_path] = task_model
-            TaskExecutor.register_tasks(task_model.file_path, task_model.fields)
-            TaskScheduler.register_scheduler(task_model.file_path, task_model.range_frequency)
-            Output.register_output(task_model.file_path, task_model.output)
+            GeneratorCoreEngine.tasks[task_model.id] = task_model
+            TaskExecutor.register_tasks(task_model.id, task_model.fields)
+            TaskScheduler.register_scheduler(task_model.id, task_model.range_frequency)
+            Output.register_output(task_model.id, task_model.output)
         except Exception as e:
-            GeneratorCoreEngine.unregister_task(task_model.file_path)
+            GeneratorCoreEngine.unregister_task(task_model.id)
             raise RuntimeError("GeneratorCoreEngine register_task error ,rollback。error info ", e)
 
     @staticmethod
@@ -53,10 +53,13 @@ class GeneratorCoreEngine:
         :param task_id: 任务ID
         :return:
         """
-        GeneratorCoreEngine.tasks.pop(task_id)
-        TaskExecutor.unregister_task(task_id)
-        TaskScheduler.unregister_task(task_id)
-        Output.unregister_task(task_id)
+        try:
+            GeneratorCoreEngine.tasks.pop(task_id)
+            TaskExecutor.unregister_task(task_id)
+            TaskScheduler.unregister_task(task_id)
+            Output.unregister_task(task_id)
+        except Exception as e:
+            print(f"Engine unregister_task error  :{e}")
 
     @staticmethod
     async def run_task():

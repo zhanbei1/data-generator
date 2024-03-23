@@ -9,12 +9,13 @@
 @Desc   ：
 ==================================================
 """
+
 from sqlalchemy import create_engine, Column, String, DateTime, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # 创建数据库引擎
-engine = create_engine('sqlite:///tasks.db', echo=True)
+engine = create_engine('sqlite:///database/tasks.db', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
 
@@ -31,10 +32,6 @@ class Task(Base):
                                          'NOT_STARTED:计划中,'
                                          'IN_PROGRESS:运行中,'
                                          'COMPLETED:已完成,'
-                                         'CANCELLED:取消,'
-                                         'EXPIRED:过期，'
-                                         'TERMINATED：已经终止、'
-                                         'PAUSED：已经暂停，'
                                          'FAILED：失败 ')
     description = Column(String, comment="任务描述")
     range_frequency = Column(String, comment="任务频率, JSON 字符串")
