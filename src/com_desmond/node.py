@@ -23,37 +23,47 @@ from src.com_desmond.services.engine.engine import GeneratorCoreEngine
 class Node:
     def __init__(self):
         # 本机节点注册信息
-        port = GlobalBaseConfig.data_generator_slave_port
         self.interval = GlobalBaseConfig.slave_node_heart_interval
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.bind(("127.0.0.1", port))
+        self.node_socket = self._init_socket()
+        self.status = True
+
+    def _init_socket(self) -> socket:
+        port = GlobalBaseConfig.data_generator_slave_port
+        node_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # socket有效连接为心跳的2倍
+        # self.socket.settimeout(self.interval * 2)
+        node_socket.bind(("127.0.0.1", port))
         # self.socket.listen(5)
         # master 节点
-        self.master_ip = GlobalBaseConfig.data_generator_master_ip
-        self.master_port = GlobalBaseConfig.data_generator_master_port
-        self.socket.connect((self.master_ip, self.master_port))
-        self.status = True
+        master_ip = GlobalBaseConfig.data_generator_master_ip
+        master_port = GlobalBaseConfig.data_generator_master_port
+        node_socket.connect((master_ip, master_port))
+        return node_socket
 
     def send_heartbeat(self):
         while self.status:
             try:
-                time.sleep(self.interval)
                 self.send_message_to_master("Heartbeat")
+                print("Node send heartbeat")
             except OSError as e:
                 print("Node send_heartbeat error : " + e.__str__())
                 try:
-                    self.socket.connect((self.master_ip, self.master_port))
+                    print(f"Node reconnecting...")
+                    # socket有问题，关闭现有的socket，重新初始化socket
+                    self.node_socket.close()
+                    self.node_socket = self._init_socket()
                 except OSError as e:
                     print("Node reconnect error : " + e.__str__())
+            time.sleep(self.interval)
 
     def send_message_to_master(self, message: str):
-        self.socket.sendall(message.encode())
+        self.node_socket.sendall(message.encode())
 
     def receive_messages(self):
         while self.status:
             try:
                 # client_sock, client_addr = self.socket.accept()
-                data = self.socket.recv(1024)
+                data = self.node_socket.recv(1024)
                 if data:
                     print(f"received data from master, data:{data}")
                     message = data.decode()
@@ -70,6 +80,5 @@ class Node:
                 print("Connection reset, removing connection")
 
     def close(self):
-        self.socket.close()
-        self.master_socket.close()
+        self.node_socket.close()
         self.status = False
