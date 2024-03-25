@@ -11,12 +11,12 @@
 python版本依赖：3.11.0 ，使用poetry进行包管理。
 - git clone https://github.com/zhanbei1/data-generator.git
 - cd data-generator
-- poetry虚拟环境安装（环境已经有的可以忽略）
-  - 全局环境安装poetry： pip3 install poetry
-  - 查询虚拟环境：python3 -m poetry env list
-  - 创建虚拟环境：python3 -m poetry env use xxxx
-  - 激活属于该项目的环境：python3 -m poetry env use xxxx
-- 安装依赖：python3 -m poetry install
+- python虚拟环境安装（环境已经有的可以忽略，默认找目录下的虚拟环境，可以修改shell脚本配置）
+  - 目录下创建虚拟环境：python3 -m venv venv
+  - 激活虚拟环境：source venv/bin/activate
+  - 安装poetry：pip install poetry 
+  - 安装依赖：poetry install
+  - 退出虚拟环境：deactivate
 - 启动服务：bash bin/data-generator-start.sh start-api|start-core|start-all|stop-api|stop-core|stop-all
   - start-api：启动api服务，分布式的时候，可以只在某个节点上启动api，作为master管理节点
   - start-core：启动核心服务, 分布式的时候，可以在子节点上只启动core

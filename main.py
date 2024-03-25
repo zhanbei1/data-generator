@@ -171,7 +171,7 @@ async def disable_task(request_dict: dict, db: Session = Depends(get_db)):
 
     db_task: Task = db.query(Task).get(task_id)
     if db_task:
-        db_task.task_status = TaskPlanStatus.NOT_STARTED.value
+        db_task.task_status = TaskPlanStatus.NOT_STARTED.name
         db.commit()
     return JSONResponse(content={"message": "Task deleted successfully"}, status_code=200)
 

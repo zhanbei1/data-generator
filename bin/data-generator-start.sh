@@ -8,17 +8,20 @@ CORE_DATA_GENERATOR_SCRIPT="src/com_desmond/main.py"
 API_SERVER_PID_FILE="api_server.pid"
 CORE_DATA_GENERATOR_PID_FILE="core_data_generator.pid"
 
+# Python3环境的目录，默认项目目录下
+PYTHON_ENV_DIR="venv"
+
 # 启动函数
 start_api_server() {
     echo "Starting API Server..."
-    nohup python3 $API_SERVER_SCRIPT > /dev/null 2>&1 &
+    nohup $PYTHON_ENV_DIR/bin/python3 $API_SERVER_SCRIPT > /dev/null 2>&1 &
     echo $! > $API_SERVER_PID_FILE
     echo "API Server is running in the background."
 }
 
 start_core_data_generator() {
     echo "Starting Core Data Generator..."
-    nohup python3 $CORE_DATA_GENERATOR_SCRIPT /dev/null 2>&1 &
+    nohup $PYTHON_ENV_DIR/bin/python3 $CORE_DATA_GENERATOR_SCRIPT /dev/null 2>&1 &
     echo $! > $CORE_DATA_GENERATOR_PID_FILE
     echo "Core Data Generator is running in the background."
 }
@@ -39,6 +42,7 @@ stop_api_server() {
     else
         echo "API Server is not currently running."
     fi
+    rm $API_SERVER_PID_FILE
 }
 
 stop_core_data_generator() {
@@ -50,6 +54,7 @@ stop_core_data_generator() {
     else
         echo "Core Data Generator is not currently running."
     fi
+    rm $CORE_DATA_GENERATOR_PID_FILE
 }
 
 stop_all() {
