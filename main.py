@@ -63,8 +63,8 @@ def receive_before_flush(session: Session, flush_context, instances):
         #     'range_frequency'] != obj.range_frequency) \
         #         or ('fields' in original_state.dict and original_state.dict['fields'] != obj.fields) \
         #         or ('output' in original_state.dict and original_state.dict['output'] != obj.fields):
-            # my_field 字段发生了变化
-            # 在这里发送通知
+        # my_field 字段发生了变化
+        # 在这里发送通知
         original_values.append(obj)
 
     if original_values is not None:
@@ -215,7 +215,7 @@ async def helper_file(file_name: str = Body(...)):
 @app.get("/node-list")
 async def node_list(request: Request):
     nodes: dict = master_node.nodes
-    node_address_list = [{"ip": v.ip, "port": v.port} for k, v in nodes.items()]
+    node_address_list = [{"ip": v.ip, "port": v.port, "status": "pending"} for k, v in nodes.items()]
     return JSONResponse(content=node_address_list, status_code=200)
 
 

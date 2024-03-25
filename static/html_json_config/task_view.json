@@ -1758,6 +1758,68 @@
               "title": "任务监控",
               "body": [
                 {
+                  "type": "tpl",
+                  "tpl": "注册节点信息",
+                  "inline": true,
+                  "wrapperComponent": "h3",
+                  "id": "u:e0e69c210d1f"
+                },
+                {
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "get",
+                    "url": "/node-list"
+                  },
+                  "bulkActions": [],
+                  "itemActions": [],
+                  "id": "u:1146f882f9b4",
+                  "perPageAvailable": [
+                    10
+                  ],
+                  "messages": {},
+                  "mode": "cards",
+                  "placeholder": "暂无数据",
+                  "card": {
+                    "type": "card",
+                    "header": {
+                      "title": "",
+                      "subTitle": ""
+                    },
+                    "body": [
+                      {
+                        "name": "ip",
+                        "label": "IP",
+                        "type": "text",
+                        "id": "u:70b1e513e4ed"
+                      },
+                      {
+                        "name": "port",
+                        "label": "PORT",
+                        "type": "text",
+                        "id": "u:f2f220a49656"
+                      },
+                      {
+                        "type": "status",
+                        "label": "状态",
+                        "id": "u:1de722efa493",
+                        "placeholder": "1",
+                        "name": "status"
+                      }
+                    ],
+                    "actions": [],
+                    "id": "u:b4c3f36548c3",
+                    "actionsCount": 1
+                  }
+                },
+                {
+                  "type": "tpl",
+                  "tpl": "任务运行指标展示",
+                  "inline": true,
+                  "wrapperComponent": "h3",
+                  "id": "u:85a5ad0f834f"
+                },
+                {
                   "type": "chart",
                   "config": {
                     "xAxis": {
