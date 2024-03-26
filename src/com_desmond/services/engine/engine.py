@@ -69,11 +69,12 @@ class GeneratorCoreEngine:
         :return:
         """
         for task_plans in TaskScheduler.task_iterator():
+            print("task_plans", task_plans)
             tasks = []
             for plan in task_plans:
                 plan: TaskExecutorPlan
                 # 任务停止或者被打断，则移除任务队列
-                if plan.task_status in (TaskPlanStatus.COMPLETED, TaskPlanStatus.TERMINATED):
+                if plan.task_status in (TaskPlanStatus.COMPLETED, TaskPlanStatus.FAILED):
                     logger.info(f"Task {plan.task_id} is terminated or completed, remove it from task queue,")
                     print(f"Task {plan.task_id} is terminated or completed, remove it from task queue,")
                     GeneratorCoreEngine.unregister_task(plan.task_id)

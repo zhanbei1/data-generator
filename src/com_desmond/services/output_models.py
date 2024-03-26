@@ -68,7 +68,7 @@ class KafkaOutputModel(BaseOutputModel):
             data_str = ujson.dumps(data)
         else:
             data_str = data
-        print(f"KafkaOutputModel send_data {data}")
+        # print(f"KafkaOutputModel send_data {data}")
         self.async_queue.put(data_str, True, 1)
 
 
@@ -79,7 +79,7 @@ def _async_send_data(queue, topic: str, extra_config: dict):
         while True:
             try:
                 data = queue.get(True, 1)
-                print(f"KafkaOutputModel _async_send_data {data}")
+                # print(f"KafkaOutputModel _async_send_data {data}")
                 producer.produce(topic, data)
                 producer.flush(1)
             except Exception as e:

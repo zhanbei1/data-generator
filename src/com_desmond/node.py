@@ -10,6 +10,7 @@
 ==================================================
 """
 import socket
+import threading
 import time
 
 import ujson
@@ -41,10 +42,9 @@ class Node:
         return node_socket
 
     def send_heartbeat(self):
-        while self.status:
+        while self.status and threading.current_thread().is_alive():
             try:
                 self.send_message_to_master("Heartbeat")
-                print("Node send heartbeat")
             except OSError as e:
                 print("Node send_heartbeat error : " + e.__str__())
                 try:
@@ -54,6 +54,9 @@ class Node:
                     self.node_socket = self._init_socket()
                 except OSError as e:
                     print("Node reconnect error : " + e.__str__())
+            except KeyboardInterrupt or SystemExit as e:
+                print("Node send_heartbeat KeyboardInterrupt | SystemExit : " + e.__str__())
+                break
             time.sleep(self.interval)
 
     def send_message_to_master(self, message: str):
@@ -63,7 +66,7 @@ class Node:
         while self.status:
             try:
                 # client_sock, client_addr = self.socket.accept()
-                data = self.node_socket.recv(1024)
+                data = self.node_socket.recv(1048576)
                 if data:
                     print(f"received data from master, data:{data}")
                     message = data.decode()

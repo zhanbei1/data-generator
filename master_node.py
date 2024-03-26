@@ -48,6 +48,7 @@ class MasterNode:
                         node = self.nodes[str(client_address)]
                         node.flush_time = int(time.time() * 1000)
                     else:
+                        client_socket.settimeout(self.interval + 2)
                         node = Node(client_address[0], client_address[1], client_socket)
                         self.nodes[str(client_address)] = node
                         result: List[Task] = session.query(Task).where(
@@ -79,15 +80,15 @@ class MasterNode:
 
                         if int(time.time() * 1000) - v.flush_time > 1000 * (self.interval * 3):
                             delete_key.append(k)
-                            print(
-                                f"Will close socket {v.ip}:{v.port}, last_flush time is {v.flush_time}, nowis {int(time.time() * 1000)}")
-
                     # 删除所有过期的key
                     for del_key in delete_key:
                         v: Node = self.nodes[del_key]
                         if v.client_socket_conn:
                             v.client_socket_conn.close()
                         del self.nodes[del_key]
+                        print(
+                            f"Will close socket {v.ip}:{v.port}, last_flush time is {v.flush_time}, now is {int(time.time() * 1000)}")
+
                 except Exception as e:
                     print(f"Check_for_connections error , error info {e}")
                 time.sleep(self.interval)
@@ -98,8 +99,8 @@ class MasterNode:
         self.check_thread.start()
 
     def broadcast_message(self, message):
-        for address, node_socket in self.nodes:
-            node_socket.sendall(message.encode())
+        for address, node_socket in self.nodes.items():
+            node_socket.client_socket_conn.sendall(message.encode())
 
     def close(self):
         self.socket.close()

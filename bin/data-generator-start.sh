@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# 获取脚本所在的绝对路径
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# 获取项目的根目录（这里假设bin目录直接位于项目根目录下）
+PROJECT_ROOT="${SCRIPT_DIR}/.."
+
+# 设置 PYTHONPATH 环境变量，将项目根目录添加到其中
+export PYTHONPATH="${PROJECT_ROOT}:${PYTHONPATH}"
+
 # 定义服务对应的Python脚本路径
 API_SERVER_SCRIPT="main.py"
 CORE_DATA_GENERATOR_SCRIPT="src/com_desmond/main.py"
