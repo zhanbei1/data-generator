@@ -38,7 +38,10 @@ class Node:
         # master 节点
         master_ip = GlobalBaseConfig.data_generator_master_ip
         master_port = GlobalBaseConfig.data_generator_master_port
-        node_socket.connect((master_ip, master_port))
+        try:
+            node_socket.connect((master_ip, master_port))
+        except Exception as e:
+            print("Node connect master error,  Continue reconnecting later: ")
         return node_socket
 
     def send_heartbeat(self):

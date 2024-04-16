@@ -20,15 +20,15 @@ from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from jinja2 import Environment, FileSystemLoader
 
 from config.basic_config import GlobalBaseConfig
-from database.sqllite3 import Session, Task, session
+from database.sqllite3 import Session, Task, session, FieldTemplate
 from master_node import MasterNode
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum, DataType
 from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
-from src.com_desmond.models.TaskModel import TaskModel
-from utils import db_task_to_model
+from src.com_desmond.models.TaskModel import TaskModel, FiledConfig
+from utils import db_task_to_model, model_to_db_field_template, db_field_template_to_model
 from sqlalchemy import event
 from sqlalchemy.sql import desc
-from vo.vo import DataTypeVo
+from vo.vo import DataTypeVo, FiledTemplateVO
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
 # 设置静态文件目录
@@ -47,14 +47,19 @@ master_node.start_listening()
 
 @event.listens_for(session, 'before_flush')
 def receive_before_flush(session: Session, flush_context, instances):
+    """
+    在数据库会话刷新之前执行的函数。监听所有针对于Task的CRUD操作，其他的不进行监听
+    """
     # listen for the 'before_flush' event
     original_values = []
     # 记录新增的对
     for obj in session.new:
-        original_values.append(obj)
+        if type(obj) == Task:
+            original_values.append(obj)
     # 记录被删除的对象及其原始值
     for obj in session.deleted:
-        original_values.append(obj)
+        if type(obj) == Task:
+            original_values.append(obj)
     # 记录被修改的对象及其原始值
     for obj in session.dirty:
         # original_state = session.identity_map.get_state(obj)  # 获取原始状态
@@ -65,7 +70,8 @@ def receive_before_flush(session: Session, flush_context, instances):
         #         or ('output' in original_state.dict and original_state.dict['output'] != obj.fields):
         # my_field 字段发生了变化
         # 在这里发送通知
-        original_values.append(obj)
+        if type(obj) == Task:
+            original_values.append(obj)
 
     if original_values is not None:
         slave_task = []
@@ -200,7 +206,7 @@ async def data_type_list(request: Request):
         if not name.startswith('__'):
             data_type: DataType = DataTypeEnum.value_of(name)
             type_vo = DataTypeVo(name=name, type=data_type.name, description=data_type.description,
-                                 sample=data_type.sample)
+                                 sample=data_type.sample, args=data_type.args)
             type_list.append(ujson.loads(type_vo.json()))
     return JSONResponse(content=type_list, status_code=200)
 
@@ -212,11 +218,74 @@ async def helper_file(file_name: str = Body(...)):
         return FileResponse(file_path)
 
 
+# 主从节点信息获取接口
 @app.get("/node-list")
 async def node_list(request: Request):
     nodes: dict = master_node.nodes
     node_address_list = [{"ip": v.ip, "port": v.port, "status": "pending"} for k, v in nodes.items()]
     return JSONResponse(content=node_address_list, status_code=200)
+
+
+# 字段配置模版相关接口
+@app.get("/field-templates", response_model=List[FiledTemplateVO])
+async def filed_templates(request: Request, db: Session = Depends(get_db)):
+    filed_db_list = db.query(FieldTemplate).order_by(desc(FieldTemplate.update_time)).all()
+    filed_template_list = [db_field_template_to_model(filed_db) for filed_db in filed_db_list]
+    return filed_template_list
+
+
+@app.get("/field-template/{template_id}", response_model=FiledTemplateVO)
+async def filed_template(request: Request, template_id: int, db: Session = Depends(get_db)):
+    filed_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
+    if filed_db:
+        result_filed_config = FiledTemplateVO.from_orm(filed_db)
+        filed_json = ujson.loads(filed_db.field_config)
+        filed_config = [FiledConfig.from_orm(filed_str) for filed_str in filed_json]
+        result_filed_config.field_config = filed_config
+        return result_filed_config
+    return JSONResponse(content={"message": "Not found"}, status_code=404)
+
+
+@app.post("/field-templates")
+async def filed_template_create(field_template_vo: FiledTemplateVO, db: Session = Depends(get_db)):
+    try:
+        field_db = model_to_db_field_template(field_template_vo)
+        field_db.id = str(uuid.uuid4())
+        fields_config_json = [k.json() for k in field_template_vo.field_config]
+        field_db.filed_config = ujson.dumps(fields_config_json)
+        db.add(field_db)
+        db.commit()
+        db.refresh(field_db)
+        return JSONResponse(content={"message": "Save success! "}, status_code=201)
+    except Exception as e:
+        print(e)
+        return JSONResponse(content={"message": "Save exception ! "}, status_code=205)
+
+
+@app.put("/field-template/{template_id}", response_model=FiledTemplateVO)
+async def filed_template_update(request: Request, template_id: int, filed_template_vo: FiledTemplateVO,
+                                db: Session = Depends(get_db)):
+    filed_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
+    if filed_db:
+        filed_db.update(filed_template_vo.dict())
+
+        fields_config_json = [k.json() for k in filed_template_vo.field_config]
+        filed_db.field_config = ujson.dumps(fields_config_json)
+
+        db.commit()
+        db.refresh(filed_db)
+        return JSONResponse(content=FiledTemplateVO.from_orm(filed_db), status_code=200)
+    return JSONResponse(content={"message": "not found"}, status_code=404)
+
+
+@app.delete("/field-template/{template_id}")
+async def filed_template_delete(request: Request, template_id: int, db: Session = Depends(get_db)):
+    filed_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
+    if filed_db:
+        db.delete(filed_db)
+        db.commit()
+        return JSONResponse(content={"message": "Deleted success"}, status_code=200)
+    return JSONResponse(content={"message": "not found"}, status_code=404)
 
 
 if __name__ == "__main__":

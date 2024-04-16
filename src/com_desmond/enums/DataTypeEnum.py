@@ -13,6 +13,8 @@
 from faker import Faker
 from enum import Enum
 
+from pydantic import BaseModel
+
 from src.com_desmond.cutomer_data_type.CustomerDataType import CustomerDataType
 
 fake = Faker()
@@ -20,11 +22,12 @@ fake.add_provider(CustomerDataType)
 
 
 class DataType:
-    def __init__(self, name: str, description: str, sample: str, function):
+    def __init__(self, name: str, description: str, sample: str, function, args=[]):
         self.name = name
         self.description = description
         self.sample = sample
         self.function = function
+        self.args = args
 
 
 class DataTypeEnum(Enum):
@@ -98,7 +101,7 @@ class DataTypeEnum(Enum):
 
     # faker.providers.file
     FILE_EXTENSION = DataType("FILE_EXTENSION", "生成文件扩展名。", "txt", fake.file_extension)
-    FILE_NAME = DataType("FILE_NAME", "生成文件名。", "test.txt", fake.file_name)
+    FILE_NAME = DataType("FILE_NAME", "生成文件f名。", "test.txt", fake.file_name)
     FILE_PATH = DataType("FILE_PATH", "生成文件路径。", "/home/user/test.txt", fake.file_path)
     MIME_TYPE = DataType("MIME_TYPE", "在指定的类别下生成mime类型。", "text/plain", fake.mime_type)
     UNIX_DEVICE = DataType("UNIX_DEVICE", "生成Unix设备文件名。", "16777215", fake.unix_device)
@@ -161,7 +164,8 @@ class DataTypeEnum(Enum):
     TEXTS = DataType("TEXTS", "生成一个随机的文本列表(默认3个)。",
                      '["Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."]',
                      fake.texts)
-    WORD = DataType("WORD", "生成一个随机的单词。", "Lorem", fake.word)
+    WORD = DataType("WORD", "生成一个随机的单词。", "Lorem", fake.word,
+                    [{"filed": "ext_word_list", "type": "list", "desc": "自定义字段列表"}])
     WORDS = DataType("WORDS", "生成一个随机的单词列表(默认3个)。", '["Lorem", "ipsum", "dolor", "sit", "amet"]', fake.words)
 
     # faker.providers.misc
@@ -228,14 +232,13 @@ class DataTypeEnum(Enum):
         return t.value
 
     @staticmethod
-    def generator_by_key(name: str):
+    def generator_by_key(name: str, args: dict = {}):
         type_model: DataType = DataTypeEnum.value_of(name)
-        result = type_model.function()
+        result = type_model.function(**args)
         if type(result) == type:
             return str(result)
         else:
-            return type_model.function()
-
+            return result
 
 if __name__ == '__main__':
     print(DataTypeEnum.ADDRESS)

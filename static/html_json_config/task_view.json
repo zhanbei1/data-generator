@@ -320,7 +320,8 @@
                       "body": [
                         {
                           "type": "combo",
-                          "label": "",
+                          "id": "u:b3460704c38b",
+                          "label": "新增字段",
                           "name": "fields",
                           "multiple": true,
                           "addable": true,
@@ -337,7 +338,7 @@
                             {
                               "type": "input-text",
                               "name": "name",
-                              "placeholder": "文本",
+                              "placeholder": "-",
                               "id": "u:7764af87e287",
                               "label": "字段名称"
                             },
@@ -345,7 +346,7 @@
                               "type": "select",
                               "id": "u:e18bec5238cd",
                               "name": "data_type",
-                              "placeholder": "选项",
+                              "placeholder": "-",
                               "multiple": false,
                               "label": "字段类型",
                               "source": {
@@ -366,21 +367,186 @@
                               "disabled": false,
                               "onEvent": {},
                               "description": "",
-                              "remark": {
-                                "icon": "fa fa-question-circle",
-                                "trigger": [
-                                  "hover"
-                                ],
-                                "className": "Remark--warning",
-                                "placement": "top",
-                                "title": "说明文档查看类型说明"
-                              }
+                              "menuTpl": "${name}: ${description}"
+                            },
+                            {
+                              "draggable": true,
+                              "type": "input-kv",
+                              "label": "额外配置",
+                              "name": "args",
+                              "id": "u:3dd634efc622",
+                              "multiple": true,
+                              "items": [
+                                {
+                                  "placeholder": "Key",
+                                  "type": "input-text",
+                                  "unique": true,
+                                  "name": "key",
+                                  "required": true,
+                                  "validateOnChange": true
+                                },
+                                {
+                                  "placeholder": "Value",
+                                  "type": "input-text",
+                                  "name": "value"
+                                }
+                              ],
+                              "valueType": "input-text",
+                              "placeholder": "-",
+                              "validateApi": ""
                             }
                           ],
-                          "id": "u:b3460704c38b",
                           "strictMode": true,
                           "syncFields": [],
-                          "tabsMode": false
+                          "tabsMode": false,
+                          "value": ""
+                        },
+                        {
+                          "type": "combo",
+                          "id": "u:1b904d93f4c7",
+                          "label": "模版字段：",
+                          "name": "field_template_conf",
+                          "multiple": true,
+                          "addable": false,
+                          "removable": false,
+                          "removableMode": "icon",
+                          "addBtn": {
+                            "label": "新增",
+                            "icon": "fa fa-plus",
+                            "level": "primary",
+                            "size": "sm",
+                            "id": "u:6902f41a29b4"
+                          },
+                          "items": [
+                            {
+                              "type": "input-text",
+                              "name": "name",
+                              "placeholder": "-",
+                              "id": "u:5e3d1facaf23",
+                              "label": "字段名称"
+                            },
+                            {
+                              "type": "select",
+                              "id": "u:49dd6ffa9bde",
+                              "name": "data_type",
+                              "placeholder": "-",
+                              "multiple": false,
+                              "label": "字段类型",
+                              "source": {
+                                "url": "/data-type-list",
+                                "method": "get",
+                                "requestAdaptor": "",
+                                "adaptor": "",
+                                "messages": {},
+                                "silent": false,
+                                "cache": 86400000
+                              },
+                              "labelField": "name",
+                              "valueField": "type",
+                              "searchable": true,
+                              "clearable": true,
+                              "selectFirst": true,
+                              "static": false,
+                              "disabled": false,
+                              "onEvent": {},
+                              "description": "",
+                              "menuTpl": "${name}: ${description}"
+                            },
+                            {
+                              "draggable": true,
+                              "type": "input-kv",
+                              "label": "额外配置",
+                              "name": "args",
+                              "id": "u:83795dfcf3d4",
+                              "multiple": true,
+                              "items": [
+                                {
+                                  "placeholder": "Key",
+                                  "type": "input-text",
+                                  "unique": true,
+                                  "name": "key",
+                                  "required": true,
+                                  "validateOnChange": true
+                                },
+                                {
+                                  "placeholder": "Value",
+                                  "type": "input-text",
+                                  "name": "value"
+                                }
+                              ],
+                              "valueType": "input-text",
+                              "placeholder": "-",
+                              "validateApi": ""
+                            }
+                          ],
+                          "strictMode": true,
+                          "syncFields": [],
+                          "tabsMode": false,
+                          "debug": true,
+                          "value": "${filed_template.seletedItems.field_config}"
+                        },
+                        {
+                          "type": "select",
+                          "label": "应用模版配置",
+                          "name": "filed_template",
+                          "id": "u:f586274df891",
+                          "multiple": false,
+                          "searchable": true,
+                          "source": {
+                            "url": "/field-templates",
+                            "method": "get",
+                            "requestAdaptor": "",
+                            "adaptor": "",
+                            "messages": {},
+                            "cache": 86400000
+                          },
+                          "labelField": "name",
+                          "valueField": "id",
+                          "mode": "inline",
+                          "onEvent": {
+                            "change": {
+                              "weight": 0,
+                              "actions": [
+                                {
+                                  "componentId": "u:1b904d93f4c7",
+                                  "actionType": "reload",
+                                  "value": "${event.data.filed_template|json}"
+                                }
+                              ]
+                            }
+                          },
+                          "debug": true
+                        },
+                        {
+                          "type": "button",
+                          "label": "保存为模版",
+                          "onEvent": {
+                            "click": {
+                              "actions": [
+                                {
+                                  "ignoreError": true,
+                                  "outputVar": "responseResult",
+                                  "actionType": "ajax",
+                                  "options": {},
+                                  "api": {
+                                    "url": "/filed-template",
+                                    "method": "post",
+                                    "requestAdaptor": "",
+                                    "adaptor": "",
+                                    "messages": {},
+                                    "dataType": "json",
+                                    "data": {
+                                      "name": "${name}",
+                                      "filed_config": "${fields}",
+                                      "description": "${description}"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "id": "u:2673c7068f0a",
+                          "level": "secondary"
                         }
                       ],
                       "id": "u:641b08514c91",
@@ -585,10 +751,521 @@
               "hash": "create-task"
             },
             {
+              "title": "字段模版",
+              "body": [
+                {
+                  "type": "tpl",
+                  "tpl": "内容",
+                  "inline": false,
+                  "id": "u:2b2c4a794c80"
+                },
+                {
+                  "type": "crud",
+                  "syncLocation": false,
+                  "api": {
+                    "method": "get",
+                    "url": "/filed-templates"
+                  },
+                  "columns": [
+                    {
+                      "name": "name",
+                      "label": "模版名称",
+                      "type": "text",
+                      "id": "u:a741e75527d6"
+                    },
+                    {
+                      "name": "description",
+                      "label": "模版描述",
+                      "type": "text",
+                      "id": "u:1aa70d307eee"
+                    },
+                    {
+                      "type": "datetime",
+                      "label": "更新时间",
+                      "name": "update_time",
+                      "id": "u:4452382391a2",
+                      "valueFormat": "x",
+                      "format": "YYYY-MM-DD HH:mm:ss",
+                      "value": "update_time"
+                    },
+                    {
+                      "type": "datetime",
+                      "label": "创建时间",
+                      "name": "create_time",
+                      "id": "u:4f177b04f2c9",
+                      "value": "create_time",
+                      "valueFormat": "x",
+                      "format": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    {
+                      "type": "operation",
+                      "label": "操作",
+                      "buttons": [
+                        {
+                          "label": "编辑",
+                          "type": "button",
+                          "actionType": "dialog",
+                          "level": "link",
+                          "editorSetting": {
+                            "behavior": "update"
+                          },
+                          "dialog": {
+                            "title": "编辑",
+                            "body": [
+                              {
+                                "type": "form",
+                                "api": "xxx/update",
+                                "body": [
+                                  {
+                                    "name": "name",
+                                    "label": "模版名称",
+                                    "type": "input-text",
+                                    "id": "u:6450c092e7fb"
+                                  },
+                                  {
+                                    "name": "description",
+                                    "label": "模版描述",
+                                    "type": "input-text",
+                                    "id": "u:584046e83b67"
+                                  },
+                                  {
+                                    "type": "combo",
+                                    "id": "u:b3460704c38b",
+                                    "label": "",
+                                    "name": "filed_config",
+                                    "multiple": true,
+                                    "addable": true,
+                                    "removable": true,
+                                    "removableMode": "icon",
+                                    "addBtn": {
+                                      "label": "新增",
+                                      "icon": "fa fa-plus",
+                                      "level": "primary",
+                                      "size": "sm",
+                                      "id": "u:5c48cf851b25"
+                                    },
+                                    "items": [
+                                      {
+                                        "type": "input-text",
+                                        "name": "name",
+                                        "placeholder": "-",
+                                        "id": "u:7764af87e287",
+                                        "label": "字段名称"
+                                      },
+                                      {
+                                        "type": "select",
+                                        "id": "u:e18bec5238cd",
+                                        "name": "data_type",
+                                        "placeholder": "-",
+                                        "multiple": false,
+                                        "label": "字段类型",
+                                        "source": {
+                                          "url": "/data-type-list",
+                                          "method": "get",
+                                          "requestAdaptor": "",
+                                          "adaptor": "",
+                                          "messages": {},
+                                          "silent": false,
+                                          "cache": 86400000
+                                        },
+                                        "labelField": "name",
+                                        "valueField": "type",
+                                        "searchable": true,
+                                        "clearable": true,
+                                        "selectFirst": true,
+                                        "static": false,
+                                        "disabled": false,
+                                        "onEvent": {},
+                                        "description": "",
+                                        "menuTpl": "${name}: ${description}, args:${args}"
+                                      },
+                                      {
+                                        "draggable": true,
+                                        "type": "input-kv",
+                                        "label": "额外配置",
+                                        "name": "args",
+                                        "id": "u:3dd634efc622",
+                                        "multiple": true,
+                                        "items": [
+                                          {
+                                            "placeholder": "Key",
+                                            "type": "input-text",
+                                            "unique": true,
+                                            "name": "key",
+                                            "required": true,
+                                            "validateOnChange": true
+                                          },
+                                          {
+                                            "placeholder": "Value",
+                                            "type": "input-text",
+                                            "name": "value"
+                                          }
+                                        ],
+                                        "valueType": "input-text",
+                                        "placeholder": "-",
+                                        "validateApi": ""
+                                      }
+                                    ],
+                                    "strictMode": true,
+                                    "syncFields": [],
+                                    "tabsMode": false,
+                                    "mode": "inline"
+                                  }
+                                ],
+                                "id": "u:33d45d29dd23",
+                                "actions": [
+                                  {
+                                    "type": "submit",
+                                    "label": "提交",
+                                    "primary": true
+                                  }
+                                ],
+                                "feat": "Insert"
+                              }
+                            ],
+                            "id": "u:b4b63a0b92f1",
+                            "actions": [
+                              {
+                                "type": "button",
+                                "actionType": "cancel",
+                                "label": "取消",
+                                "id": "u:8a3f15a6ceee"
+                              },
+                              {
+                                "type": "button",
+                                "actionType": "confirm",
+                                "label": "确定",
+                                "primary": true,
+                                "id": "u:809d6db92581",
+                                "close": false,
+                                "confirmText": "确认保存？"
+                              }
+                            ],
+                            "showCloseButton": true,
+                            "closeOnOutside": false,
+                            "closeOnEsc": true,
+                            "showErrorMsg": true,
+                            "showLoading": true,
+                            "draggable": true,
+                            "hideActions": false,
+                            "size": "md"
+                          },
+                          "id": "u:64d2722cc940"
+                        },
+                        {
+                          "label": "查看",
+                          "type": "button",
+                          "actionType": "dialog",
+                          "level": "link",
+                          "editorSetting": {
+                            "behavior": "view"
+                          },
+                          "dialog": {
+                            "title": "查看详情",
+                            "body": [
+                              {
+                                "type": "combo",
+                                "id": "u:b3460704c38b",
+                                "label": "",
+                                "name": "filed_config",
+                                "multiple": true,
+                                "addable": true,
+                                "removable": true,
+                                "removableMode": "icon",
+                                "items": [
+                                  {
+                                    "type": "input-text",
+                                    "name": "name",
+                                    "placeholder": "-",
+                                    "id": "u:7764af87e287",
+                                    "label": "字段名称"
+                                  },
+                                  {
+                                    "type": "select",
+                                    "id": "u:e18bec5238cd",
+                                    "name": "data_type",
+                                    "placeholder": "-",
+                                    "multiple": false,
+                                    "label": "字段类型",
+                                    "source": {
+                                      "url": "/data-type-list",
+                                      "method": "get",
+                                      "requestAdaptor": "",
+                                      "adaptor": "",
+                                      "messages": {},
+                                      "silent": false,
+                                      "cache": 86400000
+                                    },
+                                    "labelField": "name",
+                                    "valueField": "type",
+                                    "searchable": true,
+                                    "clearable": true,
+                                    "selectFirst": true,
+                                    "static": false,
+                                    "disabled": false,
+                                    "onEvent": {},
+                                    "description": "",
+                                    "menuTpl": "${name}: ${description}, args:${args}"
+                                  },
+                                  {
+                                    "draggable": true,
+                                    "type": "input-kv",
+                                    "label": "额外配置",
+                                    "name": "args",
+                                    "id": "u:3dd634efc622",
+                                    "multiple": true,
+                                    "items": [
+                                      {
+                                        "placeholder": "Key",
+                                        "type": "input-text",
+                                        "unique": true,
+                                        "name": "key",
+                                        "required": true,
+                                        "validateOnChange": true
+                                      },
+                                      {
+                                        "placeholder": "Value",
+                                        "type": "input-text",
+                                        "name": "value"
+                                      }
+                                    ],
+                                    "valueType": "input-text",
+                                    "placeholder": "-",
+                                    "validateApi": ""
+                                  }
+                                ],
+                                "strictMode": true,
+                                "syncFields": [],
+                                "tabsMode": false
+                              }
+                            ],
+                            "id": "u:1e5addfff66f",
+                            "actions": [
+                              {
+                                "type": "button",
+                                "actionType": "confirm",
+                                "label": "确定",
+                                "primary": true,
+                                "id": "u:7329aca960a1"
+                              }
+                            ],
+                            "showCloseButton": true,
+                            "closeOnOutside": false,
+                            "closeOnEsc": true,
+                            "showErrorMsg": true,
+                            "showLoading": true,
+                            "draggable": true,
+                            "size": "md"
+                          },
+                          "id": "u:517f79a72bca"
+                        },
+                        {
+                          "type": "button",
+                          "label": "删除",
+                          "actionType": "ajax",
+                          "level": "link",
+                          "className": "text-danger",
+                          "confirmText": "确定要删除？",
+                          "api": {
+                            "method": "post",
+                            "url": "/filed-templates"
+                          },
+                          "editorSetting": {
+                            "behavior": "delete"
+                          },
+                          "id": "u:c17ec6b86867"
+                        }
+                      ],
+                      "id": "u:1df6b9c962c8"
+                    }
+                  ],
+                  "bulkActions": [
+                    {
+                      "type": "button",
+                      "level": "danger",
+                      "label": "批量删除",
+                      "actionType": "ajax",
+                      "confirmText": "确定要删除？",
+                      "api": "/xxx/batch-delete",
+                      "editorSetting": {
+                        "behavior": "bulkDelete"
+                      },
+                      "id": "u:69ac1e3399c6"
+                    }
+                  ],
+                  "itemActions": [],
+                  "headerToolbar": [
+                    {
+                      "label": "新增",
+                      "type": "button",
+                      "actionType": "dialog",
+                      "level": "primary",
+                      "editorSetting": {
+                        "behavior": "create"
+                      },
+                      "dialog": {
+                        "title": "新增",
+                        "body": [
+                          {
+                            "type": "form",
+                            "api": {
+                              "method": "post",
+                              "url": "/filed-templates"
+                            },
+                            "body": [
+                              {
+                                "type": "input-text",
+                                "name": "name",
+                                "label": "模版名称",
+                                "id": "u:55b8a185a031",
+                                "mode": "horizontal"
+                              },
+                              {
+                                "type": "input-text",
+                                "name": "description",
+                                "label": "模版描述",
+                                "id": "u:ab1b3f2c5947",
+                                "mode": "horizontal"
+                              },
+                              {
+                                "type": "combo",
+                                "id": "u:b3460704c38b",
+                                "label": "",
+                                "name": "filed_config",
+                                "multiple": true,
+                                "addable": true,
+                                "removable": true,
+                                "removableMode": "icon",
+                                "addBtn": {
+                                  "label": "新增",
+                                  "icon": "fa fa-plus",
+                                  "level": "primary",
+                                  "size": "sm",
+                                  "id": "u:5c48cf851b25"
+                                },
+                                "items": [
+                                  {
+                                    "type": "input-text",
+                                    "name": "name",
+                                    "placeholder": "-",
+                                    "id": "u:7764af87e287",
+                                    "label": "字段名称"
+                                  },
+                                  {
+                                    "type": "select",
+                                    "id": "u:e18bec5238cd",
+                                    "name": "data_type",
+                                    "placeholder": "-",
+                                    "multiple": false,
+                                    "label": "字段类型",
+                                    "source": {
+                                      "url": "/data-type-list",
+                                      "method": "get",
+                                      "requestAdaptor": "",
+                                      "adaptor": "",
+                                      "messages": {},
+                                      "silent": false,
+                                      "cache": 86400000
+                                    },
+                                    "labelField": "name",
+                                    "valueField": "type",
+                                    "searchable": true,
+                                    "clearable": true,
+                                    "selectFirst": true,
+                                    "static": false,
+                                    "disabled": false,
+                                    "onEvent": {},
+                                    "description": "",
+                                    "menuTpl": "${name}: ${description}, args:${args}"
+                                  },
+                                  {
+                                    "draggable": true,
+                                    "type": "input-kv",
+                                    "label": "额外配置",
+                                    "name": "args",
+                                    "id": "u:3dd634efc622",
+                                    "multiple": true,
+                                    "items": [
+                                      {
+                                        "placeholder": "Key",
+                                        "type": "input-text",
+                                        "unique": true,
+                                        "name": "key",
+                                        "required": true,
+                                        "validateOnChange": true
+                                      },
+                                      {
+                                        "placeholder": "Value",
+                                        "type": "input-text",
+                                        "name": "value"
+                                      }
+                                    ],
+                                    "valueType": "input-text",
+                                    "placeholder": "-",
+                                    "validateApi": ""
+                                  }
+                                ],
+                                "strictMode": true,
+                                "syncFields": [],
+                                "tabsMode": false,
+                                "multiLine": false,
+                                "mode": "horizontal"
+                              }
+                            ],
+                            "id": "u:74d225786367",
+                            "actions": [
+                              {
+                                "type": "submit",
+                                "label": "提交",
+                                "primary": true
+                              }
+                            ],
+                            "feat": "Insert",
+                            "dsType": "api",
+                            "mode": "horizontal"
+                          }
+                        ],
+                        "id": "u:c3882af074ac",
+                        "actions": [
+                          {
+                            "type": "button",
+                            "actionType": "cancel",
+                            "label": "取消",
+                            "id": "u:679d55f22878"
+                          },
+                          {
+                            "type": "button",
+                            "actionType": "confirm",
+                            "label": "确定",
+                            "primary": true,
+                            "id": "u:a15f268f9db2"
+                          }
+                        ],
+                        "showCloseButton": true,
+                        "closeOnOutside": false,
+                        "closeOnEsc": true,
+                        "showErrorMsg": true,
+                        "showLoading": true,
+                        "draggable": true,
+                        "withDefaultData": false,
+                        "dataMapSwitch": false,
+                        "size": "md"
+                      },
+                      "id": "u:5bf9ae677554"
+                    },
+                    "bulkActions"
+                  ],
+                  "id": "u:0ceeec4fbe99"
+                }
+              ],
+              "id": "u:aa59bd15b493"
+            },
+            {
               "title": "任务列表",
               "body": [
                 {
                   "type": "crud",
+                  "id": "u:a40e379717eb",
                   "syncLocation": false,
                   "api": {
                     "method": "get",
@@ -1218,7 +1895,6 @@
                       }
                     }
                   ],
-                  "id": "u:a40e379717eb",
                   "perPageAvailable": [
                     10
                   ],
@@ -1299,8 +1975,8 @@
                         "map": {
                           "LINEAR": "线性(LINEAR)",
                           "ALL_OUT_DATA": "全力输出(ALL_OUT_DATA)",
-                          "RANDOM_DATA": "随机(RANDOM)",
-                          "PERIODIC": "周期(PERIODIC)"
+                          "PERIODIC": "周期(PERIODIC)",
+                          "RANDOM": "随机(RANDOM)"
                         },
                         "label": "数据分布",
                         "id": "u:d8ab774ad868",
@@ -2474,10 +3150,10 @@
               "body": [
                 {
                   "type": "tpl",
+                  "id": "u:e0e69c210d1f",
                   "tpl": "注册节点信息",
                   "inline": true,
-                  "wrapperComponent": "h3",
-                  "id": "u:e0e69c210d1f"
+                  "wrapperComponent": "h3"
                 },
                 {
                   "type": "crud",
@@ -2606,7 +3282,7 @@
                           },
                           "bulkActions": [],
                           "itemActions": [],
-                          "id": "u:81c21f31b49d",
+                          "id": "u:ac91e28896ca",
                           "perPageAvailable": [
                             10
                           ],
@@ -2620,7 +3296,7 @@
                               "name": "name",
                               "label": "类型名称",
                               "type": "text",
-                              "id": "u:ac35631bb51b",
+                              "id": "u:14b5fd83c38c",
                               "inline": true,
                               "placeholder": "-",
                               "popOver": false,
@@ -2630,15 +3306,82 @@
                               "name": "description",
                               "label": "描述",
                               "type": "text",
-                              "id": "u:1b165120329b",
+                              "id": "u:993d679c8556",
                               "searchable": true
                             },
                             {
                               "type": "text",
                               "label": "样例",
                               "name": "sample",
-                              "id": "u:effd8bc4540f",
+                              "id": "u:ffef2fb1e629",
                               "searchable": true
+                            },
+                            {
+                              "type": "cards",
+                              "columnsCount": 1,
+                              "card": {
+                                "type": "container",
+                                "wrapperBody": false,
+                                "style": {
+                                  "position": "static",
+                                  "display": "flex",
+                                  "width": "100%",
+                                  "flexWrap": "nowrap",
+                                  "alignItems": "flex-start"
+                                },
+                                "themeCss": {
+                                  "baseControlClassName": {
+                                    "radius:default": {
+                                      "top-left-border-radius": "6px",
+                                      "top-right-border-radius": "6px",
+                                      "bottom-left-border-radius": "6px",
+                                      "bottom-right-border-radius": "6px"
+                                    },
+                                    "border:default": {
+                                      "top-border-width": "var(--borders-width-1)",
+                                      "left-border-width": "var(--borders-width-1)",
+                                      "right-border-width": "var(--borders-width-1)",
+                                      "bottom-border-width": "var(--borders-width-1)",
+                                      "top-border-style": "var(--borders-style-1)",
+                                      "left-border-style": "var(--borders-style-1)",
+                                      "right-border-style": "var(--borders-style-1)",
+                                      "bottom-border-style": "var(--borders-style-1)",
+                                      "top-border-color": "#3be157",
+                                      "left-border-color": "#3be157",
+                                      "right-border-color": "#3be157",
+                                      "bottom-border-color": "#3be157"
+                                    },
+                                    "padding-and-margin:default": {
+                                      "paddingTop": "10px",
+                                      "paddingRight": "10px",
+                                      "paddingBottom": "10px",
+                                      "paddingLeft": "10px"
+                                    }
+                                  }
+                                },
+                                "id": "u:b9dfc497eea1",
+                                "isFixedHeight": false,
+                                "isFixedWidth": false,
+                                "body": [
+                                  {
+                                    "type": "tpl",
+                                    "tpl": "字段名称：${filed} \\n\n字段类型：${type} \\n\n说明：${desc} ",
+                                    "inline": false,
+                                    "wrapperComponent": "",
+                                    "id": "u:c628c72e8025",
+                                    "maxLine": 0
+                                  }
+                                ],
+                                "size": "xs"
+                              },
+                              "placeholder": "",
+                              "style": {
+                                "gutterY": 0
+                              },
+                              "id": "u:9062ccbd9de7",
+                              "label": "配置说明",
+                              "name": "args",
+                              "toggled": false
                             }
                           ],
                           "perPage": 20,

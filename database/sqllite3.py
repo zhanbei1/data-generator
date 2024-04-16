@@ -10,11 +10,18 @@
 ==================================================
 """
 
-from sqlalchemy import create_engine, Column, String, DateTime, func
+from sqlalchemy import create_engine, Column, String, DateTime, func, Integer
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import time
 
-# 创建数据库引擎
+
+def current_timestamp_millis():
+    timestamp = time.time()
+    timestamp_millis = int(timestamp * 1000)
+    return timestamp_millis
+
+
 engine = create_engine('sqlite:///database/tasks.db', echo=True)
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -39,6 +46,18 @@ class Task(Base):
     output = Column(String, comment="任务输出, JSON 字符串")
     create_time = Column(DateTime, comment="任务创建时间", default=func.now())
     update_time = Column(DateTime, comment="任务更新时间", default=func.now(), onupdate=func.now())
+
+
+# 定义字段模版
+class FieldTemplate(Base):
+    __tablename__ = 'field_templates'
+    id = Column(String, primary_key=True, comment="字段模版唯一ID，UUID")
+    name = Column(String, comment='字段模版名称')
+    description = Column(String, comment="字段模版描述")
+    field_config = Column(String, comment="字段模版字段, JSON 字符串")
+    create_time = Column(Integer, comment="字段模版创建时间，毫秒时间戳", default=current_timestamp_millis)
+    update_time = Column(Integer, comment="字段模版更新时间", default=current_timestamp_millis,
+                         onupdate=current_timestamp_millis)
 
 
 # 创建表（如果表不存在）
