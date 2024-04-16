@@ -240,6 +240,7 @@ class DataTypeEnum(Enum):
         else:
             return result
 
+
 if __name__ == '__main__':
     print(DataTypeEnum.ADDRESS)
     print(DataTypeEnum.value_of("ADDRESS"))

@@ -39,7 +39,7 @@ class FieldTemplateVO(BaseModel):
     """
     id: str = Field(default="")
     # 现实名称
-    name: str
+    name: str = Field(default="")
     # 类型描述
     description: str = Field(default="")
     # 样例
@@ -47,4 +47,4 @@ class FieldTemplateVO(BaseModel):
     # 类型
     create_time: int = Field(default=None)
     # 字段配置
-    field_config: List[FieldConfig]
+    field_config: List[FieldConfig] = Field(default=[])

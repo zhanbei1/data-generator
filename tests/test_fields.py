@@ -23,7 +23,7 @@ def test_generator_data():
     """
     field_config = FieldConfig.parse_raw(test_config)
     data_json = {
-        field_config.name: DataTypeEnum.generator_by_key(field_config.data_type)
+        field_config.name: DataTypeEnum.generator_by_key(field_config.data_type, field_config.extra_config)
     }
     print(data_json)
 

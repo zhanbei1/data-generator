@@ -1000,8 +1000,14 @@
                                             "strictMode": true,
                                             "syncFields": [],
                                             "tabsMode": false,
-                                            "mode": "inline",
-                                            "required": true
+                                            "required": true,
+                                            "horizontal": {
+                                              "left": 1,
+                                              "right": 11
+                                            },
+                                            "labelAlign": "left",
+                                            "size": "full",
+                                            "mode": "inline"
                                           }
                                         ],
                                         "id": "u:33d45d29dd23",
@@ -1103,7 +1109,7 @@
                                             "draggable": true,
                                             "type": "input-kv",
                                             "label": "额外配置",
-                                            "name": "args",
+                                            "name": "extra_config",
                                             "id": "u:3dd634efc622",
                                             "multiple": true,
                                             "items": [
@@ -1292,7 +1298,7 @@
                                             "draggable": true,
                                             "type": "input-kv",
                                             "label": "额外配置",
-                                            "name": "args",
+                                            "name": "extra_config",
                                             "id": "u:3dd634efc622",
                                             "multiple": true,
                                             "items": [
@@ -1312,15 +1318,17 @@
                                             ],
                                             "valueType": "input-text",
                                             "placeholder": "-",
-                                            "validateApi": ""
+                                            "validateApi": "",
+                                            "mode": "inline"
                                           }
                                         ],
                                         "strictMode": true,
                                         "syncFields": [],
                                         "tabsMode": false,
                                         "multiLine": false,
-                                        "mode": "horizontal",
-                                        "required": true
+                                        "mode": "inline",
+                                        "required": true,
+                                        "className": "w-full"
                                       }
                                     ],
                                     "id": "u:74d225786367",

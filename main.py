@@ -256,7 +256,7 @@ async def filed_template_create(field_template_vo: FieldTemplateVO, db: Session 
     try:
         field_db = model_to_db_field_template(field_template_vo)
         field_db.id = str(uuid.uuid4())
-        fields_config_json = [k.json() for k in field_template_vo.field_config]
+        fields_config_json = [k.dict() for k in field_template_vo.field_config]
         field_db.field_config = ujson.dumps(fields_config_json)
         db.add(field_db)
         db.commit()
