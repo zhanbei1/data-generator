@@ -50,7 +50,7 @@ class RangeFrequency(BaseModel):
     data_anomaly: List[DataAnomaly] = Field(default=[])
 
 
-class FiledConfig(BaseModel):
+class FieldConfig(BaseModel):
     """
     数据模型字段
     """
@@ -97,13 +97,22 @@ class TaskModel(BaseModel):
     """
     执行生成数据的任务模型
     """
+    # 任务名称
     name: str
+    # 任务ID，唯一性约束
     id: str = Field(default=None)
+    # 任务状态，刚创建的时候默认为未开始：NOT_STARTED
     task_status: str = Field(default=TaskPlanStatus.NOT_STARTED)
-    description: str
+    #  任务描述
+    description: str = Field(default="")
+    #  执行频率
     range_frequency: RangeFrequency
-    fields: List[FiledConfig]
+    #  字段列表
+    fields: List[FieldConfig]
+    #  输出配置
     output: OutputConfig
+    #  使用的模版字段列表
+    field_template: List[List[FieldConfig]] = Field(default=[])
 
 
 class TaskExecutorPlan(BaseModel):

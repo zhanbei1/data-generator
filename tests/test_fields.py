@@ -10,7 +10,7 @@
 ==================================================
 """
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum
-from src.com_desmond.models.TaskModel import FiledConfig
+from src.com_desmond.models.TaskModel import FieldConfig
 
 
 def test_generator_data():
@@ -21,7 +21,7 @@ def test_generator_data():
       "extra_config": {}
     }
     """
-    field_config = FiledConfig.parse_raw(test_config)
+    field_config = FieldConfig.parse_raw(test_config)
     data_json = {
         field_config.name: DataTypeEnum.generator_by_key(field_config.data_type)
     }

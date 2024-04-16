@@ -13,14 +13,14 @@ from typing import List
 
 from config.basic_config import GlobalBaseConfig
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum
-from src.com_desmond.models.TaskModel import FiledConfig, TaskExecutorPlan
+from src.com_desmond.models.TaskModel import FieldConfig, TaskExecutorPlan
 
 
 class TaskExecutor:
     tasks = {}
 
     @staticmethod
-    def register_tasks(task_id: str, fields: List[FiledConfig]):
+    def register_tasks(task_id: str, fields: List[FieldConfig]):
         print(f"TaskExecutor register_task {task_id}")
         TaskExecutor.tasks[task_id] = fields
 
@@ -52,12 +52,12 @@ class TaskExecutor:
             raise ValueError("not found task id ......")
 
     @staticmethod
-    def _generate_data(fields: List[FiledConfig]) -> dict:
+    def _generate_data(fields: List[FieldConfig]) -> dict:
         """
         生成数据的逻辑
         :return:
         """
         data_json = {}
-        for filed in fields:
-            data_json[filed.name] = DataTypeEnum.generator_by_key(filed.data_type)
+        for field in fields:
+            data_json[field.name] = DataTypeEnum.generator_by_key(field.data_type)
         return data_json

@@ -14,7 +14,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-from src.com_desmond.models.TaskModel import FiledConfig
+from src.com_desmond.models.TaskModel import FieldConfig
 
 
 class DataTypeVo(BaseModel):
@@ -33,13 +33,13 @@ class DataTypeVo(BaseModel):
     args: List = Field(default=[])
 
 
-class FiledTemplateVO(BaseModel):
+class FieldTemplateVO(BaseModel):
     """
     字段模板
     """
     id: str = Field(default="")
     # 现实名称
-    name: str = Field(default="")
+    name: str
     # 类型描述
     description: str = Field(default="")
     # 样例
@@ -47,4 +47,4 @@ class FiledTemplateVO(BaseModel):
     # 类型
     create_time: int = Field(default=None)
     # 字段配置
-    field_config: List[FiledConfig] = Field(default=[])
+    field_config: List[FieldConfig]

@@ -165,7 +165,7 @@ class DataTypeEnum(Enum):
                      '["Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."]',
                      fake.texts)
     WORD = DataType("WORD", "生成一个随机的单词。", "Lorem", fake.word,
-                    [{"filed": "ext_word_list", "type": "list", "desc": "自定义字段列表"}])
+                    [{"field": "ext_word_list", "type": "list", "desc": "自定义字段列表"}])
     WORDS = DataType("WORDS", "生成一个随机的单词列表(默认3个)。", '["Lorem", "ipsum", "dolor", "sit", "amet"]', fake.words)
 
     # faker.providers.misc

@@ -24,11 +24,11 @@ from database.sqllite3 import Session, Task, session, FieldTemplate
 from master_node import MasterNode
 from src.com_desmond.enums.DataTypeEnum import DataTypeEnum, DataType
 from src.com_desmond.enums.TaskPlanStatus import TaskPlanStatus
-from src.com_desmond.models.TaskModel import TaskModel, FiledConfig
+from src.com_desmond.models.TaskModel import TaskModel, FieldConfig
 from utils import db_task_to_model, model_to_db_field_template, db_field_template_to_model
 from sqlalchemy import event
 from sqlalchemy.sql import desc
-from vo.vo import DataTypeVo, FiledTemplateVO
+from vo.vo import DataTypeVo, FieldTemplateVO
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
 # 设置静态文件目录
@@ -104,6 +104,11 @@ async def read_root(request: Request):
 @app.post("/create-task")
 async def create_task(task_config: TaskModel = Body(...), db: Session = Depends(get_db)):
     task_config.id = str(uuid.uuid4())
+    # 使用模版添加额外字段
+    if len(task_config.field_template) > 0:
+        for template_config in task_config.field_template:
+            task_config.fields = task_config.fields + template_config
+
     task = Task(id=task_config.id, name=task_config.name, task_status=TaskPlanStatus.NOT_STARTED.name,
                 description=task_config.description,
                 range_frequency=task_config.range_frequency.json(),
@@ -227,32 +232,32 @@ async def node_list(request: Request):
 
 
 # 字段配置模版相关接口
-@app.get("/field-templates", response_model=List[FiledTemplateVO])
-async def filed_templates(request: Request, db: Session = Depends(get_db)):
-    filed_db_list = db.query(FieldTemplate).order_by(desc(FieldTemplate.update_time)).all()
-    filed_template_list = [db_field_template_to_model(filed_db) for filed_db in filed_db_list]
-    return filed_template_list
+@app.get("/field-templates", response_model=List[FieldTemplateVO])
+async def field_templates(request: Request, db: Session = Depends(get_db)):
+    field_db_list = db.query(FieldTemplate).order_by(desc(FieldTemplate.update_time)).all()
+    field_template_list = [db_field_template_to_model(field_db) for field_db in field_db_list]
+    return field_template_list
 
 
-@app.get("/field-template/{template_id}", response_model=FiledTemplateVO)
-async def filed_template(request: Request, template_id: int, db: Session = Depends(get_db)):
-    filed_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
-    if filed_db:
-        result_filed_config = FiledTemplateVO.from_orm(filed_db)
-        filed_json = ujson.loads(filed_db.field_config)
-        filed_config = [FiledConfig.from_orm(filed_str) for filed_str in filed_json]
-        result_filed_config.field_config = filed_config
-        return result_filed_config
+@app.get("/field-template/{template_id}", response_model=FieldTemplateVO)
+async def field_template(request: Request, template_id: int, db: Session = Depends(get_db)):
+    field_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
+    if field_db:
+        result_field_config = FieldTemplateVO.from_orm(field_db)
+        field_json = ujson.loads(field_db.field_config)
+        field_config = [FieldConfig.from_orm(field_str) for field_str in field_json]
+        result_field_config.field_config = field_config
+        return result_field_config
     return JSONResponse(content={"message": "Not found"}, status_code=404)
 
 
 @app.post("/field-templates")
-async def filed_template_create(field_template_vo: FiledTemplateVO, db: Session = Depends(get_db)):
+async def filed_template_create(field_template_vo: FieldTemplateVO, db: Session = Depends(get_db)):
     try:
         field_db = model_to_db_field_template(field_template_vo)
         field_db.id = str(uuid.uuid4())
         fields_config_json = [k.json() for k in field_template_vo.field_config]
-        field_db.filed_config = ujson.dumps(fields_config_json)
+        field_db.field_config = ujson.dumps(fields_config_json)
         db.add(field_db)
         db.commit()
         db.refresh(field_db)
@@ -262,27 +267,27 @@ async def filed_template_create(field_template_vo: FiledTemplateVO, db: Session 
         return JSONResponse(content={"message": "Save exception ! "}, status_code=205)
 
 
-@app.put("/field-template/{template_id}", response_model=FiledTemplateVO)
-async def filed_template_update(request: Request, template_id: int, filed_template_vo: FiledTemplateVO,
+@app.put("/field-template/{template_id}", response_model=FieldTemplateVO)
+async def field_template_update(request: Request, template_id: int, field_template_vo: FieldTemplateVO,
                                 db: Session = Depends(get_db)):
-    filed_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
-    if filed_db:
-        filed_db.update(filed_template_vo.dict())
+    field_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
+    if field_db:
+        field_db.update(field_template_vo.dict())
 
-        fields_config_json = [k.json() for k in filed_template_vo.field_config]
-        filed_db.field_config = ujson.dumps(fields_config_json)
+        fields_config_json = [k.json() for k in field_template_vo.field_config]
+        field_db.field_config = ujson.dumps(fields_config_json)
 
         db.commit()
-        db.refresh(filed_db)
-        return JSONResponse(content=FiledTemplateVO.from_orm(filed_db), status_code=200)
+        db.refresh(field_db)
+        return JSONResponse(content=FieldTemplateVO.from_orm(field_db), status_code=200)
     return JSONResponse(content={"message": "not found"}, status_code=404)
 
 
 @app.delete("/field-template/{template_id}")
-async def filed_template_delete(request: Request, template_id: int, db: Session = Depends(get_db)):
-    filed_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
-    if filed_db:
-        db.delete(filed_db)
+async def field_template_delete(request: Request, template_id: int, db: Session = Depends(get_db)):
+    field_db = db.query(FieldTemplate).filter(FieldTemplate.id == template_id).first()
+    if field_db:
+        db.delete(field_db)
         db.commit()
         return JSONResponse(content={"message": "Deleted success"}, status_code=200)
     return JSONResponse(content={"message": "not found"}, status_code=404)
